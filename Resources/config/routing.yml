@@ -1,0 +1,3 @@
+kijho_structure_homepage:
+    path:     /
+    defaults: { _controller: KijhoStructureBundle:Default:index }

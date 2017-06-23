@@ -1,0 +1,4 @@
+services:
+#    kijho_structure.example:
+#        class: Kijho\StructureBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
