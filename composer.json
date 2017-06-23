@@ -1,0 +1,26 @@
+{
+    "name": "kijho/kijho-structure",
+    "license": "proprietary",
+    "type": "symfony-bundle",    
+    "authors": [
+        {
+            "name": "Luis Fernando Granados",
+            "email": "luisfer1g@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Kijho\\StructureBundle": ""
+        }
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/orm": "^2.5",
+        "symfony/monolog-bundle": "^3.1.0",
+        "symfony/symfony": "3.3.*"
+    },
+    "extra": {
+        "branch-alias": "1.0.x-dev"
+    }
+}
