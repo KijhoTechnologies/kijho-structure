@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Kijho\\StructureBundle": ""
+            "Kijho\\StructureBundle\\": ""
         }
     },
     "require": {
