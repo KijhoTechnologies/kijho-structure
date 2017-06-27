@@ -1,6 +1,6 @@
 <?php
 
-namespace Kijho\StructureBundle\Entity;
+namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityRepository;
