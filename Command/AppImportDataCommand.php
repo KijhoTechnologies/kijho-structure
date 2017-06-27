@@ -65,18 +65,6 @@ class AppImportDataCommand extends ContainerAwareCommand {
         } else {
             $type = static::LOAD_DATA_LOCAL;
 
-            /**
-             * CUANDO EL DIRECTORIO ENTITY SEA EL DIRECTORIO PRINCIPAL SE PUEDE USAR ESTE COMANDO 
-             * POSIBLEMENTE SE DEBA LLAMAR EL COMANDO QUE CORRE LOS PRECEDIMIENTOS SI ESTO SE ACTIVA
-             * 
-             */
-            $commandDSU = $this->getApplication()->find('doctrine:schema:update');
-            $argumentsDSU = array(
-                '--force' => true,
-            );
-            $inputDSU = new ArrayInput($argumentsDSU);
-            $commandDSU->run($inputDSU, $output);
-
             $commandCustomSchemeCreateAndPopulate = $this->getApplication()->find('app:schema:update');
             $argumentsCSCP = array(
                 '--force' => true,
