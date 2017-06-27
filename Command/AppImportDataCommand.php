@@ -43,12 +43,12 @@ class AppImportDataCommand extends ContainerAwareCommand {
     public function update($output, $container, $type) {
 
 
-        /*  Ejecuta el comando para la carga de datos en el sistema el parameter
-         *  Type en este caso con el numero 2 es para decirle al sistema
-         *  que es local y use el customEntity de local
+        /*  Ejecuta el comando para la carga de datos en el sistema,
+         *  El parameter Type en este caso con el numero 2, es para decirle al sistema
+         *  que es para ejecutar en una instalacion local
+         *  y use el customEntity de local
          *  
-         * 1 se usaria para online lo cual no funciona en este caso dado que 
-         * es aplicacion local
+         * 1 se usaria para ejecucion del codigo para la version online
          */
 
         if ($type == static::LOAD_DATA_ONLINE) {
