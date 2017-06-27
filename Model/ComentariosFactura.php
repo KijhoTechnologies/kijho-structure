@@ -209,7 +209,7 @@ class ComentariosFactura
      * @param \ModuloComentarios $modComentario
      * @return ComentariosFactura
      */
-    public function setModComentario(\ModuloComentarios $modComentario = null)
+    public function setModComentario(ModuloComentarios $modComentario = null)
     {
         $this->modComentario = $modComentario;
 

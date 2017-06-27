@@ -115,7 +115,7 @@ class Zona {
      * @param \municipios $municipio
      * @return Zona
      */
-    public function setMunicipio(\municipios $municipio = null) {
+    public function setMunicipio(municipios $municipio = null) {
         $this->municipio = $municipio;
 
         return $this;
@@ -135,7 +135,7 @@ class Zona {
      *
      * @return \ruta 
      */
-    public function setRuta(\Ruta $ruta = null) {
+    public function setRuta(Ruta $ruta = null) {
         $this->ruta = $ruta;
         return $this;
     }
