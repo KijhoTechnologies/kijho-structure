@@ -76,6 +76,18 @@ class AppImportDataCommand extends ContainerAwareCommand {
         } else {
             $type = static::LOAD_DATA_LOCAL;
 
+            /**
+             * Se llama este comando para crear las entidades que se tengan
+             * en los distintos vendor en el directorio entity.
+             * 
+             */
+            $commandDSU = $this->getApplication()->find('doctrine:schema:update');
+            $argumentsDSU = array(
+                '--force' => true,
+            );
+            $inputDSU = new ArrayInput($argumentsDSU);
+            $commandDSU->run($inputDSU, $output);
+
             $commandCustomSchemeCreateAndPopulate = $this->getApplication()->find('app:schema:update');
             $argumentsCSCP = array(
                 '--force' => true,
