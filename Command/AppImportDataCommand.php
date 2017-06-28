@@ -22,7 +22,8 @@ class AppImportDataCommand extends ContainerAwareCommand {
                         . 'actualizar o eliminar segun se requiera')
                 ->setDefinition([
                     new InputArgument('type', InputArgument::REQUIRED),
-                ])                
+                    new InputArgument('license', InputArgument::OPTIONAL),
+                ])
         ;
     }
 
@@ -30,6 +31,11 @@ class AppImportDataCommand extends ContainerAwareCommand {
         set_time_limit(0);
         ini_set('memory_limit', '-1');
         $container = $this->getContainer();
+        
+        $licenseId = null;
+        if ((int) $input->getArgument('license')) {
+            $licenseId = $input->getArgument('license');
+        }
 
         if ($input->getArgument('type') == static::LOAD_DATA_ONLINE) {
             $type = static::LOAD_DATA_ONLINE;
@@ -37,10 +43,10 @@ class AppImportDataCommand extends ContainerAwareCommand {
             $type = static::LOAD_DATA_LOCAL;
         }
 
-        $this->update($output, $container, $type);
+        $this->update($output, $container, $type, $licenseId);
     }
 
-    public function update($output, $container, $type) {
+    public function update($output, $container, $type, $licenseId = null) {
 
 
         /*  Ejecuta el comando para la carga de datos en el sistema,
@@ -49,6 +55,10 @@ class AppImportDataCommand extends ContainerAwareCommand {
          *  y use el customEntity de local
          *  
          * 1 se usaria para ejecucion del codigo para la version online
+         * ademas se debe pasar el numero de la licencia a la que se le va a 
+         * realizar el proceso.. este proceso es opcional ejecutando el comando
+         * por si solo, pero si lo hace desde licensor se tiene que enviar el id
+         * de la licencia que se esta creando.
          */
 
         if ($type == static::LOAD_DATA_ONLINE) {
@@ -58,7 +68,8 @@ class AppImportDataCommand extends ContainerAwareCommand {
             $commandPopulateDatabaseApp->setContainer($container);
 
             $argumentsPopulateDatabaseApp = array(
-                'type' => $type
+                'type' => $type,
+                'license' => $licenseId
             );
             $inputPopulateDatabaseApp = new ArrayInput($argumentsPopulateDatabaseApp);
             $commandPopulateDatabaseApp->run($inputPopulateDatabaseApp, $output);

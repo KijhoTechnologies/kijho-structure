@@ -44,8 +44,6 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
 
         $container = $this->getContainer();
 
-//        $application = $this->getApplication();
-
         /**
          * si la llamada al commando se hace desde licensor
          */
@@ -99,7 +97,6 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
      * @param type $em entity manager
      * @param type $databaseName para pintar el nombre de la base de datos en la salida del comando usable en caso 1 es decir cuando el comando es para la version online
      */
-//    public function loadOrUpdateMotivoFacDev($output, $em, $alias, $entity, $databaseName = null) {
     public function loadOrUpdateMotivoFacDev($output, $em, $databaseName = null) {
         $motivosFacDevolucion = array(
             array('id' => '1',
@@ -182,7 +179,6 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
      * @param type $databaseName para pintar el nombre de la base de datos en la salida del comando usable en caso 1 es decir cuando el comando es para la version online
      */
     public function modules($output, $em, $databaseName = null) {
-//    public function modules($output, $em, $alias, $entity, $databaseName = null) {
         $arrayModule = array(
             array('mod_name' => 'Ventas', 'mod_name_en' => 'Sales', 'mod_url' => 'ventas.php', 'mod_order' => '0', 'mod_son' => '0'),
             array('mod_name' => 'Abonos', 'mod_name_en' => 'Payment', 'mod_url' => 'abonosVentas.php', 'mod_order' => '1', 'mod_son' => '1'),
