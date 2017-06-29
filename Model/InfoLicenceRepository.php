@@ -21,7 +21,7 @@ class InfoLicenceRepository extends EntityRepository {
         $em = $this->getEntityManager();
         $consult = $em->createQuery("
         SELECT i.id as id, i.enablePage, i.isUpdate
-        FROM KijhoSeitemBackendBundle:InfoLicence i
+        FROM KijhoStructureBundle:InfoLicence i
         WHERE i.isUpdate = :isUpdate 
         ");
         $consult->setParameter('isUpdate', $isUpdate);
