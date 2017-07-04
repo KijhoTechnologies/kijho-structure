@@ -66,7 +66,7 @@ class ClienteRegalo {
 
     /**
      * @ORM\ManyToOne(targetEntity="FacturaVentas", inversedBy="giftClient")
-     * @ORM\JoinColumn(name="facv_id", referencedColumnName="facv_codigo", unique=true, nullable=true)
+     * @ORM\JoinColumn(name="facv_id", referencedColumnName="facv_codigo", nullable=true)
      */
     private $invoice;
 
