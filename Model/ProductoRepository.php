@@ -120,7 +120,7 @@ class ProductoRepository extends EntityRepository {
 
     //Funcion encargada de retornar los Productos de una Categoria
     public function searchByCategory($catId) {
-        $dql = "SELECT p.name, pid "
+        $dql = "SELECT p.name, p.id "
                 . "FROM KijhoStructureBundle:Producto as p "
                 . "WHERE p.category = :catId AND p.deleted = '0' "
                 . "order by p.name ASC";
