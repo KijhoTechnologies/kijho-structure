@@ -28,7 +28,7 @@ class CuadreDetalleRepository extends EntityRepository {
                 . "1 AS tipo, "
                 . "cua.cuaHora AS horario, "
                 . "cli.id AS codigo_actor, "
-                . "cli.name AS nombre_actor "
+                . "cli.nombreEmpresa AS nombre_actor "
                 . "FROM KijhoStructureBundle:CuadreDetalle dc "
                 . "JOIN KijhoStructureBundle:Cuadre cua WITH dc.cuaCodigo = cua.cuaCodigo "
                 . "JOIN KijhoStructureBundle:Cliente AS cli WITH cli.id = cua.cliCodigo "

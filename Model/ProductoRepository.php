@@ -2,7 +2,6 @@
 
 namespace Kijho\StructureBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -49,8 +48,8 @@ class ProductoRepository extends EntityRepository {
         return $prodInventory;
     }
 
-    private function calculateProductExistence($prod_id) {
-        $sql = 'SELECT inventario FROM KijhoStructureBundle:inventario_kardex WHERE cod_prod = ' . $prod_id;
+    public function calculateProductExistence($prod_id) {
+        $sql = 'SELECT inventario FROM inventario_kardex WHERE cod_prod = ' . $prod_id;
         $arrayInventory = $this->getEntityManager()->getConnection()->prepare($sql);
         $arrayInventory->execute();
         $result = $arrayInventory->fetchAll();
@@ -63,7 +62,7 @@ class ProductoRepository extends EntityRepository {
     public function getProdSync($product_id) {
 
         $dql = 'SELECT p, c, b, rp FROM KijhoStructureBundle:Producto p JOIN p.category c JOIN p.baseProducts b JOIN b.rawProduct rp '
-                . 'WHERE pid > :product_id';
+                . 'WHERE p.id > :product_id';
 
         $query = $this->getEntityManager()->createQuery($dql);
 
@@ -77,7 +76,7 @@ class ProductoRepository extends EntityRepository {
      * Método que retorna el ORM\Id del último producto registrado en Producto
      */
     public function getLastProductId() {
-        $dql = 'SELECT MAX(pid) AS maxId FROM KijhoStructureBundle:Producto p';
+        $dql = 'SELECT MAX(p.id) AS maxId FROM KijhoStructureBundle:Producto p';
 //        return ('llega');
         $query = $this->getEntityManager()->createQuery($dql);
         return $query->getResult();
@@ -95,7 +94,7 @@ class ProductoRepository extends EntityRepository {
     }
 
     public function getProdByCodeBarr($codeBarr, $codeProd) {
-        $dql = "SELECT pid, p.name "
+        $dql = "SELECT p.id, p.name "
                 . "FROM KijhoStructureBundle:Producto AS p WHERE "
                 . "p.prodCodBarras = :codeBarr "
                 . "OR p.prodCodBarras2 = :codeBarr "
@@ -107,7 +106,7 @@ class ProductoRepository extends EntityRepository {
                 . "OR p.prodCodBarras8 = :codeBarr "
                 . "OR p.prodCodBarras9 = :codeBarr "
                 . "OR p.prodCodBarras10 = :codeBarr "
-                . "OR pid = :codeProd";
+                . "OR p.id = :codeProd";
         try {
             $query = $this->getEntityManager()->createQuery($dql);
             $query->setParameters(['codeBarr' => $codeBarr, 'codeProd' => $codeProd]);

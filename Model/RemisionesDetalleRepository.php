@@ -2,8 +2,6 @@
 
 namespace Kijho\StructureBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -28,11 +26,11 @@ class RemisionesDetalleRepository extends EntityRepository {
                 . "rd.remCodigo AS codigoFactura, "
                 . "11 AS tipo, "
                 . "rd.remdHora AS horario, "
-                . "cliid AS codigo_actor, "
+                . "cli.id AS codigo_actor, "
                 . "cli.nombreEmpresa AS nombre_actor "
-                . "FROM RemisionesDetalle rd "
+                . "FROM  KijhoStructureBundle:RemisionesDetalle rd "
                 . "JOIN  KijhoStructureBundle:Remisiones r WITH rd.remCodigo =  r.remCodigo "
-                . "JOIN  KijhoStructureBundle:Cliente as cli WITH cliid = r.cliCodigo "
+                . "JOIN  KijhoStructureBundle:Cliente as cli WITH cli.id = r.cliCodigo "
                 . "WHERE r.remAnulada = :anulada "
                 . "AND rd.remdFecha <= :fechaFin "
                 . "AND rd.prodCodigo = :prodCodigo";
