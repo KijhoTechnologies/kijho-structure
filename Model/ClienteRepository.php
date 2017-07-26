@@ -3,7 +3,6 @@
 namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Doctrine\ORM\EntityRepository;
 
 /*
@@ -84,7 +83,32 @@ class ClienteRepository extends EntityRepository {
         $query = $this->getEntityManager()->createQuery($dql);
         return $query->getResult();
     }
-    
+
 //    public function getClientesBarrio()
+
+    function getCardSales($fecha, $usuario) {
+
+        $sql = "SELECT 
+                sum(fvtp.fvtp_valor) AS cant1,
+                fv.cli_codigo, 
+                fv.cli_codigo,
+                fv.cod_caja, 
+                cli_nombre_empresa 
+                FROM factura_ventas AS fv, cliente AS c, facv_tipopago fvtp
+                WHERE facv_fecha='" . $fecha . "' 
+                AND fv.cli_codigo = c.cli_codigo
+                AND fvtp_fvcodigo = facv_codigo
+                AND fvtp_tpcodigo = 3 
+                AND usu_codigo = " . $usuario . "
+                GROUP BY cli_codigo, cod_caja";
+//        die($sql);
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        return $client;
+    }
+
 
 }

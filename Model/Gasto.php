@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Gasto
  *
  * @ORM\Table(name="gasto", indexes={@ORM\Index(name="gasto_FKIndex1", columns={"usu_codigo"}), @ORM\Index(name="gasto_FKIndex2", columns={"tiga_codigo"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="GastoRepository")
  */
 class Gasto
 {

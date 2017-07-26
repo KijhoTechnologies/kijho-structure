@@ -529,5 +529,84 @@ class FacturaVentasRepository extends EntityRepository {
         //$query->setMaxResults('id', $idClient);
         return $query->getResult();
     }
+    function getSales($fecha, $usuario) {
+
+        $sql = "SELECT
+            sum(fvtp.fvtp_valor) AS cant1,
+            fv.cli_codigo, 
+            fv.cod_caja, 
+            cli_nombre_empresa 
+            FROM factura_ventas AS fv, cliente AS c, facv_tipopago fvtp 
+            WHERE facv_fecha='" . $fecha . "'
+            AND fv.cli_codigo = c.cli_codigo
+            AND fvtp_fvcodigo = facv_codigo
+            AND fvtp.fvtp_tpcodigo = '1'
+            AND fv.facv_anulada = 'no'
+            AND fv.facv_estado = 1
+            AND usu_codigo = " . $usuario . " 
+            GROUP BY cli_codigo, cod_caja";
+//die($sql);
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        return $client;
+    }
+    
+       /**
+     * esta funcion permite listar los pagos  realizados con tarjeta debito o credito
+     * fecha: 20/10/2013
+     * @since: modificado: 14 Julio 2015
+     *                                
+     */
+     function GetToPayWithCards($fecha){
+		
+		$sql = "SELECT c.cli_nombre_empresa AS cliente,
+                	   faca_abono AS abono,
+                       afc.faca_codigoVoucher AS voucher,
+                       afc.facv_codigo	AS factura,
+                       'factura venta' AS tipo
+                FROM abono_facturacredito_ventas afc, factura_ventas fv, cliente c
+                WHERE afc.faca_fecha = '".$fecha."'
+                AND afc.facv_codigo=fv.facv_codigo
+                AND c.cli_codigo=fv.cli_codigo
+                AND afc.faca_abono > 0
+                AND afc.faca_tipoPago = 2
+                
+                UNION
+                
+                SELECT c.cli_nombre_empresa AS cliente,
+                	   sepa_abono AS abono,
+                       abs.sepa_codigoVoucher AS voucher,
+                       abs.sep_codigo AS factura,
+                       'separado' AS tipo
+                FROM abono_separado abs, separado sep, cliente c
+                WHERE abs.sepa_fecha = '".$fecha."'
+                AND abs.sep_codigo=sep.sep_codigo
+                AND c.cli_codigo=sep.cli_codigo
+                AND abs.sepa_abono > 0
+                AND abs.sepa_tipoPago = 2
+                
+                UNION
+                
+                SELECT c.cli_nombre_empresa AS cliente,
+                       otp.otp_valor AS abono,
+                       otp.otp_codVoucher AS voucher,
+                       otp.ot_codigo AS factura,
+                       'orden trabajo' AS tipo
+                FROM orden_trabajo ot, orden_trabajo_pago otp, cliente c
+                WHERE ot.ot_codigo = otp.ot_codigo AND ot.cli_codigo = c.cli_codigo 
+                      AND Date(otp.otp_fecha) = '".$fecha."' AND
+                      ot.ot_estado <> 3 AND  otp.otp_tipo = 2 AND otp.otp_valor > 0";
+        
+//	die($sql);
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        return $client;		
+	}
 
 }
