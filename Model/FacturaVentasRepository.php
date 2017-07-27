@@ -48,13 +48,12 @@ class FacturaVentasRepository extends EntityRepository {
      * @param fechaInicio fechaFin ruta
      */
     public function getSalesByDay($fechaIni = '', $fechaFin = '', $ruta = 0, $anuladas = "") {
-
         $em = $this->getEntityManager();
 
         $where_ruta = "";
 
         if ($ruta != 0) {
-            $where_ruta = 'AND (factura_ventas.ruta = ' . $ruta . ' OR rutaid = ' . $ruta . ')';
+            $where_ruta = 'AND (factura_ventas.ruta = ' . $ruta . ' OR ruta.id = ' . $ruta . ')';
 //            $where_ruta = " AND idRuta = $ruta  ";
         }
         if ($anuladas != "") {
@@ -62,23 +61,26 @@ class FacturaVentasRepository extends EntityRepository {
         }
 
         $sql = "SELECT tf.idRuta, COUNT(tf.facv_codigo) as cantidad, SUM(tf.facv_total) AS valor, SUM(tf.total_peso) AS peso, tf.facv_fecha FROM "
-                . "(SELECT factura_ventas.facv_codigo, IFNULL( factura_ventas.ruta, rutaid) AS idRuta, factura_ventas.facv_total, SUM(salida.sal_cantidad*producto.peso) AS total_peso, "
+                . "(SELECT factura_ventas.facv_codigo, IFNULL( factura_ventas.ruta, ruta.id) AS idRuta, factura_ventas.facv_total, SUM(salida.sal_cantidad*producto.peso) AS total_peso, "
                 . "factura_ventas.facv_fecha  "
                 . "FROM factura_ventas  "
                 . "JOIN  salida ON factura_ventas.facv_codigo = salida.facv_codigo "
                 . "JOIN  producto ON salida.prod_codigo = producto.prod_codigo "
                 . "JOIN  cliente ON factura_ventas.cli_codigo = cliente.cli_codigo "
-                . "JOIN  zona ON zonaid = cliente.cli_zona_id "
-                . "JOIN  ruta ON rutaid = zona.ruta "
+                . "JOIN  zona ON zona.id = cliente.cli_zona_id "
+                . "JOIN  ruta ON ruta.id = zona.ruta "
                 . "WHERE factura_ventas.facv_fecha BETWEEN '$fechaIni' AND '$fechaFin' "
                 . "$where_ruta "
                 . "GROUP BY factura_ventas.facv_codigo) AS tf "
                 . "GROUP BY tf.idRuta, tf.facv_fecha "
                 . "ORDER BY tf.facv_fecha ";
-        $stmt = $em->getConnection()->prepare($sql);
+//        die($sql);
+      $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
         $stmt->execute();
-
-        return $stmt->fetchAll();
+        $client = $stmt->fetchAll();
+        return $client;
     }
 
     /**
@@ -502,7 +504,7 @@ class FacturaVentasRepository extends EntityRepository {
     public function getVentasInDate($fechaInicio, $fechaFin) {
 
         $dql = 'SELECT DISTINCT c.nombreEmpresa ,cid, c.identificacion, c.deleted, c.ciudad, '
-                . 'c.direccion, b.nombre as barrio, z.nombre as zona, ru.name as ruta, c.movil, v.vendNombre, usu.usuNombre, zid as zonaId  '
+                . 'c.direccion, b.nombre as barrio, z.nombre as zona, ru.name as ruta, c.movil, v.vendNombre, usu.usuNombre, z.id as zonaId  '
                 . 'FROM KijhoStructureBundle:FacturaVentas fv '
                 . 'LEFT JOIN fv.facvVendedor v '
                 . 'JOIN fv.usuCodigo usu '
@@ -638,44 +640,7 @@ class FacturaVentasRepository extends EntityRepository {
                     AND fv.cli_codigo = c.cli_codigo
                     AND fv.facv_fecha >= '" . $fecha1 . "' 
                     AND fv.facv_fecha <= '" . $fecha2 . "'";
-//        die($sql);
-//        $listaFactura = array();
-//        $consulta = executeQuery($sql);
-//        $i = 0;
-//        while ($row = mysqli_fetch_array($consulta)) {
-//
-//
-//            $listaFactura[$i]->codigo = $row['facv_codigo'];
-//            $listaFactura[$i]->codigoGenerado = formatoNumeroFactura($row['facv_codigo']);
-//            $listaFactura[$i]->fecha = $row['facv_fecha'];
-//            $listaFactura[$i]->facValor = $row['facv_total'];
-//            $listaFactura[$i]->facIva16 = $row['facv_iva16'];
-//            $listaFactura[$i]->facIva10 = $row['facv_iva10'];
-//            $listaFactura[$i]->facIva5 = $row['facv_iva5'];
-//            $listaFactura[$i]->producto = $row['prod_nombre'];
-//            $listaFactura[$i]->descuento = $row['facv_descuento'];
-//            $listaFactura[$i]->total = $row['sal_total'];
-//            $listaFactura[$i]->iva16 = $row['sal_iva_16'];
-//            $listaFactura[$i]->iva10 = $row['sal_iva_10'];
-//            $listaFactura[$i]->iva5 = $row['sal_iva_5'];
-//            $listaFactura[$i]->excento = $row['sal_exento'];
-//            $listaFactura[$i]->excluido = $row['sal_excluido'];
-//            $listaFactura[$i]->baseGravable = $row['sal_subtotal'];
-//            $listaFactura[$i]->cantidad = $row['sal_cantidad'];
-//            $listaFactura[$i]->estado = 'Contado';
-//            $listaFactura[$i]->resta = 0;
-//
-//            if ($row['facv_estado'] == 2) {
-//                $listaFactura[$i]->estado = 'Credito';
-//                $listaFactura[$i]->resta = $row['fpc_resta'];
-//            }
-//
-//            $listaFactura[$i]->retencion = $row['facv_retencion'];
-//            $listaFactura[$i]->identificacion = $row['cli_identificacion'];
-//            $i++;
-//        }
-//        return $listaFactura;
-//        	die($sql);
+
         $stmt = $this->getEntityManager()
                 ->getConnection()
                 ->prepare($sql);
