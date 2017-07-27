@@ -445,10 +445,10 @@ class FacturaVentasRepository extends EntityRepository {
                 . "JOIN fv.cliCodigo c "
                 . "JOIN fv.facPorCobrar fpc "
                 . "LEFT JOIN fv.comentarios cf "
-                . $where_credito 
-                . $where_fpcRestaFiltro 
-                . $where_fecha 
-                . $findCliente 
+                . $where_credito
+                . $where_fpcRestaFiltro
+                . $where_fecha
+                . $findCliente
                 . $where_barrio
                 . $where_zona
                 . $where_municipio
@@ -529,6 +529,7 @@ class FacturaVentasRepository extends EntityRepository {
         //$query->setMaxResults('id', $idClient);
         return $query->getResult();
     }
+
     function getSales($fecha, $usuario) {
 
         $sql = "SELECT
@@ -553,22 +554,22 @@ class FacturaVentasRepository extends EntityRepository {
         $client = $stmt->fetchAll();
         return $client;
     }
-    
-       /**
+
+    /**
      * esta funcion permite listar los pagos  realizados con tarjeta debito o credito
      * fecha: 20/10/2013
      * @since: modificado: 14 Julio 2015
      *                                
      */
-     function GetToPayWithCards($fecha){
-		
-		$sql = "SELECT c.cli_nombre_empresa AS cliente,
+    function GetToPayWithCards($fecha) {
+
+        $sql = "SELECT c.cli_nombre_empresa AS cliente,
                 	   faca_abono AS abono,
                        afc.faca_codigoVoucher AS voucher,
                        afc.facv_codigo	AS factura,
                        'factura venta' AS tipo
                 FROM abono_facturacredito_ventas afc, factura_ventas fv, cliente c
-                WHERE afc.faca_fecha = '".$fecha."'
+                WHERE afc.faca_fecha = '" . $fecha . "'
                 AND afc.facv_codigo=fv.facv_codigo
                 AND c.cli_codigo=fv.cli_codigo
                 AND afc.faca_abono > 0
@@ -582,7 +583,7 @@ class FacturaVentasRepository extends EntityRepository {
                        abs.sep_codigo AS factura,
                        'separado' AS tipo
                 FROM abono_separado abs, separado sep, cliente c
-                WHERE abs.sepa_fecha = '".$fecha."'
+                WHERE abs.sepa_fecha = '" . $fecha . "'
                 AND abs.sep_codigo=sep.sep_codigo
                 AND c.cli_codigo=sep.cli_codigo
                 AND abs.sepa_abono > 0
@@ -597,16 +598,90 @@ class FacturaVentasRepository extends EntityRepository {
                        'orden trabajo' AS tipo
                 FROM orden_trabajo ot, orden_trabajo_pago otp, cliente c
                 WHERE ot.ot_codigo = otp.ot_codigo AND ot.cli_codigo = c.cli_codigo 
-                      AND Date(otp.otp_fecha) = '".$fecha."' AND
+                      AND Date(otp.otp_fecha) = '" . $fecha . "' AND
                       ot.ot_estado <> 3 AND  otp.otp_tipo = 2 AND otp.otp_valor > 0";
-        
+
 //	die($sql);
         $stmt = $this->getEntityManager()
                 ->getConnection()
                 ->prepare($sql);
         $stmt->execute();
         $client = $stmt->fetchAll();
-        return $client;		
-	}
+        return $client;
+    }
+
+    function accountingSalesReport($fecha1, $fecha2) {
+        $sql = "SELECT fv.facv_codigo, 
+                           fv.facv_fecha,
+                           p.prod_nombre,  
+                           fv.facv_descuento, 
+                           fv.facv_estado,
+                           fv.facv_total,
+                           fv.facv_iva16,
+                           fv.facv_iva10,
+                           fv.facv_iva5,
+                           fpc.fpc_resta,
+                           fv.facv_retencion,
+                           c.cli_identificacion,
+                           s.sal_iva_16,
+                           s.sal_iva_10,
+                           s.sal_iva_5,
+                           s.sal_exento,
+                           s.sal_excluido,
+                           s.sal_total, 
+                           s.sal_subtotal,
+                           s.sal_cantidad
+                    FROM factura_ventas fv left join facturas_por_cobrar fpc on fv.facv_codigo = fpc.facv_codigo,
+                    salida s , producto p , cliente c 
+                    WHERE fv.facv_codigo = s.facv_codigo
+                    AND s.prod_codigo = p.prod_codigo
+                    AND fv.cli_codigo = c.cli_codigo
+                    AND fv.facv_fecha >= '" . $fecha1 . "' 
+                    AND fv.facv_fecha <= '" . $fecha2 . "'";
+//        die($sql);
+//        $listaFactura = array();
+//        $consulta = executeQuery($sql);
+//        $i = 0;
+//        while ($row = mysqli_fetch_array($consulta)) {
+//
+//
+//            $listaFactura[$i]->codigo = $row['facv_codigo'];
+//            $listaFactura[$i]->codigoGenerado = formatoNumeroFactura($row['facv_codigo']);
+//            $listaFactura[$i]->fecha = $row['facv_fecha'];
+//            $listaFactura[$i]->facValor = $row['facv_total'];
+//            $listaFactura[$i]->facIva16 = $row['facv_iva16'];
+//            $listaFactura[$i]->facIva10 = $row['facv_iva10'];
+//            $listaFactura[$i]->facIva5 = $row['facv_iva5'];
+//            $listaFactura[$i]->producto = $row['prod_nombre'];
+//            $listaFactura[$i]->descuento = $row['facv_descuento'];
+//            $listaFactura[$i]->total = $row['sal_total'];
+//            $listaFactura[$i]->iva16 = $row['sal_iva_16'];
+//            $listaFactura[$i]->iva10 = $row['sal_iva_10'];
+//            $listaFactura[$i]->iva5 = $row['sal_iva_5'];
+//            $listaFactura[$i]->excento = $row['sal_exento'];
+//            $listaFactura[$i]->excluido = $row['sal_excluido'];
+//            $listaFactura[$i]->baseGravable = $row['sal_subtotal'];
+//            $listaFactura[$i]->cantidad = $row['sal_cantidad'];
+//            $listaFactura[$i]->estado = 'Contado';
+//            $listaFactura[$i]->resta = 0;
+//
+//            if ($row['facv_estado'] == 2) {
+//                $listaFactura[$i]->estado = 'Credito';
+//                $listaFactura[$i]->resta = $row['fpc_resta'];
+//            }
+//
+//            $listaFactura[$i]->retencion = $row['facv_retencion'];
+//            $listaFactura[$i]->identificacion = $row['cli_identificacion'];
+//            $i++;
+//        }
+//        return $listaFactura;
+//        	die($sql);
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        return $client;
+    }
 
 }

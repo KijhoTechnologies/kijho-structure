@@ -101,7 +101,7 @@ class ClienteRepository extends EntityRepository {
                 AND fvtp_tpcodigo = 3 
                 AND usu_codigo = " . $usuario . "
                 GROUP BY cli_codigo, cod_caja";
-//        die($sql);
+
         $stmt = $this->getEntityManager()
                 ->getConnection()
                 ->prepare($sql);
@@ -110,5 +110,32 @@ class ClienteRepository extends EntityRepository {
         return $client;
     }
 
+    /**
+     * (HHH) Esta funcion se encarga de buscar los datos de todos los clientes
+     * Retornando un array completo de dichos datos
+     */
+    public function searchAllCliente() {
+        $sql = "SELECT 
+            cli_codigo as nit,
+            cli_nombre_empresa as nombreEmpresa, 
+            cli_identificacion as identificacion, 
+            cli_nombre_comercial as nombreComercial, 
+            cli_direccion as direccion, 
+            cli_depto as depto, 
+            cli_ciudad  as ciudad, 
+            cli_movil as movil, 
+            cli_email as email, 
+            cli_telefono as telefono, 
+            cli_descuento as descuento,
+            'Cliente' as tercero
+        FROM cliente";
+//               die($sql);
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        return $client;
+    }
 
 }
