@@ -35,10 +35,10 @@ class SalidaRepository extends EntityRepository {
 
         $joinCategory = '';
         if ($category_id != '' && $product_id == '') {
-            $where_product .= ' AND p.id IN (SELECT p1id FROM KijhoStructureBundle:Producto p1 WHERE p1.category = :categoryId)';
+            $where_product .= ' AND p.id IN (SELECT p1.id FROM KijhoStructureBundle:Producto p1 WHERE p1.category = :categoryId)';
         }
 
-        $dql = "SELECT s.salFecha, SUM(s.salCantidad) cantidad, SUM(s.salTotal) valor, p.id prod_id, p.name product, cid cat_id, c.name category FROM KijhoStructureBundle:Salida s "
+        $dql = "SELECT s.salFecha, SUM(s.salCantidad) cantidad, SUM(s.salTotal) valor, p.id prod_id, p.name product, c.id cat_id, c.name category FROM KijhoStructureBundle:Salida s "
                 . "JOIN s.prodCodigo p JOIN p.category c"
                 . $where_date . $where_product . " GROUP BY s.salFecha, p.id ORDER BY p.name ASC";
 
@@ -66,7 +66,6 @@ class SalidaRepository extends EntityRepository {
      */
 
     public function getTotalSalesByProduct($product_id, $date_ini = '', $date_end = '') {
-
         $where_date = '';
         if ($date_ini != '') {
             $where_date .= ' AND s.salFecha >= :date';
