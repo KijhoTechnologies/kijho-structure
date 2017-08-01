@@ -175,7 +175,7 @@ class RegaloSalida
      * @param \DateTime $resaFecha
      * @return RegaloSalida
      */
-    public function setResaFecha(DateTime $resaFecha)
+    public function setResaFecha(\DateTime $resaFecha)
     {
         $this->resaFecha = $resaFecha;
 

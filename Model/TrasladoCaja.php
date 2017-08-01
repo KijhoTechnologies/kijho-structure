@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TrasladoCaja
  *
  * @ORM\Table(name="traslado_caja", indexes={@ORM\Index(name="ingreso_FKIndex1", columns={"usu_codigo"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="TrasladoCajaRepository")
  */
 class TrasladoCaja
 {

@@ -4,15 +4,11 @@ namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
-
-
-
 /**
  * Ingreso
  *
  * @ORM\Table(name="ingreso", indexes={@ORM\Index(name="ingreso_FKIndex1", columns={"usu_codigo"}), @ORM\Index(name="ingreso_FKIndex2", columns={"ting_codigo"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="IngresoRepository")
  */
 class Ingreso
 {

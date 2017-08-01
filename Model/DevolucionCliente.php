@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * DevolucionCliente
  *
  * @ORM\Table(name="devolucion_cliente")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DevolucionClienteRepository")
  */
 class DevolucionCliente
 {

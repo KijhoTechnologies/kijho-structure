@@ -4,15 +4,17 @@ namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * TraspasoInventarioEntradaDetalle
  *
  * @ORM\Table(name="traspaso_inventario_entrada_detalle")
  * @ORM\Entity(repositoryClass="TraspasoInventarioEntradaDetalleRepository")
  */
-class TraspasoInventarioEntradaDetalle
-{
+class TraspasoInventarioEntradaDetalle {
+
+    const TRASPASO_INVENTARIO_ENTRADA_ANULADO_NO = 'No';
+    const TRASPASO_INVENTARIO_ENTRADA_ANULADO_SI = 'Si';
+
     /**
      * @var integer
      *
@@ -64,14 +66,12 @@ class TraspasoInventarioEntradaDetalle
      */
     private $traspasoDetalleHora;
 
-
     /**
      * Get traspasoDetalleCodigo
      *
      * @return integer 
      */
-    public function getTraspasoDetalleCodigo()
-    {
+    public function getTraspasoDetalleCodigo() {
         return $this->traspasoDetalleCodigo;
     }
 
@@ -81,8 +81,7 @@ class TraspasoInventarioEntradaDetalle
      * @param integer $traspasoCodigo
      * @return TraspasoInventarioEntradaDetalle
      */
-    public function setTraspasoCodigo($traspasoCodigo)
-    {
+    public function setTraspasoCodigo($traspasoCodigo) {
         $this->traspasoCodigo = $traspasoCodigo;
 
         return $this;
@@ -93,8 +92,7 @@ class TraspasoInventarioEntradaDetalle
      *
      * @return integer 
      */
-    public function getTraspasoCodigo()
-    {
+    public function getTraspasoCodigo() {
         return $this->traspasoCodigo;
     }
 
@@ -104,8 +102,7 @@ class TraspasoInventarioEntradaDetalle
      * @param integer $prodCodigo
      * @return TraspasoInventarioEntradaDetalle
      */
-    public function setProdCodigo($prodCodigo)
-    {
+    public function setProdCodigo($prodCodigo) {
         $this->prodCodigo = $prodCodigo;
 
         return $this;
@@ -116,8 +113,7 @@ class TraspasoInventarioEntradaDetalle
      *
      * @return integer 
      */
-    public function getProdCodigo()
-    {
+    public function getProdCodigo() {
         return $this->prodCodigo;
     }
 
@@ -127,8 +123,7 @@ class TraspasoInventarioEntradaDetalle
      * @param float $prodCantidad
      * @return TraspasoInventarioEntradaDetalle
      */
-    public function setProdCantidad($prodCantidad)
-    {
+    public function setProdCantidad($prodCantidad) {
         $this->prodCantidad = $prodCantidad;
 
         return $this;
@@ -139,8 +134,7 @@ class TraspasoInventarioEntradaDetalle
      *
      * @return float 
      */
-    public function getProdCantidad()
-    {
+    public function getProdCantidad() {
         return $this->prodCantidad;
     }
 
@@ -150,8 +144,7 @@ class TraspasoInventarioEntradaDetalle
      * @param integer $prodCostoUnit
      * @return TraspasoInventarioEntradaDetalle
      */
-    public function setProdCostoUnit($prodCostoUnit)
-    {
+    public function setProdCostoUnit($prodCostoUnit) {
         $this->prodCostoUnit = $prodCostoUnit;
 
         return $this;
@@ -162,8 +155,7 @@ class TraspasoInventarioEntradaDetalle
      *
      * @return integer 
      */
-    public function getProdCostoUnit()
-    {
+    public function getProdCostoUnit() {
         return $this->prodCostoUnit;
     }
 
@@ -173,8 +165,7 @@ class TraspasoInventarioEntradaDetalle
      * @param \DateTime $traspasoDetalleFecha
      * @return TraspasoInventarioEntradaDetalle
      */
-    public function setTraspasoDetalleFecha($traspasoDetalleFecha)
-    {
+    public function setTraspasoDetalleFecha($traspasoDetalleFecha) {
         $this->traspasoDetalleFecha = $traspasoDetalleFecha;
 
         return $this;
@@ -185,8 +176,7 @@ class TraspasoInventarioEntradaDetalle
      *
      * @return \DateTime 
      */
-    public function getTraspasoDetalleFecha()
-    {
+    public function getTraspasoDetalleFecha() {
         return $this->traspasoDetalleFecha;
     }
 
@@ -196,8 +186,7 @@ class TraspasoInventarioEntradaDetalle
      * @param string $traspasoDetalleHora
      * @return TraspasoInventarioEntradaDetalle
      */
-    public function setTraspasoDetalleHora($traspasoDetalleHora)
-    {
+    public function setTraspasoDetalleHora($traspasoDetalleHora) {
         $this->traspasoDetalleHora = $traspasoDetalleHora;
 
         return $this;
@@ -208,8 +197,8 @@ class TraspasoInventarioEntradaDetalle
      *
      * @return string 
      */
-    public function getTraspasoDetalleHora()
-    {
+    public function getTraspasoDetalleHora() {
         return $this->traspasoDetalleHora;
     }
+
 }

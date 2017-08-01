@@ -27,7 +27,7 @@ class SeparadoRepository extends EntityRepository {
                 . "14 AS tipo , "
                 . "sep.salSepHora AS horario, "
                 . "cli.id AS codigo_actor, "
-                . "cli.name AS nombre_actor "
+                . "cli.nombreEmpresa AS nombre_actor "
                 . "FROM KijhoStructureBundle:SalidaSeparado sep "
                 . "JOIN KijhoStructureBundle:Separado sp  "
                 . "WITH sep.sepCodigo = sp.sepCodigo "

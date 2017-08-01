@@ -22,36 +22,25 @@ class SalidaRepository extends EntityRepository {
      */
 
     public function getEntitiesForSaleDensityReport($category_id, $product_id, $date_ini, $date_end) {
-//        return $category_id. " ". $product_id. " ". $date_ini. " ". $date_end;
         $where_date = '';
-//        if($date_ini != ''){
-//        $array_date = explode('/', $date_ini);
-//        $date_ini = $array_date[2] . '-' . $array_date[1] . '-' . $array_date[0];
+
         $where_date .= ' WHERE s.salFecha >= :date';
-//        }
-//        if ($date_end != '') {
-//        $array_date = explode('/', $date_end);
-//        $date_end = $array_date[2] . '-' . $array_date[1] . '-' . $array_date[0];
+
         $where_date .= ' AND s.salFecha <= :dateEnd';
-//        }
-//        return $date_ini;
+
         $where_product = '';
         if ($product_id != '') {
-            $where_product .= ' AND pid = :productId';
+            $where_product .= ' AND p.id = :productId';
         }
 
         $joinCategory = '';
         if ($category_id != '' && $product_id == '') {
-//            $where_product .= ' AND pid = :categoryId';
-//            $where_product .= ' AND pid IN (SELECT p1id FROM KijhoStructureBundle:Producto p1 JOIN Categoria c1 WHERE c1id = :categoryId)';
-            $where_product .= ' AND pid IN (SELECT p1id FROM KijhoStructureBundle:Producto p1 WHERE p1.category = :categoryId)';
+            $where_product .= ' AND p.id IN (SELECT p1.id FROM KijhoStructureBundle:Producto p1 WHERE p1.category = :categoryId)';
         }
 
-//        $dql = "SELECT sid, s.salFecha, s.salCantidad, s.salTotal, pid prod_id, p.category FROM KijhoStructureBundle:Salida s "
-//        $dql = "SELECT sid, s.salFecha, s.salCantidad, s.salTotal, p FROM KijhoStructureBundle:Salida s "
-        $dql = "SELECT s.salFecha, SUM(s.salCantidad) cantidad, SUM(s.salTotal) valor, pid prod_id, p.name product, cid cat_id, c.name category FROM KijhoStructureBundle:Salida s "
+        $dql = "SELECT s.salFecha, SUM(s.salCantidad) cantidad, SUM(s.salTotal) valor, p.id prod_id, p.name product, c.id cat_id, c.name category FROM KijhoStructureBundle:Salida s "
                 . "JOIN s.prodCodigo p JOIN p.category c"
-                . $where_date . $where_product . " GROUP BY s.salFecha, pid ORDER BY p.name ASC";
+                . $where_date . $where_product . " GROUP BY s.salFecha, p.id ORDER BY p.name ASC";
 
         $query = $this->getEntityManager()->createQuery($dql);
 
@@ -67,8 +56,6 @@ class SalidaRepository extends EntityRepository {
             $query->setParameter('categoryId', $category_id);
         }
 
-
-//        return $query->getSQL();
         return $query->getResult();
     }
 
@@ -79,7 +66,6 @@ class SalidaRepository extends EntityRepository {
      */
 
     public function getTotalSalesByProduct($product_id, $date_ini = '', $date_end = '') {
-
         $where_date = '';
         if ($date_ini != '') {
             $where_date .= ' AND s.salFecha >= :date';
@@ -88,7 +74,7 @@ class SalidaRepository extends EntityRepository {
             $where_date .= ' AND s.salFecha <= :dateEnd';
         }
 
-        $where_product = ' pid = :productId';
+        $where_product = ' p.id = :productId';
 
         $dql = "SELECT SUM(s.salCantidad) cantidad, SUM(s.salTotal) valor "
                 . "FROM KijhoStructureBundle:Salida s JOIN s.prodCodigo p "
@@ -266,10 +252,10 @@ class SalidaRepository extends EntityRepository {
                 . "13 AS tipo , "
                 . "sal.salHora AS horario, "
                 . "cli.id AS codigo_actor, "
-                . "cli.name AS nombre_actor "
+                . "cli.nombreEmpresa AS nombre_actor "
                 . "FROM KijhoStructureBundle:Salida AS sal "
-                . "JOIN KijhoStructureBundle:FacturaVentas AS fv WITH sal.facvCodigo = fv.id "
-                . "JOIN KijhoStructureBundle:Cliente AS cli WITH cli.id = fv.id "
+                . "JOIN KijhoStructureBundle:FacturaVentas AS fv WITH sal.facvCodigo = fv.facvCodigo "
+                . "JOIN KijhoStructureBundle:Cliente AS cli WITH cli.id = fv.cliCodigo "
                 . "WHERE sal.salFecha <= :fechaFin "
                 . "AND sal.prodCodigo = :prodCodigo "
                 . "AND sal.devolucion = :devolution ";

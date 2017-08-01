@@ -48,13 +48,12 @@ class FacturaVentasRepository extends EntityRepository {
      * @param fechaInicio fechaFin ruta
      */
     public function getSalesByDay($fechaIni = '', $fechaFin = '', $ruta = 0, $anuladas = "") {
-
         $em = $this->getEntityManager();
 
         $where_ruta = "";
 
         if ($ruta != 0) {
-            $where_ruta = 'AND (factura_ventas.ruta = ' . $ruta . ' OR rutaid = ' . $ruta . ')';
+            $where_ruta = 'AND (factura_ventas.ruta = ' . $ruta . ' OR ruta.id = ' . $ruta . ')';
 //            $where_ruta = " AND idRuta = $ruta  ";
         }
         if ($anuladas != "") {
@@ -62,23 +61,26 @@ class FacturaVentasRepository extends EntityRepository {
         }
 
         $sql = "SELECT tf.idRuta, COUNT(tf.facv_codigo) as cantidad, SUM(tf.facv_total) AS valor, SUM(tf.total_peso) AS peso, tf.facv_fecha FROM "
-                . "(SELECT factura_ventas.facv_codigo, IFNULL( factura_ventas.ruta, rutaid) AS idRuta, factura_ventas.facv_total, SUM(salida.sal_cantidad*producto.peso) AS total_peso, "
+                . "(SELECT factura_ventas.facv_codigo, IFNULL( factura_ventas.ruta, ruta.id) AS idRuta, factura_ventas.facv_total, SUM(salida.sal_cantidad*producto.peso) AS total_peso, "
                 . "factura_ventas.facv_fecha  "
-                . "FROM KijhoStructureBundle:factura_ventas  "
-                . "JOIN  KijhoStructureBundle:salida ON factura_ventas.facv_codigo = salida.facv_codigo "
-                . "JOIN  KijhoStructureBundle:producto ON salida.prod_codigo = producto.prod_codigo "
-                . "JOIN  KijhoStructureBundle:cliente ON factura_ventas.cli_codigo = cliente.cli_codigo "
-                . "JOIN  KijhoStructureBundle:zona ON zonaid = cliente.cli_zona_id "
-                . "JOIN  KijhoStructureBundle:ruta ON rutaid = zona.ruta "
+                . "FROM factura_ventas  "
+                . "JOIN  salida ON factura_ventas.facv_codigo = salida.facv_codigo "
+                . "JOIN  producto ON salida.prod_codigo = producto.prod_codigo "
+                . "JOIN  cliente ON factura_ventas.cli_codigo = cliente.cli_codigo "
+                . "JOIN  zona ON zona.id = cliente.cli_zona_id "
+                . "JOIN  ruta ON ruta.id = zona.ruta "
                 . "WHERE factura_ventas.facv_fecha BETWEEN '$fechaIni' AND '$fechaFin' "
                 . "$where_ruta "
                 . "GROUP BY factura_ventas.facv_codigo) AS tf "
                 . "GROUP BY tf.idRuta, tf.facv_fecha "
                 . "ORDER BY tf.facv_fecha ";
-        $stmt = $em->getConnection()->prepare($sql);
+//        die($sql);
+      $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
         $stmt->execute();
-
-        return $stmt->fetchAll();
+        $client = $stmt->fetchAll();
+        return $client;
     }
 
     /**
@@ -445,10 +447,10 @@ class FacturaVentasRepository extends EntityRepository {
                 . "JOIN fv.cliCodigo c "
                 . "JOIN fv.facPorCobrar fpc "
                 . "LEFT JOIN fv.comentarios cf "
-                . $where_credito 
-                . $where_fpcRestaFiltro 
-                . $where_fecha 
-                . $findCliente 
+                . $where_credito
+                . $where_fpcRestaFiltro
+                . $where_fecha
+                . $findCliente
                 . $where_barrio
                 . $where_zona
                 . $where_municipio
@@ -502,7 +504,7 @@ class FacturaVentasRepository extends EntityRepository {
     public function getVentasInDate($fechaInicio, $fechaFin) {
 
         $dql = 'SELECT DISTINCT c.nombreEmpresa ,cid, c.identificacion, c.deleted, c.ciudad, '
-                . 'c.direccion, b.nombre as barrio, z.nombre as zona, ru.name as ruta, c.movil, v.vendNombre, usu.usuNombre, zid as zonaId  '
+                . 'c.direccion, b.nombre as barrio, z.nombre as zona, ru.name as ruta, c.movil, v.vendNombre, usu.usuNombre, z.id as zonaId  '
                 . 'FROM KijhoStructureBundle:FacturaVentas fv '
                 . 'LEFT JOIN fv.facvVendedor v '
                 . 'JOIN fv.usuCodigo usu '
@@ -528,6 +530,123 @@ class FacturaVentasRepository extends EntityRepository {
         $query->setParameter('id', $idClient);
         //$query->setMaxResults('id', $idClient);
         return $query->getResult();
+    }
+
+    function getSales($fecha, $usuario) {
+
+        $sql = "SELECT
+            sum(fvtp.fvtp_valor) AS cant1,
+            fv.cli_codigo, 
+            fv.cod_caja, 
+            cli_nombre_empresa 
+            FROM factura_ventas AS fv, cliente AS c, facv_tipopago fvtp 
+            WHERE facv_fecha='" . $fecha . "'
+            AND fv.cli_codigo = c.cli_codigo
+            AND fvtp_fvcodigo = facv_codigo
+            AND fvtp.fvtp_tpcodigo = '1'
+            AND fv.facv_anulada = 'no'
+            AND fv.facv_estado = 1
+            AND usu_codigo = " . $usuario . " 
+            GROUP BY cli_codigo, cod_caja";
+//die($sql);
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        return $client;
+    }
+
+    /**
+     * esta funcion permite listar los pagos  realizados con tarjeta debito o credito
+     * fecha: 20/10/2013
+     * @since: modificado: 14 Julio 2015
+     *                                
+     */
+    function GetToPayWithCards($fecha) {
+
+        $sql = "SELECT c.cli_nombre_empresa AS cliente,
+                	   faca_abono AS abono,
+                       afc.faca_codigoVoucher AS voucher,
+                       afc.facv_codigo	AS factura,
+                       'factura venta' AS tipo
+                FROM abono_facturacredito_ventas afc, factura_ventas fv, cliente c
+                WHERE afc.faca_fecha = '" . $fecha . "'
+                AND afc.facv_codigo=fv.facv_codigo
+                AND c.cli_codigo=fv.cli_codigo
+                AND afc.faca_abono > 0
+                AND afc.faca_tipoPago = 2
+                
+                UNION
+                
+                SELECT c.cli_nombre_empresa AS cliente,
+                	   sepa_abono AS abono,
+                       abs.sepa_codigoVoucher AS voucher,
+                       abs.sep_codigo AS factura,
+                       'separado' AS tipo
+                FROM abono_separado abs, separado sep, cliente c
+                WHERE abs.sepa_fecha = '" . $fecha . "'
+                AND abs.sep_codigo=sep.sep_codigo
+                AND c.cli_codigo=sep.cli_codigo
+                AND abs.sepa_abono > 0
+                AND abs.sepa_tipoPago = 2
+                
+                UNION
+                
+                SELECT c.cli_nombre_empresa AS cliente,
+                       otp.otp_valor AS abono,
+                       otp.otp_codVoucher AS voucher,
+                       otp.ot_codigo AS factura,
+                       'orden trabajo' AS tipo
+                FROM orden_trabajo ot, orden_trabajo_pago otp, cliente c
+                WHERE ot.ot_codigo = otp.ot_codigo AND ot.cli_codigo = c.cli_codigo 
+                      AND Date(otp.otp_fecha) = '" . $fecha . "' AND
+                      ot.ot_estado <> 3 AND  otp.otp_tipo = 2 AND otp.otp_valor > 0";
+
+//	die($sql);
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        return $client;
+    }
+
+    function accountingSalesReport($fecha1, $fecha2) {
+        $sql = "SELECT fv.facv_codigo, 
+                           fv.facv_fecha,
+                           p.prod_nombre,  
+                           fv.facv_descuento, 
+                           fv.facv_estado,
+                           fv.facv_total,
+                           fv.facv_iva16,
+                           fv.facv_iva10,
+                           fv.facv_iva5,
+                           fpc.fpc_resta,
+                           fv.facv_retencion,
+                           c.cli_identificacion,
+                           s.sal_iva_16,
+                           s.sal_iva_10,
+                           s.sal_iva_5,
+                           s.sal_exento,
+                           s.sal_excluido,
+                           s.sal_total, 
+                           s.sal_subtotal,
+                           s.sal_cantidad
+                    FROM factura_ventas fv left join facturas_por_cobrar fpc on fv.facv_codigo = fpc.facv_codigo,
+                    salida s , producto p , cliente c 
+                    WHERE fv.facv_codigo = s.facv_codigo
+                    AND s.prod_codigo = p.prod_codigo
+                    AND fv.cli_codigo = c.cli_codigo
+                    AND fv.facv_fecha >= '" . $fecha1 . "' 
+                    AND fv.facv_fecha <= '" . $fecha2 . "'";
+
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        return $client;
     }
 
 }

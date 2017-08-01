@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Remisiones
  *
  * @ORM\Table(name="remisiones")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="RemisionesRepository")
  */
 class Remisiones
 {

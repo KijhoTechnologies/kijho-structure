@@ -28,7 +28,7 @@ class FacturaFisicaVentaDetalleRepository extends EntityRepository {
                 . "6 AS tipo, "
                 . "fd.facfvdHora AS horario, "
                 . "cli.id AS codigo_actor, "
-                . "cli.name AS nombre_actor "
+                . "cli.nombreEmpresa AS nombre_actor "
                 . "FROM KijhoStructureBundle:FacturaFisicaVentaDetalle fd "
                 . "JOIN KijhoStructureBundle:FacturaFisicaVenta AS ff WITH ff.facfvCodigo = fd.facfvCodigo "
                 . "JOIN KijhoStructureBundle:Cliente AS cli WITH cli.id = ff.cliCodigo "
