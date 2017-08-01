@@ -45,13 +45,7 @@ class FacturasDevolucion {
      * @var string
      * @ORM\Column(type="string", name="comentario", length=256)
      */
-    protected $comentario;
-
-    /**
-     * @var integer
-     * @ORM\Column(type="integer", name="motivo", length=1, options={"default" : 0})
-     */
-    protected $motivo = 0;
+    protected $comentario; 
 
     /**
      * @var integer
@@ -129,14 +123,6 @@ class FacturasDevolucion {
      */
     public function getIdFactura() {
         return $this->idFactura;
-    }
-
-    public function getMotivo() {
-        return $this->motivo;
-    }
-
-    public function setMotivo($motivo) {
-        $this->motivo = $motivo;
     }
 
     public function getModulo() {
