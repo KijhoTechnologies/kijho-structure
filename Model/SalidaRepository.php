@@ -103,7 +103,7 @@ class SalidaRepository extends EntityRepository {
             $where .= ' AND fv.usuCodigo = :vendedor ';
         }
 
-        $dql = 'SELECT fv.facvCodigo,usu.usuNombre,v.vendNombre,prodid,prod.name,prod.prodCostoUnit,prod.prodVentaUnit,s.salFecha,s.salHora,s.salCantidad,cli.nombreEmpresa,cli.direccion '
+        $dql = 'SELECT fv.facvCodigo,usu.usuNombre,v.vendNombre,prod.id,prod.name,prod.prodCostoUnit,prod.prodVentaUnit,s.salFecha,s.salHora,s.salCantidad,cli.nombreEmpresa,cli.direccion '
                 . 'FROM KijhoStructureBundle:Salida s '
                 . 'INNER JOIN s.prodCodigo prod '
                 . 'INNER JOIN s.facvCodigo fv '
@@ -134,7 +134,7 @@ class SalidaRepository extends EntityRepository {
             $where .= ' AND fv.usuCodigo = :vendedor ';
         }
 
-        $dql = 'SELECT fv.facvCodigo,usu.usuNombre,v.vendNombre,prodid,prod.name,prod.prodCostoUnit,prod.prodVentaUnit,s.salFecha,s.salHora,s.salCantidad,cli.nombreEmpresa,cli.direccion '
+        $dql = 'SELECT fv.facvCodigo,usu.usuNombre,v.vendNombre,prod.id,prod.name,prod.prodCostoUnit,prod.prodVentaUnit,s.salFecha,s.salHora,s.salCantidad,cli.nombreEmpresa,cli.direccion '
                 . 'FROM KijhoStructureBundle:Salida s '
                 . 'INNER JOIN s.prodCodigo prod '
                 . 'INNER JOIN s.facvCodigo fv '
@@ -165,7 +165,7 @@ class SalidaRepository extends EntityRepository {
             $where .= ' AND fv.usuCodigo = :vendedor ';
         }
 
-        $dql = 'SELECT prodid , prod.name, prod.prodCostoUnit, prod.prodVentaUnit, s.salFecha, SUM(s.salCantidad) as Cantidad '
+        $dql = 'SELECT prod.id , prod.name, prod.prodCostoUnit, prod.prodVentaUnit, s.salFecha, SUM(s.salCantidad) as Cantidad '
                 . 'FROM KijhoStructureBundle:Salida s '
                 . 'INNER JOIN s.prodCodigo prod '
                 . 'INNER JOIN s.facvCodigo fv '
@@ -196,7 +196,7 @@ class SalidaRepository extends EntityRepository {
             $where .= ' AND fv.usuCodigo = :vendedor ';
         }
 
-        $dql = 'SELECT prodid , prod.name, prod.prodCostoUnit, prod.prodVentaUnit, s.salFecha, SUM(s.salCantidad) as Cantidad '
+        $dql = 'SELECT prod.id , prod.name, prod.prodCostoUnit, prod.prodVentaUnit, s.salFecha, SUM(s.salCantidad) as Cantidad '
                 . 'FROM KijhoStructureBundle:Salida s '
                 . 'INNER JOIN s.prodCodigo prod '
                 . 'INNER JOIN s.facvCodigo fv '
