@@ -115,7 +115,7 @@ class FacturaVentasRepository extends EntityRepository {
         }
 
         $dql = "SELECT fac.facvHora, fac.facvCodigo, (fac.facvFecha) as facvFecha, fac.facvTotal, u.$Apellido, u.$Nombre, c.nombreEmpresa, c.direccion, "
-                . " (fac.ruta) as rutaFac, (rid) as rutaR "
+                . " (fac.ruta) as rutaFac, (r.id) as rutaR "
                 . "FROM KijhoStructureBundle:FacturaVentas fac "
                 . "JOIN fac." . $usuario . " u "
                 . "JOIN fac.cliCodigo c "
@@ -129,11 +129,11 @@ class FacturaVentasRepository extends EntityRepository {
         $query = $this->getEntityManager()->createQuery($dql);
 
         if ($fechaInicio != '') {
-            $query->setParameter('date', new DateTime($fechaInicio));
+            $query->setParameter('date', new \DateTime($fechaInicio));
         }
 
         if ($fechaFin != '') {
-            $query->setParameter('datefin', new DateTime($fechaFin));
+            $query->setParameter('datefin', new \DateTime($fechaFin));
         }
 
         if ($ruta != '') {
