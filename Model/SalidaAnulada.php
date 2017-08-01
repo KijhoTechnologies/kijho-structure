@@ -158,7 +158,7 @@ class SalidaAnulada {
     /**
      *
      * @ORM\ManyToOne(targetEntity="FacturaVentas", inversedBy="itemsCanceled")
-     * @ORM\JoinColumn(name="facvCodigo_id", referencedColumnName="facv_codigo")
+     * @ORM\JoinColumn(name="facv_codigo", referencedColumnName="facv_codigo")
      */
     private $facvCodigo;
 
