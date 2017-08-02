@@ -168,10 +168,10 @@ class FacturaVentasRepository extends EntityRepository {
         $query = $this->getEntityManager()->createQuery($dql);
 
         if ($date_ini != '') {
-            $query->setParameter('date', new DateTime($date_ini));
+            $query->setParameter('date', new \DateTime($date_ini));
         }
         if ($date_end != '') {
-            $query->setParameter('dateEnd', new DateTime($date_end));
+            $query->setParameter('dateEnd', new \DateTime($date_end));
         }
 
         $query->setParameter('productId', $product_id);
@@ -211,7 +211,7 @@ class FacturaVentasRepository extends EntityRepository {
         }
         if ($cant_val == "cant") {
             $COUNTcantidad = "count(fac.facvCodigo) as cantidad,";
-        }
+        }else
         if ($cant_val == "cant_val") {
             $COUNTcantidad = "count(fac.facvCodigo) as cantidad,";
             $SUMvalor = "SUM(fac.facvTotal) valor,";
@@ -230,11 +230,11 @@ class FacturaVentasRepository extends EntityRepository {
         $query = $this->getEntityManager()->createQuery($dql);
 
         if ($fechaInicio != '') {
-            $query->setParameter('date', new DateTime($fechaInicio));
+            $query->setParameter('date', new \DateTime($fechaInicio));
         }
 
         if ($fechaFin != '') {
-            $query->setParameter('datefin', new DateTime($fechaFin));
+            $query->setParameter('datefin', new \DateTime($fechaFin));
         }
 
         return $query->getResult();
