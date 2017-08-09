@@ -133,4 +133,52 @@ class ProductoRepository extends EntityRepository {
         }
     }
 
+    function SeeOutputs($fechaInicio, $fechaFin, $categoria, $usuario, $tipo = "") {
+
+        $AND = '';
+        if ($fechaInicio != '' && $fechaFin != '') {
+            $AND .= "AND s.sal_fecha >= '$fechaInicio' AND s.sal_fecha <= '$fechaFin' ";
+        }
+        if ($categoria > 0 || $categoria != '') {
+            $AND .= " AND c.cat_codigo = $categoria ";
+        }
+
+        if ($usuario != 0) {
+            $AND .= " AND fac.usu_codigo = $usuario ";
+        }
+
+        if ($tipo != "") {
+            $AND .= " AND p.materia_prima = $tipo ";
+        }
+        $sql = "SELECT cat_nombre, 
+                    c.cat_codigo, 
+                    p.prod_nombre, 
+                    p.peso, 
+                    p.prod_iva as tipoIvaProd, 
+                    p.prod_codigo as codProd, 
+                    p.prod_iva, 
+                    p.prod_venta_unit, 
+                    p.materia_prima,
+                    p.prod_categoria,
+                    fac.usu_codigo, 
+                    sum(sal_cantidad) AS sCantidad, 
+                    sum(sal_total) as sTotal,
+                    sum(sal_iva_16 + sal_iva_10 + sal_iva_5) as ivaTotal,
+                    func_existencias_producto(p.prod_codigo, '$fechaInicio') AS inventario_fecha_ini,
+                    func_existencias_producto(p.prod_codigo, '$fechaFin') AS inventario_fecha_fin,
+                    func_existencias_producto(p.prod_codigo, NULL) AS inventario
+                FROM categoria c, salida s, producto p, factura_ventas fac, usuario u
+                WHERE s.prod_codigo = p.prod_codigo AND s.facv_codigo = fac.facv_codigo AND fac.usu_codigo = u.usu_codigo AND s.devolucion = 0 AND fac.facv_anulada ='no' AND fac.only_change = 0 AND u.usu_delete = 0
+                AND c.cat_codigo = p.prod_categoria
+                $AND
+                GROUP BY p.prod_codigo
+                ORDER BY cat_codigo";
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
+
 }

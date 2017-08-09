@@ -31,4 +31,35 @@ class UsuarioRepository extends EntityRepository {
         return $query->getResult();
     }
 
+    function idUsersSeller() {
+        $sql = "SELECT usu_codigo FROM usuario WHERE usu_delete = 0";
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $usuario_vendedor = $stmt->fetchAll();
+        return $usuario_vendedor;
+    }
+
+    function getUserName($codigo) {
+        $sql = "SELECT CONCAT(usu_nombre,' ',usu_apellido) as usuario FROM usuario "
+                . "WHERE usu_codigo =" . (int) $codigo . " AND usu_delete = 0";
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $usuario = $stmt->fetchAll();
+        return $usuario;
+    }
+
+    function getCategories() {
+        $sql = "SELECT cat_codigo, cat_nombre FROM categoria";
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $usuario_vendedor = $stmt->fetchAll();
+        return $usuario_vendedor;
+    }
+
 }

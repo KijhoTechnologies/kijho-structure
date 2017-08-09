@@ -75,7 +75,7 @@ class FacturaVentasRepository extends EntityRepository {
                 . "GROUP BY tf.idRuta, tf.facv_fecha "
                 . "ORDER BY tf.facv_fecha ";
 //        die($sql);
-      $stmt = $this->getEntityManager()
+        $stmt = $this->getEntityManager()
                 ->getConnection()
                 ->prepare($sql);
         $stmt->execute();
@@ -211,7 +211,7 @@ class FacturaVentasRepository extends EntityRepository {
         }
         if ($cant_val == "cant") {
             $COUNTcantidad = "count(fac.facvCodigo) as cantidad,";
-        }else
+        } else
         if ($cant_val == "cant_val") {
             $COUNTcantidad = "count(fac.facvCodigo) as cantidad,";
             $SUMvalor = "SUM(fac.facvTotal) valor,";
@@ -647,6 +647,100 @@ class FacturaVentasRepository extends EntityRepository {
         $stmt->execute();
         $client = $stmt->fetchAll();
         return $client;
+    }
+
+    /*
+     * @author: Juan Ocampo
+     * @date: 2015/01/10
+     * @params: fecha, fecha_fin, cliente_id
+     * @desc: Esta función obtiene los datos básicos de facturas que se encuentren en
+     * un rango de fechas determinado.
+     * 
+     * @date: 2015-03-08
+     * Se actualiza y se adiciona parámetro que asocia el id del cliente. Esto
+     * es funcional para el reporte de frecuencias de ventas por cliente.
+     */
+
+    function getDataInvoicesXDate($fecha, $fecha_fin, $barrio_id = "", $zona_id = "", $mun_nombre = "", $depto_nombre = "", $ruta_id = "", $arrayZonas = array(), $tipo_vendedor = "", $vendedor_id = "", $cliente_id = '', $order_by = '') {
+
+        if (($cliente_id != '') && ($cliente_id != null)) {
+            $where_cli_codigo = ' AND fv.cli_codigo= ' . $cliente_id;
+        } else {
+            $where_cli_codigo = '';
+        }
+        if ($order_by != '') {
+            $order_by = ' ORDER BY ' . $order_by;
+        }
+
+        $where_barrio = '';
+        if ($barrio_id != '') {
+            $where_barrio = ' AND c.cli_barrio_id = ' . $barrio_id;
+        }
+
+        $where_zona = '';
+        if ($zona_id != '') {
+            $where_zona = ' AND c.cli_zona_id = ' . $zona_id;
+        }
+
+        $where_municipio = '';
+        if ($mun_nombre != '') {
+            $where_municipio = " AND c.cli_ciudad = '$mun_nombre'";
+        }
+
+        $where_departamento = '';
+        if ($depto_nombre != '') {
+            $where_departamento = " AND c.cli_depto = '$depto_nombre' ";
+        }
+
+        $where_ruta = '';
+
+        if ($ruta_id != '') {
+
+            $array_zonas = "";
+
+            foreach ($arrayZonas as $zonas) {
+                $array_zonas .= $zonas . ",";
+            }
+            $zonas = substr($array_zonas, 0, -1);
+            $where_ruta = ' AND ((c.cli_zona_id IN (' . $zonas . ') AND fv.ruta IS NULL) OR fv.ruta = ' . $ruta_id . ')';
+        }
+
+        $where_vendedor = '';
+        if ($tipo_vendedor != '') {
+
+            if ($tipo_vendedor == 1) {//Busqueda por vendedor del sistema: entidad Vendedor
+                if ($vendedor_id == 0) {// Busqueda de todas las facturas realizadas con vendedores del sistema
+                    $where_vendedor = ' AND fv.facv_vendedor > 0';
+                } elseif ($vendedor_id > 0) {
+                    $where_vendedor = ' AND fv.fac_vendedor = ' . $vendedor_id;
+                } else {//No hay vendedores de sistema
+                }
+            } elseif ($tipo_vendedor == 2) {
+
+                if ($vendedor_id == 0) {// Busqueda de todas las facturas realizadas con usuarios vendedores y administrativos
+                    $where_vendedor = ' AND (fv.facv_vendedor = 0 OR fv.facv_vendedor IS NULL)';
+                } elseif ($vendedor_id > 0) {//Facturas vendidas por usuarios con roll de vendedor
+//                  
+                    $where_vendedor = ' AND (fv.usu_codigo = ' . $vendedor_id . ' AND (fv.facv_vendedor = 0 OR fv.facv_vendedor IS NULL))';
+                } else {//No hay vendedores de sistema
+                }
+            }
+        }
+
+        $sql = "SELECT fv.facv_codigo
+            , fv.cli_codigo
+            , fv.facv_vendedor
+            , fv.usu_codigo
+            , fv.facv_total
+            , fv.facv_fecha
+              FROM factura_ventas fv LEFT JOIN cliente c ON fv.cli_codigo = c.cli_codigo LEFT JOIN usuario u ON fv.usu_codigo = u.usu_codigo WHERE facv_anulada ='no' AND only_change = 0 AND u.usu_delete = 0 AND facv_fecha BETWEEN '" . $fecha . "'"
+                . " AND '" . $fecha_fin . "'" . $where_cli_codigo . $where_barrio . $where_zona . $where_municipio . $where_departamento . $where_ruta . $where_vendedor . $order_by;
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
     }
 
 }

@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Vendedor
  *
  * @ORM\Table(name="vendedor")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="VendedorRepository")
  */
 class Vendedor
 {
