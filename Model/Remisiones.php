@@ -4,10 +4,6 @@ namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
-
-
-
 /**
  * Remisiones
  *

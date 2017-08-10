@@ -4,7 +4,7 @@ namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityRepository;
-
+use DateTime;
 /**
  * Description of ProductoRepository
  *

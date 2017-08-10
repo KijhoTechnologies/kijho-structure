@@ -4,18 +4,14 @@ namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
-
-
-
 /**
  * Pago
  *
  * @ORM\Table(name="pago")
  * @ORM\Entity
  */
-class Pago
-{
+class Pago {
+
     /**
      * @var integer
      *
@@ -53,14 +49,12 @@ class Pago
      */
     private $pagCambio;
 
-
     /**
      * Get pagCodigo
      *
      * @return integer 
      */
-    public function getPagCodigo()
-    {
+    public function getPagCodigo() {
         return $this->pagCodigo;
     }
 
@@ -69,15 +63,13 @@ class Pago
         $this->pagTotal = $saleInvoice->getFacvTotal();
     }
 
-
-        /**
+    /**
      * Set facvCodigo
      *
      * @param integer $facvCodigo
      * @return Pago
      */
-    public function setFacvCodigo($facvCodigo)
-    {
+    public function setFacvCodigo($facvCodigo) {
         $this->facvCodigo = $facvCodigo;
 
         return $this;
@@ -88,8 +80,7 @@ class Pago
      *
      * @return integer 
      */
-    public function getFacvCodigo()
-    {
+    public function getFacvCodigo() {
         return $this->facvCodigo;
     }
 
@@ -99,8 +90,7 @@ class Pago
      * @param integer $pagTotal
      * @return Pago
      */
-    public function setPagTotal($pagTotal)
-    {
+    public function setPagTotal($pagTotal) {
         $this->pagTotal = $pagTotal;
 
         return $this;
@@ -111,8 +101,7 @@ class Pago
      *
      * @return integer 
      */
-    public function getPagTotal()
-    {
+    public function getPagTotal() {
         return $this->pagTotal;
     }
 
@@ -122,8 +111,7 @@ class Pago
      * @param integer $pagEfectivo
      * @return Pago
      */
-    public function setPagEfectivo($pagEfectivo)
-    {
+    public function setPagEfectivo($pagEfectivo) {
         $this->pagEfectivo = $pagEfectivo;
 
         return $this;
@@ -134,8 +122,7 @@ class Pago
      *
      * @return integer 
      */
-    public function getPagEfectivo()
-    {
+    public function getPagEfectivo() {
         return $this->pagEfectivo;
     }
 
@@ -145,8 +132,7 @@ class Pago
      * @param integer $pagCambio
      * @return Pago
      */
-    public function setPagCambio($pagCambio)
-    {
+    public function setPagCambio($pagCambio) {
         $this->pagCambio = $pagCambio;
 
         return $this;
@@ -157,8 +143,8 @@ class Pago
      *
      * @return integer 
      */
-    public function getPagCambio()
-    {
+    public function getPagCambio() {
         return $this->pagCambio;
     }
-    }
+
+}
