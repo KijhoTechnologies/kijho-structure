@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class InfoLicence {
 
     const CODE_PROCESS_START = 0;
+    const CODE_PROCESS_END = 7;
 
     /**
      * @var integer
