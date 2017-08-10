@@ -22,7 +22,6 @@ class OrdenTrabajoPago {
     private $otpCodigo;
 
     /**
-     * @var integer
      *
      * @ORM\ManyToOne(targetEntity="OrdenTrabajo")
      * @ORM\JoinColumn(name="ot_codigo", referencedColumnName="ot_codigo", nullable=false)
@@ -30,15 +29,12 @@ class OrdenTrabajoPago {
     private $otCodigo;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="otp_fecha", type="datetime", nullable=false)
      */
     private $otpFecha;
 
     /**
-     * @var decimal
-     *
+     * 
      * @ORM\Column(name="otp_valor", type="decimal", precision=20, scale=2, nullable=false)
      */
     private $otpValor;
@@ -100,11 +96,11 @@ class OrdenTrabajoPago {
         return $this->otCodigo;
     }
 
-    function getOtpFecha(): \DateTime {
+    function getOtpFecha() {
         return $this->otpFecha;
     }
 
-    function getOtpValor(): decimal {
+    function getOtpValor() {
         return $this->otpValor;
     }
 
@@ -144,11 +140,11 @@ class OrdenTrabajoPago {
         $this->otCodigo = $otCodigo;
     }
 
-    function setOtpFecha(\DateTime $otpFecha) {
+    function setOtpFecha($otpFecha) {
         $this->otpFecha = $otpFecha;
     }
 
-    function setOtpValor(decimal $otpValor) {
+    function setOtpValor($otpValor) {
         $this->otpValor = $otpValor;
     }
 

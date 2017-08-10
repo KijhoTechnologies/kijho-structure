@@ -55,14 +55,14 @@ class OrdenTrabajo
     private $usuCodigo;
 
     /**
-     * @var decimal
+     * 
      *
      * @ORM\Column(name="ot_valor", type="decimal", precision=20, scale=2, nullable=false)
      */
     private $otValor;
     
     /**
-     * @var decimal
+     * 
      *
      * @ORM\Column(name="ot_descuento", type="decimal", precision=20, scale=2, nullable=false)
      */
@@ -70,8 +70,7 @@ class OrdenTrabajo
     
     
     /**
-     * @var decimal
-     *
+     * 
      * @ORM\Column(name="ot_total", type="decimal", precision=20, scale=2, nullable=false)
      */
     private $otTotal;
@@ -91,22 +90,18 @@ class OrdenTrabajo
     private $otFirma;
     
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="ot_fecha_entrega", type="datetime", nullable=false)
      */
     private $otFechaEntrega;
     
     /**
-     * @var \DateTime
+     * 
      *
      * @ORM\Column(name="ot_fecha", type="datetime", nullable=false)
      */
     private $otFecha;
     
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="ot_fecha_pago", type="date", nullable=false)
      */
     private $otFechaPago;
@@ -131,15 +126,15 @@ class OrdenTrabajo
         return $this->usuCodigo;
     }
 
-    function getOtValor(): decimal {
+    function getOtValor() {
         return $this->otValor;
     }
 
-    function getOtDescuento(): decimal {
+    function getOtDescuento() {
         return $this->otDescuento;
     }
 
-    function getOtTotal(): decimal {
+    function getOtTotal() {
         return $this->otTotal;
     }
 
@@ -151,15 +146,15 @@ class OrdenTrabajo
         return $this->otFirma;
     }
 
-    function getOtFechaEntrega(): \DateTime {
+    function getOtFechaEntrega() {
         return $this->otFechaEntrega;
     }
 
-    function getOtFecha(): \DateTime {
+    function getOtFecha() {
         return $this->otFecha;
     }
 
-    function getOtFechaPago(): \DateTime {
+    function getOtFechaPago() {
         return $this->otFechaPago;
     }
 
@@ -183,15 +178,15 @@ class OrdenTrabajo
         $this->usuCodigo = $usuCodigo;
     }
 
-    function setOtValor(decimal $otValor) {
+    function setOtValor($otValor) {
         $this->otValor = $otValor;
     }
 
-    function setOtDescuento(decimal $otDescuento) {
+    function setOtDescuento($otDescuento) {
         $this->otDescuento = $otDescuento;
     }
 
-    function setOtTotal(decimal $otTotal) {
+    function setOtTotal($otTotal) {
         $this->otTotal = $otTotal;
     }
 
@@ -203,16 +198,16 @@ class OrdenTrabajo
         $this->otFirma = $otFirma;
     }
 
-    function setOtFechaEntrega(\DateTime $otFechaEntrega) {
+    function setOtFechaEntrega($otFechaEntrega) {
         $this->otFechaEntrega = $otFechaEntrega;
     }
 
-    function setOtFecha(\DateTime $otFecha) {
+    function setOtFecha($otFecha) {
         $this->otFecha = $otFecha;
     }
 
-    function setOtFechaPago(\DateTime $otFechaPago) {
+    function setOtFechaPago($otFechaPago) {
         $this->otFechaPago = $otFechaPago;
     }
-    
+   
 }

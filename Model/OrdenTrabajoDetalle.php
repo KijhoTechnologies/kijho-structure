@@ -53,14 +53,12 @@ class OrdenTrabajoDetalle {
     private $ortdDescripcion;
 
     /**
-     * @var decimal
      *
      * @ORM\Column(name="otd_valor", type="decimal", precision=20, scale=2, nullable=false)
      */
     private $otdValor;
 
     /**
-     * @var \DateTime
      *
      * @ORM\Column(name="otd_fecha", type="datetime", nullable=false)
      */
@@ -86,11 +84,11 @@ class OrdenTrabajoDetalle {
         return $this->ortdDescripcion;
     }
 
-    function getOtdValor(): decimal {
+    function getOtdValor() {
         return $this->otdValor;
     }
 
-    function getOtdFecha(): \DateTime {
+    function getOtdFecha() {
         return $this->otdFecha;
     }
 
@@ -114,11 +112,11 @@ class OrdenTrabajoDetalle {
         $this->ortdDescripcion = $ortdDescripcion;
     }
 
-    function setOtdValor(decimal $otdValor) {
+    function setOtdValor($otdValor) {
         $this->otdValor = $otdValor;
     }
 
-    function setOtdFecha(\DateTime $otdFecha) {
+    function setOtdFecha($otdFecha) {
         $this->otdFecha = $otdFecha;
     }
 
