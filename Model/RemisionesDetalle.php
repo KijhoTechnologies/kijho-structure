@@ -27,6 +27,13 @@ class RemisionesDetalle {
      * @ORM\Column(name="rem_codigo", type="integer", nullable=false)
      */
     private $remCodigo;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="id_vendedor", type="string", length=100, nullable=true)
+     */
+    private $idVendedor;
 
     /**
      * @var integer
@@ -76,6 +83,21 @@ class RemisionesDetalle {
      * @ORM\Column(name="remd_precio_venta", type="string", length=100, nullable=false)
      */
     private $remdPrecioVenta;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remd_precio_vendido", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $remdPrecioVendido;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remd_descuento", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $remdDescuento;
 
     /**
      * @var string
@@ -272,6 +294,41 @@ class RemisionesDetalle {
      */
     public function getRemdTotal() {
         return $this->remdTotal;
+    }
+    
+    public function setIdVendedor($idVendedor) {
+        $this->idVendedor = $idVendedor;
+
+        return $this;
+    }
+    
+    public function getIdVendedor() {
+        return $this->idVendedor;
+    }
+    
+    public function setRemdPrecioVendido($remdPrecioVendido) {
+        $this->remdPrecioVendido = $remdPrecioVendido;
+
+        return $this;
+    }
+    
+    public function getRemdPrecioVendido() {
+        return $this->remdPrecioVendido;
+    }
+    
+    public function setRemdDescuento($remdDescuento) {
+        $this->remdDescuento = $remdDescuento;
+
+        return $this;
+    }
+    
+    public function getRemdDescuento() {
+        return $this->remdDescuento;
+    }
+    
+    public function getRemdCodigo()
+    {
+        return $this->remdCodigo;
     }
 
 }

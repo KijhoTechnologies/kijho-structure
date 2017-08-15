@@ -45,6 +45,13 @@ class RemisionTipoPago
      * @ORM\Column(name="remtp_valor", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $remtpValor;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remtp_cambioEfectivo", type="decimal", precision=11, scale=3, nullable=false)
+     */
+    private $remtpCambioEfectivo;
 
     /**
      * @var string
@@ -52,6 +59,13 @@ class RemisionTipoPago
      * @ORM\Column(name="remtp_descripcion", type="text", length=65535, nullable=true)
      */
     private $remtpDescripcion;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="remtp_fecha", type="datetime", nullable=true)
+     */
+    private $remtpFecha;
     
     
    /**
@@ -197,6 +211,30 @@ class RemisionTipoPago
     public function getRemtpDescripcion()
     {
         return $this->remtpDescripcion;
+    }
+    
+    public function setRemtpFecha($remtpFecha){
+        
+        $this->remtpFecha = $remtpFecha;
+
+        return $this;
+    }
+
+    public function getRemtpFecha(){
+        
+        return $this->remtpFecha;
+    }
+    
+    public function setRemtpCambioEfectivo($remtpCambioEfectivo){
+        
+        $this->remtpCambioEfectivo = $remtpCambioEfectivo;
+
+        return $this;
+    }
+
+    public function getRemtpCambioEfectivo(){
+        
+        return $this->remtpCambioEfectivo;
     }
     
     

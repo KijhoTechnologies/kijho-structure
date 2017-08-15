@@ -69,7 +69,7 @@ class AbonoOrdenTrabajo {
         return $this->otCodigo;
     }
 
-    function getAotFecha(): \DateTime {
+    function getAotFecha() {
         return $this->aotFecha;
     }
 

@@ -26,7 +26,7 @@ class ProductoCliente
      * Representa el estado del producto, si esta activo 0 o no 1 para el cliente
      * @var boolean
      *
-     * ORM\Column(name="procli_status", type="boolean", nullable=false)
+     * @ORM\Column(name="procli_status", type="boolean", nullable=false)
      */
     private $state;
 

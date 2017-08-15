@@ -170,6 +170,13 @@ class Salida
      * @ORM\Column(name="devolucion_estado", type="boolean", nullable=false, options={"default"=false})
      */
     private $devolucionEstado;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sal_descripcion", type="string", length=300, nullable=true)
+     */
+    private $salDescripcion;
         
     /**
      * @var integer
@@ -654,5 +661,17 @@ class Salida
     public function getSalIvaSave()
     {
         return $this->salIvaSave;
+    }
+    
+    public function setSalDescripcion($salDescripcion)
+    {
+        $this->salDescripcion = $salDescripcion;
+
+        return $this;
+    }
+    
+    public function getSalDescripcion()
+    {
+        return $this->salDescripcion;
     }
 }

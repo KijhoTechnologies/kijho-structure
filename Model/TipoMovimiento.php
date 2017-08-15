@@ -87,6 +87,13 @@ class TipoMovimiento
      * @ORM\Column(name="tm_tarifa_rete_ica", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $tmTarifaReteIca;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean",nullable=true, options={"default"=false})
+     */
+    private $deleted;
 
 
     /**
@@ -304,5 +311,17 @@ class TipoMovimiento
     public function getTmTarifaReteIca()
     {
         return $this->tmTarifaReteIca;
+    }
+    
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 }

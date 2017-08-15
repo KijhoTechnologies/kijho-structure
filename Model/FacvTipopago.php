@@ -51,6 +51,70 @@ class FacvTipopago {
      * @ORM\Column(name="fvtp_descripcion", type="text", nullable=true)
      */
     private $fvtpDescripcion;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fvtp_cambioEfectivo", type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $fvtpCambioEfectivo;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fvtp_proceso", type="integer", nullable=true)
+     */
+    private $fvtpProceso;
+    
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fvtp_fecha", type="datetime", nullable=true)
+     */
+    private $fvtpFecha;
+    
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="fvtp_tipoTarjeta", type="string", length=200, nullable=false)
+     */
+    private $fvtpTipoTarjeta;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fvtp_tarjeta", type="string", length=200, nullable=false)
+     */
+    private $fvtpTarjeta;
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="fvtp_codVoucher", type="string", length=200, nullable=false)
+     */
+    private $fvtpCodVoucher;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fvtp_tipoBono", type="string", length=200, nullable=false)
+     */
+    private $fvtpTipoBono;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fvtp_consecutivo", type="string", length=200, nullable=false)
+     */
+    private $fvtpConsecutivo;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fvtp_nombreBanco", type="string", length=200, nullable=false)
+     */
+    private $fvtpNombreBanco;
 
     //constructor de la instancia
     public function __construct(FacturaVentas $saleInvoice) {
@@ -149,6 +213,96 @@ class FacvTipopago {
      */
     public function getFvtpDescripcion() {
         return $this->fvtpDescripcion;
+    }    
+    
+    public function setFvtpCambioEfectivo($fvtpCambioEfectivo) {
+        $this->fvtpCambioEfectivo = $fvtpCambioEfectivo;
+
+        return $this;
+    }
+    
+    public function getFvtpCambioEfectivo() {
+        return $this->fvtpCambioEfectivo;
+    }    
+    
+    public function setFvtpProceso($fvtpProceso) {
+        $this->fvtpProceso = $fvtpProceso;
+
+        return $this;
+    }
+    
+    public function getFvtpProceso() {
+        return $this->fvtpProceso;
+    }
+    
+    public function setFvtpFecha($fvtpFecha) {
+        $this->fvtpFecha = $fvtpFecha;
+
+        return $this;
+    }
+    
+    public function getFvtpFecha() {
+        return $this->fvtpFecha;
+    }
+    
+    public function setFvtpTipoTarjeta($fvtpTipoTarjeta) {
+        $this->fvtpTipoTarjeta = $fvtpTipoTarjeta;
+
+        return $this;
+    }
+    
+    public function getFvtpTipoTarjeta() {
+        return $this->fvtpTipoTarjeta;
+    }
+    
+    public function setFvtpTarjeta($fvtpTarjeta) {
+        $this->fvtpTarjeta = $fvtpTarjeta;
+
+        return $this;
+    }
+    
+    public function getFvtpTarjeta() {
+        return $this->fvtpTarjeta;
+    }
+    
+    public function setFvtpCodVoucher($fvtpCodVoucher) {
+        $this->fvtpCodVoucher = $fvtpCodVoucher;
+
+        return $this;
+    }
+    
+    public function getFvtpCodVoucher() {
+        return $this->fvtpCodVoucher;
+    }
+    
+    public function setFvtpTipoBono($fvtpTipoBono) {
+        $this->fvtpTipoBono = $fvtpTipoBono;
+
+        return $this;
+    }
+    
+    public function getFvtpTipoBono() {
+        return $this->fvtpTipoBono;
+    }
+    
+    public function setFvtpConsecutivo($fvtpConsecutivo) {
+        $this->fvtpConsecutivo = $fvtpConsecutivo;
+
+        return $this;
+    }
+    
+    public function getFvtpConsecutivo() {
+        return $this->fvtpConsecutivo;
+    }
+    
+    public function setFvtpNombreBanco($fvtpNombreBanco) {
+        $this->fvtpNombreBanco = $fvtpNombreBanco;
+
+        return $this;
+    }
+    
+    public function getFvtpNombreBanco() {
+        return $this->fvtpNombreBanco;
     }
 
 }

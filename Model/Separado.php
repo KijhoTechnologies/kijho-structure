@@ -221,6 +221,20 @@ class Separado {
      * @ORM\Column(name="sep_fecha_pago", type="date", nullable=true)
      */
     private $sepFechaPago;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sep_descuentoProducto", type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $sepDescuentoProducto;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sep_descuentoCliente", type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $sepDescuentoCliente;
 
     function getSepCodigo() {
         return $this->sepCodigo;
@@ -337,6 +351,12 @@ class Separado {
     function getSepFechaPago() {
         return $this->sepFechaPago;
     }
+    function getSepDescuentoProducto() {
+        return $this->sepDescuentoProducto;
+    }
+    function getSepDescuentoCliente() {
+        return $this->sepDescuentoCliente;
+    }
 
     function setSepCodigo($sepCodigo) {
         $this->sepCodigo = $sepCodigo;
@@ -452,6 +472,12 @@ class Separado {
 
     function setSepFechaPago($sepFechaPago) {
         $this->sepFechaPago = $sepFechaPago;
+    }
+    function setSepDescuentoProducto($sepDescuentoProducto) {
+        $this->sepDescuentoProducto = $sepDescuentoProducto;
+    }
+    function setSepDescuentoCliente($sepDescuentoCliente) {
+        $this->sepDescuentoCliente = $sepDescuentoCliente;
     }
 
 }
