@@ -99,5 +99,46 @@ class ProveedorRepository extends EntityRepository {
         $client = $stmt->fetchAll();
         return $client;
     }
+    
+    function purchasingAccountingReport($fechaInicio,$fechaFin){  
+        $sql ="SELECT f.facp_codigo,
+                      f.facp_valor,
+                      f.facp_fecha,
+                      f.descuento,
+                      f.facp_estado,
+                      f.facp_reteFuente,
+                      f.facp_num_fac_pr,
+                      f.facp_iva16,
+                      f.facp_iva10,
+                      f.facp_iva5,
+                      f.ajuste_peso,
+                      p.prov_nombre,
+                      p.prov_nit,
+                      pr.prod_nombre,
+                      e.ent_cantidad,
+                      e.ent_subtotal,
+                      e.ent_iva_16,
+                      e.ent_iva_10,
+                      e.ent_iva_5,
+                      e.ent_exento,
+                      e.ent_excluido,
+                      e.ent_precio_compra,
+                      fpp.fpp_resta
+                    FROM  factura_proveedores f left join  facturas_por_pagar fpp on f.facp_codigo = fpp.facp_codigo,
+                    proveedor p, entrada e, producto pr 
+                    WHERE f.prov_codigo = p.prov_codigo
+                    AND e.facp_codigo = f.facp_codigo
+                    AND e.prod_codigo = pr.prod_codigo
+                    AND  f.facp_fecha >= '".$fechaInicio."' 
+                    AND  f.facp_fecha <= '".$fechaFin."'
+                    GROUP BY ent_codigo";
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        return $client;
+    
+    }
 
 }
