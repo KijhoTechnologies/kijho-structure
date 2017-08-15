@@ -5,6 +5,7 @@ namespace Kijho\StructureBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityRepository;
 use DateTime;
+
 /**
  * Description of ProductoRepository
  *
@@ -433,7 +434,7 @@ class FacturaVentasRepository extends EntityRepository {
             } elseif ($tipo_vendedor == 2) {
 
                 if ($vendedor_id == 0) {// Busqueda de todas las facturas realizadas con usuarios vendedores y administrativos
-                    $where_vendedor = ' AND (fv.facvVendedor = 0 OR fv.facvVendedor IS NULL)';
+                    $where_vendedor = ' AND (fv.facvVendedor = 0 OR fv.facvVendedor IS NULL OR fv.facvVendedor > 0)';
                 } elseif ($vendedor_id > 0) {//Facturas vendidas por usuarios con roll de vendedor
 //                    return "llgea";
                     $where_vendedor = ' AND (fv.usuCodigo = :vendedor AND (fv.facvVendedor = 0 OR fv.facvVendedor IS NULL))';
@@ -736,6 +737,136 @@ class FacturaVentasRepository extends EntityRepository {
               FROM factura_ventas fv LEFT JOIN cliente c ON fv.cli_codigo = c.cli_codigo LEFT JOIN usuario u ON fv.usu_codigo = u.usu_codigo WHERE facv_anulada ='no' AND only_change = 0 AND u.usu_delete = 0 AND facv_fecha BETWEEN '" . $fecha . "'"
                 . " AND '" . $fecha_fin . "'" . $where_cli_codigo . $where_barrio . $where_zona . $where_municipio . $where_departamento . $where_ruta . $where_vendedor . $order_by;
         $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
+
+    function customerSalesUtility($fecha_inicio, $fecha_fin, $cli_codigo = 0) {
+
+        $where = "";
+        if ($cli_codigo > 0) {
+            $where = " AND fv.cli_codigo = " . $cli_codigo . " AND c.cli_codigo =" . $cli_codigo . " GROUP BY sal_fecha ";
+        } else {
+            $where = " AND fv.cli_codigo = c.cli_codigo GROUP BY c.cli_codigo ORDER BY cli_nombre_empresa";
+        }
+
+        $sql = "SELECT sum(sal_precio_compra*sal_cantidad) AS cant1, 
+                       sum(sal_precio_venta*sal_cantidad) AS cant2,
+                       cli_nombre_empresa 
+                FROM   salida AS s, factura_ventas AS fv, cliente AS c 
+                WHERE  sal_fecha>='" . $fecha_inicio . "' 
+                       AND sal_fecha<='" . $fecha_fin . "' 
+                       AND s.facv_codigo = fv.facv_codigo " . $where . " ;";
+
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
+
+    /**
+     * listaFacturasVentaTarjetaCredito() -
+     *
+     * @param int $inicio
+     * @param int $cantidad
+     * @return $listaFactura
+     */
+    public function listInvoicesSaleTargetCreditTwoDates($fecha1, $fecha2) {
+
+        $sql = "SELECT fv.facv_codigo, 
+                           fv.cli_codigo,
+                           fv.facv_vendedor,
+                           fv.usu_codigo, 
+                           fv.facv_fecha, 
+                           fv.facv_hora, 
+                           fv.facv_total, 
+                           fv.facv_descuento, 
+                           fv.facv_iva, 
+                           fv.facv_iva16, 
+                           fv.facv_iva10, 
+                           fv.facv_iva5, 
+                           fv.facv_iva_exento, 
+                           fv.facv_monto_tarjeta, 
+                           fv.nombre_tarjeta, 
+                           fvtp.fvtp_valor, 
+                           fvtp.fvtp_tipoTarjeta, 
+                           c.cli_nombre_empresa,
+                           c.cli_nombre_comercial,
+                           c.cli_identificacion,
+                           u.usu_nombre, 
+                           u.usu_apellido,
+                           SUM(s.sal_cantidad) AS cantidad
+                    FROM factura_ventas fv, facv_tipopago fvtp, cliente c, usuario u, salida s 
+                    WHERE fv.cli_codigo = c.cli_codigo 
+                    AND fv.usu_codigo = u.usu_codigo
+                    AND fv.facv_codigo = s.facv_codigo
+                    AND fv.facv_codigo = fvtp.fvtp_fvcodigo    
+                    AND fvtp.fvtp_tpcodigo=2
+                    AND fv.facv_fecha >= '" . $fecha1 . "' 
+                    AND fv.facv_fecha <= '" . $fecha2 . "'
+                    GROUP BY fv.facv_codigo  
+                    ORDER BY fv.facv_codigo DESC ";
+
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
+
+    public function listInvoicesSaleTargetCreditTwoDates1($facv_codigo) {
+
+
+        $sql = "SELECT sum(sal_precio_compra*sal_cantidad) AS cant1,
+                                                     sum(sal_valor_vendido*sal_cantidad) AS cant2,
+                                                     ROUND(SUM(sal_precio_compra * sal_cantidad / CASE WHEN sal_iva_16 > 0 THEN 1.16 WHEN sal_iva_10 > 0 THEN 1.10 WHEN sal_iva_5 > 0 THEN 1.05 ELSE 0 END),2) cant3,
+                                                     SUM(sal_subTotal * sal_cantidad) AS cant4 
+                                                     FROM salida WHERE facv_codigo = " . $facv_codigo . " GROUP BY facv_codigo";
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+
+        /*
+         * Valida si existe un vendedor asociado a la venta, de ser así, se obtiene el nombre y apellido
+         * de este en tabla vendedor. En caso contrario, se obtiene el nombre de usuario asociado a la venta
+         * de la tabla usuario
+         */
+//            if ($row['facv_vendedor'] != "") {
+//                $sql_vendedor = "SELECT CONCAT(vend_nombre,' ',vend_apellido)AS v FROM vendedor"
+//                        . " WHERE id_vendedor = " . $row['facv_vendedor'];
+//                if ($result = executeQuery($sql_vendedor)) {
+//                    if ($row_vendedor = mysqli_fetch_array($result)) {
+//                        $listaFactura[$i]->responsableVenta = $row_vendedor['v'];
+//                    }
+//                }
+//            } else {
+//
+//                $listaFactura[$i]->responsableVenta = $listaFactura[$i]->nomUsuario;
+//            }
+    }
+
+    function resumenVentasContado($fecha_inicio, $fecha_fin) {
+        $sql = "SELECT sum(facv_total) AS total FROM factura_ventas WHERE facv_estado = 1 AND facv_fecha>='" . $fecha_inicio . "' AND facv_fecha<='" . $fecha_fin . "'";
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
+    
+      function resumenVentasCredito($fecha_inicio, $fecha_fin) {
+        $sql = "SELECT sum(facv_total) AS total FROM factura_ventas WHERE facv_estado = 2 AND facv_fecha>='" . $fecha_inicio . "' AND facv_fecha<='" . $fecha_fin . "'";
+          $stmt = $this->getEntityManager()
                 ->getConnection()
                 ->prepare($sql);
         $stmt->execute();

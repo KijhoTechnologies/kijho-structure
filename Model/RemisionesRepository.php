@@ -126,7 +126,7 @@ class RemisionesRepository extends EntityRepository {
         $sql2 = 'SELECT sum( rema_abono ) AS abono
                      FROM abono_remisiones_ventas
                      WHERE rem_codigo = ' . $cod;
-        
+
         $stmt = $this->getEntityManager()
                 ->getConnection()
                 ->prepare($sql2);
@@ -134,7 +134,6 @@ class RemisionesRepository extends EntityRepository {
         $data = $stmt->fetchAll();
 
         return $data;
-        
     }
 
     /** Funcion encargada de listar la remisiones en un rango de fechas bajo unos criterios de busqueda
@@ -194,6 +193,43 @@ class RemisionesRepository extends EntityRepository {
 				' . $where . '
 				GROUP BY rem.rem_codigo ORDER BY rem.rem_codigo DESC';
 //        echo $sql;die();
+
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
+
+    public function listRemissionsTwoDate($fecha1, $fecha2, $estado) {
+
+        $sql = "SELECT re.rem_codigo, " .
+                "re.cli_codigo, " .
+                "re.usu_codigo,  " .
+                "re.rem_fecha,  " .
+                "re.rem_hora, " .
+                "re.rem_total,  " .
+                "re.rem_descuento, " .
+                "c.cli_nombre_empresa, " .
+                "c.cli_nombre_comercial, " .
+                "c.cli_identificacion, " .
+                "u.usu_nombre,  " .
+                "u.usu_apellido, " .
+                "SUM(rd.remd_cantidad) AS cantidad, " .
+                "sum(remd_precio_compra * remd_cantidad) AS cant1, " .
+                "sum(remd_precio_venta * remd_cantidad) AS cant2 " .
+                "FROM remisiones re, cliente c, usuario u, remisiones_detalle rd
+                WHERE re.cli_codigo = c.cli_codigo 
+                AND re.usu_codigo = u.usu_codigo
+                AND re.rem_codigo = rd.rem_codigo
+                AND re.rem_anulada ='No' 
+                AND re.rem_estado = '$estado' 
+                AND re.rem_fecha >= '$fecha1' 
+                AND re.rem_fecha <= '$fecha2'
+                AND re.rem_anulada = 'No'
+                GROUP BY re.rem_codigo 
+                ORDER BY re.rem_codigo DESC ";
 
         $stmt = $this->getEntityManager()
                 ->getConnection()

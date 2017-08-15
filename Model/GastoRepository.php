@@ -74,4 +74,35 @@ class GastoRepository extends EntityRepository {
         return $client;
     }
 
+    public function thirdPartyExpensesList($fecha1, $fecha2) {
+        $sql = "SELECT g.gas_codigo,
+                       g.gas_fecha ,
+                       gd.gas_codigo_contable,
+                       tm.tm_descripcion,
+                       g.gas_nit,
+                       g.gas_subtotal,
+                       gd.valor ,
+                       gd.iva5,
+                       gd.iva10,
+                       gd.iva16,
+                       gd.gas_exento,
+                       gd.gas_excluido,
+                       gd.subtotal,
+                       g.gas_persona ,
+                       gd.concepto  
+                      FROM gasto g, gasto_detalle gd, tipo_movimiento tm
+                      WHERE gd.gas_codigo_contable = tm.tm_codigo_contable
+                      AND  g.gas_codigo = gd.gasfk_codigo
+                      AND  g.gas_fecha >= '" . $fecha1 . "' 
+					  AND g.gas_fecha <= '" . $fecha2 . "'
+                      ORDER BY gas_codigo ASC";
+//         echo $sql;die;
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $client = $stmt->fetchAll();
+        return $client;
+    }
+
 }
