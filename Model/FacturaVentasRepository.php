@@ -873,5 +873,43 @@ class FacturaVentasRepository extends EntityRepository {
         $data = $stmt->fetchAll();
         return $data;
     }
+    
+    function accountingReportSales($fecha1, $fecha2) {
+
+        $sql = "SELECT fv.facv_codigo, 
+                           fv.facv_fecha,
+                           p.prod_nombre,  
+                           fv.facv_descuento, 
+                           fv.facv_estado,
+                           fv.facv_total,
+                           fv.facv_iva16,
+                           fv.facv_iva10,
+                           fv.facv_iva5,
+                           fpc.fpc_resta,
+                           fv.facv_retencion,
+                           c.cli_identificacion,
+                           s.sal_iva_16,
+                           s.sal_iva_10,
+                           s.sal_iva_5,
+                           s.sal_exento,
+                           s.sal_excluido,
+                           s.sal_total, 
+                           s.sal_subtotal,
+                           s.sal_cantidad
+                    FROM factura_ventas fv left join facturas_por_cobrar fpc on fv.facv_codigo = fpc.facv_codigo,
+                    salida s , producto p , cliente c 
+                    WHERE fv.facv_codigo = s.facv_codigo
+                    AND s.prod_codigo = p.prod_codigo
+                    AND fv.cli_codigo = c.cli_codigo
+                    AND fv.facv_fecha >= '" . $fecha1 . "' 
+                    AND fv.facv_fecha <= '" . $fecha2 . "'";
+//    die($sql);
+            $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
 
 }
