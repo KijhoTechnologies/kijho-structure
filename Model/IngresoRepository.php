@@ -36,7 +36,6 @@ class IngresoRepository extends EntityRepository {
                 tipo_movimiento tm
                 WHERE  i.ing_movimiento_contable = tm.tm_codigo
                 AND i.ing_fecha >= '" . $fechaInicio . "'  AND i.ing_fecha <= '" . $fechaFin . "'";
-
         $stmt = $this->getEntityManager()
                 ->getConnection()
                 ->prepare($sql);
@@ -72,5 +71,7 @@ class IngresoRepository extends EntityRepository {
         $client = $stmt->fetchAll();
         return $client;
     }
+    
+    
 
 }
