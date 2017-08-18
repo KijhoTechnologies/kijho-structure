@@ -139,7 +139,7 @@ class ProductoRepository extends EntityRepository {
         if ($fechaInicio != '' && $fechaFin != '') {
             $AND .= "AND s.sal_fecha >= '$fechaInicio' AND s.sal_fecha <= '$fechaFin' ";
         }
-        if ($categoria > 0 || $categoria != '') {
+        if ($categoria > 0) {
             $AND .= " AND c.cat_codigo = $categoria ";
         }
 
