@@ -134,7 +134,6 @@ class ProductoRepository extends EntityRepository {
     }
 
     function SeeOutputs($fechaInicio, $fechaFin, $categoria, $usuario, $tipo = "") {
-
         $AND = '';
         if ($fechaInicio != '' && $fechaFin != '') {
             $AND .= "AND s.sal_fecha >= '$fechaInicio' AND s.sal_fecha <= '$fechaFin' ";
