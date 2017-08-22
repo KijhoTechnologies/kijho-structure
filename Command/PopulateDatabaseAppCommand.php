@@ -286,7 +286,8 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
             array('mod_name' => 'Anular orden trabajo', 'mod_name_en' => 'Remove work order', 'mod_url' => 'anularOrdenTrabajo.php', 'mod_order' => '101', 'mod_son' => '100'),
             array('mod_name' => 'Modificar Orden de  trabajo', 'mod_name_en' => 'Modify work order', 'mod_url' => 'modificarOrdenTrabajo.php', 'mod_order' => '102', 'mod_son' => '100'),
             array('mod_name' => 'Reporte orden de trabajo', 'mod_name_en' => 'Work order report', 'mod_url' => 'reporte_ordenTrabajo.php', 'mod_order' => '25', 'mod_son' => '15'),
-            array('mod_name' => 'Tercerizacion de Reportes', 'mod_name_en' => 'Outsourcing of reports', 'mod_url' => 'reportes_tercerizacion.php', 'mod_order' => '37', 'mod_son' => '15')
+            array('mod_name' => 'Tercerizacion de Reportes', 'mod_name_en' => 'Outsourcing of reports', 'mod_url' => 'reportes_tercerizacion.php', 'mod_order' => '37', 'mod_son' => '15'),
+            array('mod_name' => 'Reporte Traslados de caja', 'mod_name_en' => 'Box Transfers Report', 'mod_url' => 'reporte_traslado_caja.php', 'mod_order' => '38', 'mod_son' => '15')
         );
 
         foreach ($arrayModule as $module) {
