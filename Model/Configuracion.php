@@ -646,6 +646,13 @@ class Configuracion {
      * @ORM\Column(name="conf_fecha_vencimiento", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
     private $confFechaVencimiento;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conf_tituloFactura", type="string", length=100, options={"default" : "FACTURA DE VENTA"}, nullable=true)
+     */
+    private $confTituloFactura;
 
     /**
      * Get confCodigo
@@ -2428,6 +2435,14 @@ class Configuracion {
 
     function setConfPosicionLogoPdf($confPosicionLogoPdf) {
         $this->confPosicionLogoPdf = $confPosicionLogoPdf;
+    }
+    
+    function getConfTituloFactura() {
+        return $this->confTituloFactura;
+    }
+
+    function setConfTituloFactura($confTituloFactura) {
+        $this->confTituloFactura = $confTituloFactura;
     }
 
 
