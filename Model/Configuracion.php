@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Configuracion
  *
  * @ORM\Table(name="configuracion")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ConfiguracionRepository")
  */
 class Configuracion {
 
@@ -335,7 +335,7 @@ class Configuracion {
     /**
      * @var string
      *
-     * @ORM\Column(name="conf_tipoUtilidad", type="string", nullable=true)
+     * @ORM\Column(name="conf_tipoUtilidad", type="string", options={"default" : "MATEMATICO"}, nullable=true)
      */
     private $confTipoutilidad;
 
@@ -643,7 +643,7 @@ class Configuracion {
     /**
      * @var string
      *
-     * @ORM\Column(name="conf_fecha_vencimiento", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
+     * @ORM\Column(name="conf_fecha_vencimiento", type="string", length=100, options={"default" : "Activado"}, nullable=true)
      */
     private $confFechaVencimiento;
     
@@ -653,6 +653,43 @@ class Configuracion {
      * @ORM\Column(name="conf_tituloFactura", type="string", length=100, options={"default" : "FACTURA DE VENTA"}, nullable=true)
      */
     private $confTituloFactura;
+
+
+    /*
+     * Atributos para tecnical service app
+     */
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conf_email_1_reporte", type="string", length=100,  nullable=true)
+     */
+    private $confEmail1Reporte;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conf_email_2_reporte", type="string", length=100,  nullable=true)
+     */
+    private $confEmail2Reporte;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conf_mensaje_invent_negati", type="string", length=100, options={"default" : "Desactivado"},  nullable=true)
+     */
+    private $confMensajeInventNegati;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conf_historial_abono", type="string", length=100, options={"default" : "Activado"},  nullable=true)
+     */
+    private $confHistorialAbono;
+
+    /*
+     * FIN BLOQUE Atributos para tecnical service app
+     */
 
     /**
      * Get confCodigo
@@ -2419,8 +2456,7 @@ class Configuracion {
     function setConfFechaVencimiento($confFechaVencimiento) {
         $this->confFechaVencimiento = $confFechaVencimiento;
     }
-    
-    
+
     function getConfEstadoLogoPdf() {
         return $this->confEstadoLogoPdf;
     }
@@ -2445,6 +2481,36 @@ class Configuracion {
         $this->confTituloFactura = $confTituloFactura;
     }
 
+    function getConfEmail1Reporte() {
+        return $this->confEmail1Reporte;
+    }
 
+    function getConfEmail2Reporte() {
+        return $this->confEmail2Reporte;
+    }
+
+    function setConfEmail1Reporte($confEmail1Reporte) {
+        $this->confEmail1Reporte = $confEmail1Reporte;
+    }
+
+    function setConfEmail2Reporte($confEmail2Reporte) {
+        $this->confEmail2Reporte = $confEmail2Reporte;
+    }
+
+    function getConfMensajeInventNegati() {
+        return $this->confMensajeInventNegati;
+    }
+
+    function setConfMensajeInventNegati($confMensajeInventNegati) {
+        $this->confMensajeInventNegati = $confMensajeInventNegati;
+    }
+
+    function getConfHistorialAbono() {
+        return $this->confHistorialAbono;
+    }
+
+    function setConfHistorialAbono($confHistorialAbono) {
+        $this->confHistorialAbono = $confHistorialAbono;
+    }
 
 }

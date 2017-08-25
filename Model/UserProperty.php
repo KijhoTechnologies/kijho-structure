@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * UserProperty
  *
  * @ORM\Table(name="user_property")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UserPropertyRepository")
  */
 class UserProperty
 {

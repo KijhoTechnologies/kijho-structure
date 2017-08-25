@@ -4,6 +4,7 @@ namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Usuario
@@ -11,12 +12,15 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="usuario")
  * @ORM\Entity(repositoryClass="UsuarioRepository")
  */
-class Usuario {
+class Usuario implements UserInterface {
 
     const USER_TIPE_ADMIN = 1;
     const USER_TIPE_SELLER = 2;
     const USER_TIPE_ADMINSPECIAL = 3;
     const USER_TIPE_SUPERADMIN = 4;
+    
+    
+    const USER_REQUIERED_ACCESS = 1;
 
     /**
      * @var integer
@@ -318,4 +322,31 @@ class Usuario {
         $this->userZone = $userZone;
     }
 
+    //Implementacion de la interfaz de roles
+    public function equals(UserInterface $users) {
+        return $this->getUsuLogin() == $users->getUsername();
+    }
+
+    public function eraseCredentials() {
+        return false;
+    }
+
+    public function getRoles() {
+        return array("ROLE_USUARIO");
+//        return array($this->getRole());
+    }
+
+    public function getUsername() {
+        return $this->getUsuLogin();
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function getPassword() {
+        return $this->usuPass;
+    }
+
+    //Fin de la definicion de clases de la interface de roles
 }

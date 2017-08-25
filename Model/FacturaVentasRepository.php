@@ -864,7 +864,7 @@ class FacturaVentasRepository extends EntityRepository {
         return $data;
     }
     
-      function resumenVentasCredito($fecha_inicio, $fecha_fin) {
+    function resumenVentasCredito($fecha_inicio, $fecha_fin) {
         $sql = "SELECT sum(facv_total) AS total FROM factura_ventas WHERE facv_estado = 2 AND facv_fecha>='" . $fecha_inicio . "' AND facv_fecha<='" . $fecha_fin . "'";
           $stmt = $this->getEntityManager()
                 ->getConnection()
@@ -873,7 +873,7 @@ class FacturaVentasRepository extends EntityRepository {
         $data = $stmt->fetchAll();
         return $data;
     }
-    
+
     function accountingReportSales($fecha1, $fecha2) {
 
         $sql = "SELECT fv.facv_codigo, 
@@ -903,7 +903,6 @@ class FacturaVentasRepository extends EntityRepository {
                     AND fv.cli_codigo = c.cli_codigo
                     AND fv.facv_fecha >= '" . $fecha1 . "' 
                     AND fv.facv_fecha <= '" . $fecha2 . "'";
-//    die($sql);
             $stmt = $this->getEntityManager()
                 ->getConnection()
                 ->prepare($sql);
@@ -912,4 +911,68 @@ class FacturaVentasRepository extends EntityRepository {
         return $data;
     }
 
-}
+    public function listarClienteFacturasAtrasadas($buscar = '', $order_by = '', $inicio = 0, $cantidad = 0) {
+
+
+        $where = '';
+        if ($buscar != '')
+            $where .= " AND (cli_nombre_empresa LIKE '%" . $buscar . "%' OR cli_identificacion LIKE '%" . $buscar . "%' OR cli_nombre_apellido LIKE '%" . $buscar . "%' OR cli_direccion LIKE '%" . $buscar . "%' OR cli_ciudad LIKE '%" . $buscar . "%' OR cli_telefono LIKE '%" . $buscar . "%' OR cli_depto LIKE '%" . $buscar . "%')";
+
+        if ($order_by == '')
+            $order_by = ' ORDER BY cli_nombre_empresa ASC';
+
+        if ($inicio == 0 && $cantidad == 0)
+            $sql = "SELECT f.facv_codigo, f.facv_total, f.facv_fecha, fc.fpc_abono, f.facv_hora, c.cli_codigo, c.cli_nombre_apellido, c.cli_nombre_empresa, fc.fpc_resta, f.facv_fecha_pago FROM factura_ventas f, cliente c,facturas_por_cobrar fc WHERE c.cli_codigo = f.cli_codigo AND f.facv_codigo = fc.facv_codigo AND fc.fpc_resta > 0 AND facv_fecha_pago < '" . date('Y-m-d') . "' " . $where . " " . $order_by;
+        else
+            $sql = "SELECT f.facv_codigo, f.facv_total, f.facv_fecha, fc.fpc_abono, f.facv_hora, c.cli_codigo, c.cli_nombre_apellido, c.cli_nombre_empresa, fc.fpc_resta, f.facv_fecha_pago FROM factura_ventas f, cliente c,facturas_por_cobrar fc WHERE c.cli_codigo = f.cli_codigo AND f.facv_codigo = fc.facv_codigo AND fc.fpc_resta > 0 AND facv_fecha_pago < '" . date('Y-m-d') . "' " . $where . " " . $order_by . " LIMIT " . $inicio . "," . $cantidad;
+
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $invoiceList = $stmt->fetchAll();
+
+
+
+        $arrInvoiceListResult = array_map(function($invoiceList) {
+            $abono = $this->totalAbono($invoiceList['facv_codigo']);
+
+            if (isset($abono[0])) {
+                $totalAbono = $abono[0]['abono'];
+            } else {
+                $totalAbono = "0";
+            }
+
+            return array(
+                'codigo' => $invoiceList['facv_codigo'],
+                'codigoGenerado' => $invoiceList['facv_codigo'],
+                'valor' => $invoiceList['facv_total'],
+                'fecha' => $invoiceList['facv_fecha'],
+                'hora' => $invoiceList['facv_hora'],
+                'resta' => $invoiceList['fpc_resta'],
+                'abono' => $invoiceList['fpc_abono'],
+                'cli_nombre_empresa' => $invoiceList['cli_nombre_empresa'],
+                'nombreCliente' => $invoiceList['cli_nombre_apellido'],
+                'codCliente' => $invoiceList['cli_codigo'],
+                'diasDemora' => '123',
+                'fechaVencimiento' => $invoiceList['facv_fecha_pago'],
+                'totalAbonado' => $totalAbono
+            );
+        }, $invoiceList);
+
+        return $arrInvoiceListResult;
+    }
+
+    public function totalAbono($factura) {
+        $sql = "SELECT sum(faca_abono)AS abono FROM  abono_facturacredito_ventas WHERE `facv_codigo` = " . $factura;
+
+
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $consulta = $stmt->fetchAll();
+
+        return $consulta;
+    }
+ }

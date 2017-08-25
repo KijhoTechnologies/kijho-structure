@@ -254,4 +254,114 @@ class ProductoRepository extends EntityRepository {
         return $data;
     }
 
+    function utilityProductsAll($fecha_inicio, $fecha_fin, $usuario = '', $vendedor = '') {
+        //        $usuario = 1;
+        $where_usuario = '';
+        if ($usuario != '' && $usuario != 0) {
+            $where_usuario = ' AND fv.usu_codigo =' . $usuario;
+        }
+
+//        $vendedor = 9;
+        $where_vendedor = '';
+        if ($vendedor != '' && $vendedor != 0) {
+            $where_vendedor = ' AND fv.facv_vendedor =' . $vendedor;
+        }
+
+        $sql = "(SELECT sum(sal_precio_compra*sal_cantidad) AS cant1, 
+                        sum(sal_precio_venta*sal_cantidad) AS cant2, 
+                        sum(sal_cantidad) AS cant3, 
+                        cli_nombre_empresa, 
+                        prod_nombre, prod_inventario 
+                 FROM   salida AS s, factura_ventas AS fv, cliente AS c, producto AS p
+                 WHERE sal_fecha>='$fecha_inicio' AND sal_fecha<='$fecha_fin' 
+                       AND s.devolucion = 0
+                       AND s.facv_codigo = fv.facv_codigo AND fv.cli_codigo = c.cli_codigo 
+                       AND s.prod_codigo = p.prod_codigo" . $where_usuario . $where_vendedor
+                . " GROUP BY p.prod_codigo)";
+
+        $sql .= ' UNION ';
+
+        $sql .= "(SELECT sum(facfvd_precio_compra*facfvd_cantidad) AS cant1, 
+                         sum(facfvd_precio_venta*facfvd_cantidad) AS cant2, 
+                         sum(facfvd_cantidad) AS cant3, 
+                         cli_nombre_empresa, prod_nombre, prod_inventario 
+                  FROM   factura_fisica_venta_detalle AS s, factura_fisica_venta AS fv, cliente AS c, producto AS p 
+                         WHERE facfvd_fecha>='$fecha_inicio' AND facfvd_fecha<='$fecha_fin' 
+                         AND s.facfv_codigo = fv.facfv_codigo AND fv.cli_codigo = c.cli_codigo 
+                         AND s.prod_codigo = p.prod_codigo" . $where_usuario . " GROUP BY p.prod_codigo)";
+//        die($sql);
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
+
+    function utilityProducts($fecha_inicio, $fecha_fin, $prod_codigo, $usuario = '', $vendedor = '') {
+        $usuario = 1;
+        $where_usuario = '';
+        if ($usuario != '' && $usuario != 0) {
+            $where_usuario = ' AND fv.usu_codigo =' . $usuario;
+        }
+
+        $vendedor = 9;
+        $where_vendedor = '';
+        if ($vendedor != '' && $vendedor != 0) {
+            $where_vendedor = ' AND fv.facv_vendedor =' . $vendedor;
+        }
+
+        $sql = "(SELECT sum(sal_precio_compra*sal_cantidad) AS cant1, sum(sal_precio_venta*sal_cantidad) AS cant2, sum(sal_cantidad) AS cant3, cli_nombre_empresa, prod_nombre FROM salida AS s, factura_ventas AS fv, cliente AS c, producto AS p WHERE sal_fecha>='" .
+                $fecha_inicio . "' AND sal_fecha<='" . $fecha_fin .
+                "' AND s.devolucion = 0 AND s.facv_codigo = fv.facv_codigo AND fv.cli_codigo = c.cli_codigo AND s.prod_codigo = p.prod_codigo AND s.prod_codigo = " .
+                $prod_codigo . $where_usuario . $where_vendedor . " GROUP BY c.cli_codigo)";
+        $sql .= ' UNION ';
+        $sql .= "(SELECT sum(facfvd_precio_compra*facfvd_cantidad) AS cant1, sum(facfvd_precio_venta*facfvd_cantidad) AS cant2, sum(facfvd_cantidad) AS cant3, cli_nombre_empresa, prod_nombre FROM factura_fisica_venta_detalle AS s, factura_fisica_venta AS fv, cliente AS c, producto AS p WHERE facfvd_fecha>='" .
+                $fecha_inicio . "' AND facfvd_fecha<='" . $fecha_fin .
+                "' AND s.facfv_codigo = fv.facfv_codigo AND fv.cli_codigo = c.cli_codigo AND s.prod_codigo = p.prod_codigo AND s.prod_codigo = " .
+                $prod_codigo . $where_usuario . " GROUP BY c.cli_codigo)";
+
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
+
+    function inventarioAgotado() {
+
+        $sql = "SELECT p.prod_codigo,
+                      p.prod_nombre,
+                      p.prod_categoria,
+                      p.prod_inventario,
+                      c.cat_nombre,
+                      func_existencias_producto(p.prod_codigo,null) as invKardex
+               FROM   producto p, categoria c
+               WHERE  p.prod_categoria = c.cat_codigo";
+
+
+        $stmt = $this->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+
+        $arrInvent = array_map(function($row) {
+
+            return array(
+                'codigo' => $row['prod_codigo'],
+                'codigoFor' => $row['prod_codigo'],
+                'nombre' => $row['prod_nombre'],
+                'prod_inventario' => $row['prod_inventario'],
+                'categoria' => $row['prod_categoria'],
+                'nomCategoria' => $row['cat_nombre'],
+                'invKardex' => $row['invKardex'],
+            );
+        }, $data);
+
+//     
+        return $arrInvent;
+    }
+
 }
