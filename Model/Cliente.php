@@ -104,19 +104,19 @@ class Cliente {
     //Enum
     /**
      * @var string
-     * @ORM\Column(type="string", name="cli_aplica_retencion", nullable=false,  options={"default"="no"})
+     * @ORM\Column(type="string", name="cli_aplica_retencion", nullable=true,  options={"default"="no"})
      */
     protected $retencion;
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="cli_aplica_reteiva", options={"default"="no"})
+     * @ORM\Column(type="string", name="cli_aplica_reteiva", nullable=true, options={"default"="no"})
      */
     protected $reteiva;
 
     /**
      * @var int
-     * @ORM\Column(type="float", name="cli_tarifa_reteica", precision=10, scale=2)
+     * @ORM\Column(type="float", name="cli_tarifa_reteica", nullable=true, precision=10, scale=2)
      */
     protected $tarifaReteIca;
 
