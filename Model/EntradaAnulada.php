@@ -1,6 +1,6 @@
 <?php
 
-namespace Seitem\WebServicesBundle\Entity;
+namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,7 +22,7 @@ class EntradaAnulada
     private $entCodigo;
     
     /**
-     * @var \Seitem\WebServicesBundle\Entity\FacturaProveedores
+     * @var \Kijho\StructureBundle\Model\FacturaProveedores
      *
      * @ORM\ManyToOne(targetEntity="FacturaProveedores", inversedBy="itemsCanceled")
      * @ORM\JoinColumn(name="facp_codigo", referencedColumnName="facp_codigo")
@@ -30,9 +30,9 @@ class EntradaAnulada
     private $facpCodigo;
 
     /**
-     * @var \Seitem\WebServicesBundle\Entity\Producto
+     * @var \Kijho\StructureBundle\Model\Producto
      *
-     * @ORM\ManyToOne(targetEntity="Seitem\WebServicesBundle\Entity\Producto")
+     * @ORM\ManyToOne(targetEntity="Producto")
      * @ORM\JoinColumn(name="prod_codigo", referencedColumnName="prod_codigo")
      */
     private $prodCodigo;
