@@ -1,6 +1,6 @@
 <?php
 
-namespace Seitem\WebServicesBundle\Entity;
+namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
