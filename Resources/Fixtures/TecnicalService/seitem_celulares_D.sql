@@ -295,7 +295,7 @@ INSERT INTO `configuracion` (`conf_codigo`, `conf_regimen`, `conf_compras`, `con
 --
 
 INSERT INTO `configuracion_factura` (`confac_codigo`, `confac_nombre_empresa`, `confac_nit`, `confac_direccion`, `confac_cuidad_telefono`, `confac_texto_a`, `confac_texto_b`, `confac_texto_c`, `confac_texto_d`, `confac_texto_e`, `confac_nombre_empresa_x`, `confac_nit_x`, `confac_direccion_x`, `confac_cuidad_telefono_x`, `confac_texto_a_x`, `confac_texto_b_x`, `confac_texto_c_x`, `confac_texto_d_x`, `confac_texto_e_x`, `confac_logo_x`) VALUES
-(1, 'Kijho technologies', 'NITxxxsx', 'Calle xxxx', '  Tel : xxxx Armenia - Quindio ,', 'Somos lideres en tecnologias celulares', 'Pregunte por todos nuestros servicios', '', '', '', 90, 150, 90, 30, 20, 80, 0, 0, 0, 0);
+(1, '', '', '', 'Armenia - Quindio , Tel : 7 54 25 43', 'Somos lideres en tecnologias celulares', 'Pregunte por todos nuestros servicios', '', '', '', 90, 150, 90, 30, 20, 80, 0, 0, 0, 0);
 
 
 --
