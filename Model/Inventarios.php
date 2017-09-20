@@ -63,7 +63,7 @@ class Inventarios
     /**
      * @var string
      *
-     * @ORM\Column(name="inv_estado", type="string", nullable=false)
+     * @ORM\Column(name="inv_estado", type="string", options={"default" : "Pendiente"}, nullable=true)
      */
     private $invEstado;
 
