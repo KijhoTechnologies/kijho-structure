@@ -341,7 +341,7 @@ class Producto {
     private $deleted;
 
     /**
-     * @ORM\Column(type="decimal", scale=2, name="peso", nullable=FALSE, options={"default"=0})
+     * @ORM\Column(type="decimal", scale=2, name="peso", nullable=false, options={"default"=0})
      */
     private $weight;
 
@@ -364,6 +364,62 @@ class Producto {
      * @ORM\Column(name="prod_utilidad", type="integer", nullable=true)
      */
     private $prodUtilidad;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="prod_materprima", type="string", length=2, options={"default"="NO"}, nullable=true)
+     */
+    private $prodMateriaPrima;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="prod_esventa", type="string", length=2, options={"default"="NO"}, nullable=true)
+     */
+    private $prodEsventa;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="prod_unidmedida", type="string", length=100, nullable=true)
+     */
+    private $prodUnidmedida;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="prod_vender", type="string", length=2, options={"default"="NO"}, nullable=true)
+     */
+    private $prodVender;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="prod_ventaDomicilio", type="decimal", precision=10, scale=2, options={"default"="0.00"}, nullable=true)
+     */
+    private $prodVentaDomicilio;
+
+    /**
+     * Atributo para restaurant app
+     * 
+     * @var integer
+     * @ORM\Column(name="prod_im_codigo", type="integer", nullable=true)
+     */
+    private $prodImCodigo;
+
+    /**
+     * Atributo para restaurant app
+     * 
+     * @var integer
+     * @ORM\Column(name="prod_impConsumo", type="decimal", precision=10, scale=2, options={"default"="0.00"}, nullable=true)
+     */
+    private $prodImpConsumo;
 
     public function __construct() {
         $this->baseProducts = new ArrayCollection();
@@ -1358,6 +1414,62 @@ class Producto {
 
     function setProdUtilidad($prodUtilidad) {
         $this->prodUtilidad = $prodUtilidad;
+    }
+
+    function getProdMateriaPrima() {
+        return $this->prodMateriaPrima;
+    }
+
+    function getProdEsventa() {
+        return $this->prodEsventa;
+    }
+
+    function setProdMateriaPrima($prodMateriaPrima) {
+        $this->prodMateriaPrima = $prodMateriaPrima;
+    }
+
+    function setProdEsventa($prodEsventa) {
+        $this->prodEsventa = $prodEsventa;
+    }
+
+    function getProdUnidmedida() {
+        return $this->prodUnidmedida;
+    }
+
+    function getProdVender() {
+        return $this->prodVender;
+    }
+
+    function getProdVentaDomicilio() {
+        return $this->prodVentaDomicilio;
+    }
+
+    function getProdImCodigo() {
+        return $this->prodImCodigo;
+    }
+
+    function getProdImpConsumo() {
+        return $this->prodImpConsumo;
+    }
+
+    function setProdUnidmedida($prodUnidmedida) {
+        $this->prodUnidmedida = $prodUnidmedida;
+    }
+
+    function setProdVender($prodVender) {
+        $this->prodVender = $prodVender;
+    }
+
+    function setProdVentaDomicilio($prodVentaDomicilio) {
+        $this->prodVentaDomicilio = $prodVentaDomicilio;
+    }
+
+    function setProdImCodigo($prodImCodigo) {
+        $this->prodImCodigo = $prodImCodigo;
+    }
+
+    function setProdImpConsumo($prodImpConsumo) {
+        $this->prodImpConsumo = $prodImpConsumo;
     }
 
 }

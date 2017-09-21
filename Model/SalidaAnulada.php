@@ -162,6 +162,38 @@ class SalidaAnulada {
      */
     private $facvCodigo;
 
+    /**
+     * Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="sal_impConsumo", type="decimal", precision=10, scale=2, options={"default"="0.00"}, nullable=true)
+     */
+    private $salImpConsumo;
+
+    /**
+     * Atributo para restaurant app
+     * @var integer
+     *
+     * @ORM\Column(name="sal_puesto", type="integer", nullable=true)
+     */
+    private $salPuesto;
+
+    /**
+     * Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="sal_valCategoria", type="decimal", precision=10, scale=2, options={"default"="0.00"}, nullable=true)
+     */
+    private $salValCategoria;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="sal_tipoAtencion", type="string", length=15, options={"default"="DIRECTA"}, nullable=true)
+     */
+    private $salTipoAtencion;
+
     public function __construct(Producto $product, \DateTime $dateTime) {
         $this->facvVendedor = NULL;
         $this->prodCodigo = $product;
@@ -583,6 +615,38 @@ class SalidaAnulada {
      */
     public function getSalIvaSave() {
         return $this->salIvaSave;
+    }
+
+    function getSalImpConsumo() {
+        return $this->salImpConsumo;
+    }
+
+    function getSalPuesto() {
+        return $this->salPuesto;
+    }
+
+    function getSalValCategoria() {
+        return $this->salValCategoria;
+    }
+
+    function getSalTipoAtencion() {
+        return $this->salTipoAtencion;
+    }
+
+    function setSalImpConsumo($salImpConsumo) {
+        $this->salImpConsumo = $salImpConsumo;
+    }
+
+    function setSalPuesto($salPuesto) {
+        $this->salPuesto = $salPuesto;
+    }
+
+    function setSalValCategoria($salValCategoria) {
+        $this->salValCategoria = $salValCategoria;
+    }
+
+    function setSalTipoAtencion($salTipoAtencion) {
+        $this->salTipoAtencion = $salTipoAtencion;
     }
 
 }

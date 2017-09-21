@@ -4,18 +4,14 @@ namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
-
-
-
 /**
  * ProductoEliminadoVenta
  *
  * @ORM\Table(name="producto_eliminado_venta")
  * @ORM\Entity(repositoryClass="ProductoEliminadoVentaRepository")
  */
-class ProductoEliminadoVenta
-{
+class ProductoEliminadoVenta {
+
     /**
      * @var integer
      *
@@ -81,14 +77,33 @@ class ProductoEliminadoVenta
      */
     private $facvCodigo;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pev_mCodigo", type="integer", nullable=false)
+     */
+    private $pevMCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pev_pCodigo", type="integer", nullable=true)
+     */
+    private $pevPCodigo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pev_comentario", type="integer", nullable=true)
+     */
+    private $pevComentario;
 
     /**
      * Get pevCodigo
      *
      * @return integer 
      */
-    public function getPevCodigo()
-    {
+    public function getPevCodigo() {
         return $this->pevCodigo;
     }
 
@@ -98,8 +113,7 @@ class ProductoEliminadoVenta
      * @param \DateTime $pevFecha
      * @return ProductoEliminadoVenta
      */
-    public function setPevFecha($pevFecha)
-    {
+    public function setPevFecha($pevFecha) {
         $this->pevFecha = $pevFecha;
 
         return $this;
@@ -110,8 +124,7 @@ class ProductoEliminadoVenta
      *
      * @return \DateTime 
      */
-    public function getPevFecha()
-    {
+    public function getPevFecha() {
         return $this->pevFecha;
     }
 
@@ -121,8 +134,7 @@ class ProductoEliminadoVenta
      * @param string $pevHora
      * @return ProductoEliminadoVenta
      */
-    public function setPevHora($pevHora)
-    {
+    public function setPevHora($pevHora) {
         $this->pevHora = $pevHora;
 
         return $this;
@@ -133,8 +145,7 @@ class ProductoEliminadoVenta
      *
      * @return string 
      */
-    public function getPevHora()
-    {
+    public function getPevHora() {
         return $this->pevHora;
     }
 
@@ -144,8 +155,7 @@ class ProductoEliminadoVenta
      * @param string $pevProdVentaUnit
      * @return ProductoEliminadoVenta
      */
-    public function setPevProdVentaUnit($pevProdVentaUnit)
-    {
+    public function setPevProdVentaUnit($pevProdVentaUnit) {
         $this->pevProdVentaUnit = $pevProdVentaUnit;
 
         return $this;
@@ -156,8 +166,7 @@ class ProductoEliminadoVenta
      *
      * @return string 
      */
-    public function getPevProdVentaUnit()
-    {
+    public function getPevProdVentaUnit() {
         return $this->pevProdVentaUnit;
     }
 
@@ -167,8 +176,7 @@ class ProductoEliminadoVenta
      * @param string $pevProdCantidad
      * @return ProductoEliminadoVenta
      */
-    public function setPevProdCantidad($pevProdCantidad)
-    {
+    public function setPevProdCantidad($pevProdCantidad) {
         $this->pevProdCantidad = $pevProdCantidad;
 
         return $this;
@@ -179,8 +187,7 @@ class ProductoEliminadoVenta
      *
      * @return string 
      */
-    public function getPevProdCantidad()
-    {
+    public function getPevProdCantidad() {
         return $this->pevProdCantidad;
     }
 
@@ -190,8 +197,7 @@ class ProductoEliminadoVenta
      * @param integer $pevSessionVenta
      * @return ProductoEliminadoVenta
      */
-    public function setPevSessionVenta($pevSessionVenta)
-    {
+    public function setPevSessionVenta($pevSessionVenta) {
         $this->pevSessionVenta = $pevSessionVenta;
 
         return $this;
@@ -202,8 +208,7 @@ class ProductoEliminadoVenta
      *
      * @return integer 
      */
-    public function getPevSessionVenta()
-    {
+    public function getPevSessionVenta() {
         return $this->pevSessionVenta;
     }
 
@@ -213,8 +218,7 @@ class ProductoEliminadoVenta
      * @param integer $prodCodigo
      * @return ProductoEliminadoVenta
      */
-    public function setProdCodigo($prodCodigo)
-    {
+    public function setProdCodigo($prodCodigo) {
         $this->prodCodigo = $prodCodigo;
 
         return $this;
@@ -225,8 +229,7 @@ class ProductoEliminadoVenta
      *
      * @return integer 
      */
-    public function getProdCodigo()
-    {
+    public function getProdCodigo() {
         return $this->prodCodigo;
     }
 
@@ -236,8 +239,7 @@ class ProductoEliminadoVenta
      * @param integer $usuCodigo
      * @return ProductoEliminadoVenta
      */
-    public function setUsuCodigo($usuCodigo)
-    {
+    public function setUsuCodigo($usuCodigo) {
         $this->usuCodigo = $usuCodigo;
 
         return $this;
@@ -248,8 +250,7 @@ class ProductoEliminadoVenta
      *
      * @return integer 
      */
-    public function getUsuCodigo()
-    {
+    public function getUsuCodigo() {
         return $this->usuCodigo;
     }
 
@@ -259,8 +260,7 @@ class ProductoEliminadoVenta
      * @param integer $facvCodigo
      * @return ProductoEliminadoVenta
      */
-    public function setFacvCodigo($facvCodigo)
-    {
+    public function setFacvCodigo($facvCodigo) {
         $this->facvCodigo = $facvCodigo;
 
         return $this;
@@ -271,8 +271,32 @@ class ProductoEliminadoVenta
      *
      * @return integer 
      */
-    public function getFacvCodigo()
-    {
+    public function getFacvCodigo() {
         return $this->facvCodigo;
     }
+
+    function getPevMCodigo() {
+        return $this->pevMCodigo;
+    }
+
+    function getPevPCodigo() {
+        return $this->pevPCodigo;
+    }
+
+    function getPevComentario() {
+        return $this->pevComentario;
+    }
+
+    function setPevMCodigo($pevMCodigo) {
+        $this->pevMCodigo = $pevMCodigo;
+    }
+
+    function setPevPCodigo($pevPCodigo) {
+        $this->pevPCodigo = $pevPCodigo;
+    }
+
+    function setPevComentario($pevComentario) {
+        $this->pevComentario = $pevComentario;
+    }
+
 }

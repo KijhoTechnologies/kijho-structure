@@ -64,6 +64,32 @@ class Categoria {
     private $deleted;
 
     /**
+     *  Atributo para restaurant app
+     * 
+     * @var float
+     *
+     * @ORM\Column(name="cat_precioVentaComun", type="float", precision=10, scale=2, nullable=true)
+     */
+    private $catPrecioVentaComun;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var float
+     *
+     * @ORM\Column(name="cat_precioDomicilio", type="float", precision=10, scale=2, nullable=true)
+     */
+    private $catPrecioDomicilio;
+
+    /**
+     *  Atributo para restaurant app
+     * @var integer
+     *
+     * @ORM\Column(name="cat_ordenamiento", type="integer", nullable=true)
+     */
+    private $catOrdenamiento;
+
+    /**
      * Get catCodigo
      *
      * @return integer 
@@ -176,27 +202,53 @@ class Categoria {
     public function getCatPrecioEnVenta() {
         return $this->catPrecioEnVenta;
     }
-    
-      /**
+
+    /**
      * Set deleted
      * 
      * @param boolean $delete
      * @return Categoria
      */
-    public function setDeleted($delete){
+    public function setDeleted($delete) {
         $this->deleted = $delete;
-        
+
         return $this;
     }
-    
+
     /**
      * Get deleted
      * 
      * @return boolean
      */
-    public function getDeleted(){
+    public function getDeleted() {
         return $this->deleted;
     }
-    
 
+    
+    function getCatPrecioVentaComun() {
+        return $this->catPrecioVentaComun;
+    }
+
+    function getCatPrecioDomicilio() {
+        return $this->catPrecioDomicilio;
+    }
+
+    function getCatOrdenamiento() {
+        return $this->catOrdenamiento;
+    }
+
+    function setCatPrecioVentaComun($catPrecioVentaComun) {
+        $this->catPrecioVentaComun = $catPrecioVentaComun;
+    }
+
+    function setCatPrecioDomicilio($catPrecioDomicilio) {
+        $this->catPrecioDomicilio = $catPrecioDomicilio;
+    }
+
+    function setCatOrdenamiento($catOrdenamiento) {
+        $this->catOrdenamiento = $catOrdenamiento;
+    }
+
+
+    
 }

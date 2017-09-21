@@ -66,21 +66,21 @@ class PrestamosSalida {
     /**
      * @var integer
      *
-     * @ORM\Column(name="presta_codigo", type="integer", nullable=false)
+     * @ORM\Column(name="presta_codigo", type="integer", nullable=true)
      */
     private $prestaCodigo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pres_valorUnidad", type="decimal", precision=11, scale=3, nullable=false)
+     * @ORM\Column(name="pres_valorUnidad", type="decimal", precision=11, scale=3, nullable=true)
      */
     private $presValorunidad;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pres_iva", type="decimal", precision=11, scale=3, nullable=false)
+     * @ORM\Column(name="pres_iva", type="decimal", precision=11, scale=3, nullable=true)
      */
     private $presIva;
 

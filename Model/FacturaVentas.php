@@ -344,6 +344,60 @@ class FacturaVentas {
      */
     private $facvCliDireccion;
 
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var float
+     *
+     * @ORM\Column(name="facv_impConsumo", type="float", precision=10, scale=2,options={"default" : "0.00"}, nullable=true)
+     */
+    private $facvImpConsumo;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var integer
+     *
+     * @ORM\Column(name="facv_mesa", type="integer", nullable=true)
+     */
+    private $facvMesa;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var integer
+     *
+     * @ORM\Column(name="facv_movimiento_Contable", type="integer", nullable=true)
+     */
+    private $facvMovimientoContable;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var float
+     *
+     * @ORM\Column(name="facv_propina", type="float", precision=11, scale=3, nullable=true)
+     */
+    private $facvPropina;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var float
+     *
+     * @ORM\Column(name="facv_propina_tarjeta", length=1, type="integer",options={"default" : "0"}, nullable=true)
+     */
+    private $facvPropinaTarjeta;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var float
+     *
+     * @ORM\Column(name="facv_aplicar_ImpConsumo", length=1, type="integer",options={"default" : "0"}, nullable=true)
+     */
+    private $facvAplicarImpConsumo;
+
     public function __construct() {
         $this->items = new ArrayCollection();
         $this->itemsCanceled = new ArrayCollection();
@@ -1116,5 +1170,45 @@ class FacturaVentas {
     function setFacvCliDireccion($facvCliDireccion) {
         $this->facvCliDireccion = $facvCliDireccion;
     }
+    function getFacvImpConsumo() {
+        return $this->facvImpConsumo;
+    }
+
+    function getFacvMesa() {
+        return $this->facvMesa;
+    }
+
+    function getFacvPropina() {
+        return $this->facvPropina;
+    }
+
+    function getFacvPropinaTarjeta() {
+        return $this->facvPropinaTarjeta;
+    }
+
+    function getFacvAplicarImpConsumo() {
+        return $this->facvAplicarImpConsumo;
+    }
+
+    function setFacvImpConsumo($facvImpConsumo) {
+        $this->facvImpConsumo = $facvImpConsumo;
+    }
+
+    function setFacvMesa($facvMesa) {
+        $this->facvMesa = $facvMesa;
+    }
+
+    function setFacvPropina($facvPropina) {
+        $this->facvPropina = $facvPropina;
+    }
+
+    function setFacvPropinaTarjeta($facvPropinaTarjeta) {
+        $this->facvPropinaTarjeta = $facvPropinaTarjeta;
+    }
+
+    function setFacvAplicarImpConsumo($facvAplicarImpConsumo) {
+        $this->facvAplicarImpConsumo = $facvAplicarImpConsumo;
+    }
+
 
 }

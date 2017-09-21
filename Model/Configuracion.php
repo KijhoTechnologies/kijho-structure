@@ -76,7 +76,7 @@ class Configuracion {
     /**
      * @var string
      *
-     * @ORM\Column(name="conf_saldoAnterior", type="string", length=100, nullable=true)
+     * @ORM\Column(name="conf_saldoAnterior", type="string", length=100, options={"default" : "Activado"}, nullable=true)
      */
     private $confSaldoanterior;
 
@@ -646,7 +646,7 @@ class Configuracion {
      * @ORM\Column(name="conf_fecha_vencimiento", type="string", length=100, options={"default" : "Activado"}, nullable=true)
      */
     private $confFechaVencimiento;
-    
+
     /**
      * @var string
      *
@@ -690,6 +690,185 @@ class Configuracion {
     /*
      * FIN BLOQUE Atributos para tecnical service app
      */
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var float
+     *
+     * @ORM\Column(name="conf_porcImpConsumo", type="float", precision=10, scale=2, nullable=true)
+     */
+    private $confPorcImpConsumo;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_mesero", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
+     */
+    private $confMesero;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_mensajero", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
+     */
+    private $confMensajero;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_comandaFisica", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
+     */
+    private $confComandaFisica;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_pedidoCompletoCocina", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
+     */
+    private $confPedidoCompletoCocina;
+
+    /**
+     *  Atributo para restaurant app
+     * @var integer
+     *
+     * @ORM\Column(name="conf_cantidadMesas", type="integer", nullable=true)
+     */
+    private $confCantidadMesas;
+
+    /**
+     *  Atributo para restaurant app
+     * @var integer
+     *
+     * @ORM\Column(name="conf_cantidadPisos", type="integer", nullable=true)
+     */
+    private $confCantidadPisos;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_tiqueteInterno", type="string", length=100, options={"default" : "NO"}, nullable=true)
+     */
+    private $confTiqueteInterno;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_rutaInterna", type="string", length=50, nullable=true)
+     */
+    private $confRutaInterna;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_tipoImpInterna", type="string", length=50, nullable=true)
+     */
+    private $confTipoImpInterna;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_prod_cortesia", type="string", length=50, options={"default" : "activado"},  nullable=true)
+     */
+    private $confProdCortesia;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_tipo_seitem", type="string", length=50, options={"default" : "Restaurante"},  nullable=true)
+     */
+    private $confTipoSeitem;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_eliminar_despachados", type="string", length=50, options={"default" : "Desactivado"},  nullable=true)
+     */
+    private $confEliminarDespachados;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_descriminar_productos_factura", type="string", length=50, options={"default" : "Desactivado"},  nullable=true)
+     */
+    private $confDescriminarProductosFactura;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_cierre_horas", type="string", length=50, options={"default" : "Desactivado"},  nullable=true)
+     */
+    private $confCierreHoras;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_aplicar_ImpConsumo", type="string", length=50, options={"default" : "Restar"},  nullable=true)
+     */
+    private $confAplicarImpConsumo;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_stado_propina", type="string", length=50, options={"default" : "Activado"},  nullable=true)
+     */
+    private $confEstadoPropina;
+
+    /**
+     *  Atributo para restaurant app
+     * @var integer
+     *
+     * @ORM\Column(name="conf_porcentaje_propina", length=11, type="integer", nullable=true)
+     */
+    private $confPorcentajePropina;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_resolucion_propina", type="string", length=50, options={"default" : "Desactivado"},  nullable=true)
+     */
+    private $confResolucionPropina;
+
+    /**
+     *  Atributo para restaurant app
+     * @var string
+     *
+     * @ORM\Column(name="conf_resolucion_propina_prefa", type="string", length=50, options={"default" : "Activado"},  nullable=true)
+     */
+    private $confResolucionPropinaPrefa;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * COMMENT '1. imprimir 2. visualizar 3. no imprimir',
+     * @var string
+     *
+     * @ORM\Column(name="conf_prefactura", length=1, type="integer",  options={"default" : "1"}, nullable=true)
+     */
+    private $confPrefactura;
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="conf_cantidadComandas", length=10, type="integer",  options={"default" : "1"}, nullable=true)
+     */
+    private $confCantidadComandas;
 
     /**
      * Get confCodigo
@@ -2472,7 +2651,7 @@ class Configuracion {
     function setConfPosicionLogoPdf($confPosicionLogoPdf) {
         $this->confPosicionLogoPdf = $confPosicionLogoPdf;
     }
-    
+
     function getConfTituloFactura() {
         return $this->confTituloFactura;
     }
@@ -2512,5 +2691,176 @@ class Configuracion {
     function setConfHistorialAbono($confHistorialAbono) {
         $this->confHistorialAbono = $confHistorialAbono;
     }
+    
+    function getConfPorcImpConsumo() {
+        return $this->confPorcImpConsumo;
+    }
+
+    function getConfMesero() {
+        return $this->confMesero;
+    }
+
+    function getConfMensajero() {
+        return $this->confMensajero;
+    }
+
+    function getConfComandaFisica() {
+        return $this->confComandaFisica;
+    }
+
+    function getConfPedidoCompletoCocina() {
+        return $this->confPedidoCompletoCocina;
+    }
+
+    function getConfCantidadMesas() {
+        return $this->confCantidadMesas;
+    }
+
+    function getConfCantidadPisos() {
+        return $this->confCantidadPisos;
+    }
+
+    function getConfTiqueteInterno() {
+        return $this->confTiqueteInterno;
+    }
+
+    function getConfRutaInterna() {
+        return $this->confRutaInterna;
+    }
+
+    function getConfTipoImpInterna() {
+        return $this->confTipoImpInterna;
+    }
+
+    function getConfProdCortesia() {
+        return $this->confProdCortesia;
+    }
+
+    function getConfEliminarDespachados() {
+        return $this->confEliminarDespachados;
+    }
+
+    function getConfDescriminarProductosFactura() {
+        return $this->confDescriminarProductosFactura;
+    }
+
+    function getConfCierreHoras() {
+        return $this->confCierreHoras;
+    }
+
+    function getConfAplicarImpConsumo() {
+        return $this->confAplicarImpConsumo;
+    }
+
+    function getConfEstadoPropina() {
+        return $this->confEstadoPropina;
+    }
+
+    function getConfPorcentajePropina() {
+        return $this->confPorcentajePropina;
+    }
+
+    function getConfResolucionPropina() {
+        return $this->confResolucionPropina;
+    }
+
+    function getConfResolucionPropinaPrefa() {
+        return $this->confResolucionPropinaPrefa;
+    }
+
+    function getConfPrefactura() {
+        return $this->confPrefactura;
+    }
+
+    function getConfCantidadComandas() {
+        return $this->confCantidadComandas;
+    }
+
+    function setConfPorcImpConsumo($confPorcImpConsumo) {
+        $this->confPorcImpConsumo = $confPorcImpConsumo;
+    }
+
+    function setConfMesero($confMesero) {
+        $this->confMesero = $confMesero;
+    }
+
+    function setConfMensajero($confMensajero) {
+        $this->confMensajero = $confMensajero;
+    }
+
+    function setConfComandaFisica($confComandaFisica) {
+        $this->confComandaFisica = $confComandaFisica;
+    }
+
+    function setConfPedidoCompletoCocina($confPedidoCompletoCocina) {
+        $this->confPedidoCompletoCocina = $confPedidoCompletoCocina;
+    }
+
+    function setConfCantidadMesas($confCantidadMesas) {
+        $this->confCantidadMesas = $confCantidadMesas;
+    }
+
+    function setConfCantidadPisos($confCantidadPisos) {
+        $this->confCantidadPisos = $confCantidadPisos;
+    }
+
+    function setConfTiqueteInterno($confTiqueteInterno) {
+        $this->confTiqueteInterno = $confTiqueteInterno;
+    }
+
+    function setConfRutaInterna($confRutaInterna) {
+        $this->confRutaInterna = $confRutaInterna;
+    }
+
+    function setConfTipoImpInterna($confTipoImpInterna) {
+        $this->confTipoImpInterna = $confTipoImpInterna;
+    }
+
+    function setConfProdCortesia($confProdCortesia) {
+        $this->confProdCortesia = $confProdCortesia;
+    }
+
+    function setConfEliminarDespachados($confEliminarDespachados) {
+        $this->confEliminarDespachados = $confEliminarDespachados;
+    }
+
+    function setConfDescriminarProductosFactura($confDescriminarProductosFactura) {
+        $this->confDescriminarProductosFactura = $confDescriminarProductosFactura;
+    }
+
+    function setConfCierreHoras($confCierreHoras) {
+        $this->confCierreHoras = $confCierreHoras;
+    }
+
+    function setConfAplicarImpConsumo($confAplicarImpConsumo) {
+        $this->confAplicarImpConsumo = $confAplicarImpConsumo;
+    }
+
+    function setConfEstadoPropina($confEstadoPropina) {
+        $this->confEstadoPropina = $confEstadoPropina;
+    }
+
+    function setConfPorcentajePropina($confPorcentajePropina) {
+        $this->confPorcentajePropina = $confPorcentajePropina;
+    }
+
+    function setConfResolucionPropina($confResolucionPropina) {
+        $this->confResolucionPropina = $confResolucionPropina;
+    }
+
+    function setConfResolucionPropinaPrefa($confResolucionPropinaPrefa) {
+        $this->confResolucionPropinaPrefa = $confResolucionPropinaPrefa;
+    }
+
+    function setConfPrefactura($confPrefactura) {
+        $this->confPrefactura = $confPrefactura;
+    }
+
+    function setConfCantidadComandas($confCantidadComandas) {
+        $this->confCantidadComandas = $confCantidadComandas;
+    }
+
+
+    
 
 }

@@ -61,6 +61,22 @@ class Contabilidad {
     private $confGenerarPdf;
 
     /**
+     *  Atributo para restaurant app
+     * @var \DateTime
+     *
+     * @ORM\Column(name="cont_fecha_inicio", type="date", nullable=true)
+     */
+    private $contFechaInicio;
+
+    /**
+     *  Atributo para restaurant app
+     * @var \DateTime
+     *
+     * @ORM\Column(name="cont_fecha_fin", type="date", nullable=true)
+     */
+    private $contFechaFin;
+
+    /**
      * Get contCodigo
      *
      * @return integer 
@@ -146,6 +162,22 @@ class Contabilidad {
 
     function setContHora($contHora) {
         $this->contHora = $contHora;
+    }
+
+    function getContFechaInicio() {
+        return $this->contFechaInicio;
+    }
+
+    function getContFechaFin() {
+        return $this->contFechaFin;
+    }
+
+    function setContFechaInicio(\DateTime $contFechaInicio) {
+        $this->contFechaInicio = $contFechaInicio;
+    }
+
+    function setContFechaFin(\DateTime $contFechaFin) {
+        $this->contFechaFin = $contFechaFin;
     }
 
 }

@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="configuracion_factura")
  * @ORM\Entity(repositoryClass="ConfiguracionFacturaRepository")
  */
-class ConfiguracionFactura
-{
+class ConfiguracionFactura {
+
     /**
      * @var integer
      *
@@ -174,113 +174,156 @@ class ConfiguracionFactura
      * @ORM\Column(name="confac_caracteres_producto", type="integer", nullable=true)
      */
     private $confacCaracteresProducto;
-    
-      /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_logo_original", type="string", length=100, nullable=true)
      */
     private $confLogoOriginal;
-    
-      /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_logo_pos", type="string", length=100, nullable=true)
      */
-    private $confLogoEstado; 
-    
-     /**
+    private $confLogoEstado;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_cabecera_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoCabeceraPos; 
-    
+    private $confEstadoCabeceraPos;
+
     /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_numero_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoNumeroPos; 
-    
-     /**
+    private $confEstadoNumeroPos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_fecha_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoFechaPos; 
-    
-      /**
+    private $confEstadoFechaPos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_nit_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoNitPos; 
-    
-      /**
+    private $confEstadoNitPos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_cliente_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoClientePos; 
-    
-      /**
+    private $confEstadoClientePos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_direccion_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoDireccionPos; 
-    
-      /**
+    private $confEstadoDireccionPos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_ciudad_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoCiudadPos; 
-    
-      /**
+    private $confEstadoCiudadPos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_telefono_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoTelefonoPos; 
-    
-      /**
+    private $confEstadoTelefonoPos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_celular_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
     private $confEstadoCelularPos;
-    
-    
-      /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_vendedor_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoVendedorPos; 
-    
-      /**
+    private $confEstadoVendedorPos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_zona_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoZonaPos; 
-    
-      /**
+    private $confEstadoZonaPos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="confac_estado_ruta_pos", type="string", length=100, options={"default" : "Desactivado"}, nullable=true)
      */
-    private $confEstadoRutaPos; 
-    
-      /**
+    private $confEstadoRutaPos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="conf_estado_firma_seitem", type="string", length=100, options={"default" : "firmaLogo"}, nullable=true)
      */
-    private $confEstadoFirmaSeitem; 
+    private $confEstadoFirmaSeitem;
 
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="confac_propina", length=5, type="string",  options={"default" : "NO"}, nullable=true)
+     */
+    private $confacPropina;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var float
+     *
+     * @ORM\Column(name="confac_propina_porcentaje", type="float", precision=4, scale=1, nullable=true)
+     */
+    private $confacPropinaPorcentaje;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="confac_stado_logo", type="string",  options={"default" : "Activado"}, nullable=true)
+     */
+    private $confacStadoLogo;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="confac_firma_seitem", type="string",  options={"default" : "firmaLogo"}, nullable=true)
+     */
+    private $confacFirmaSeitem;
+
+    /**
+     *  Atributo para restaurant app
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="confac_logo_empresa", length=100, type="string",  options={"default" : "logoActual.jpg"}, nullable=true)
+     */
+    private $confac_logo_empresa;
 
     function getConfacCodigo() {
         return $this->confacCodigo;
@@ -586,5 +629,44 @@ class ConfiguracionFactura
         $this->confEstadoFirmaSeitem = $confEstadoFirmaSeitem;
     }
 
+    function getConfacPropina() {
+        return $this->confacPropina;
+    }
+
+    function getConfacPropinaPorcentaje() {
+        return $this->confacPropinaPorcentaje;
+    }
+
+    function getConfacStadoLogo() {
+        return $this->confacStadoLogo;
+    }
+
+    function getConfacFirmaSeitem() {
+        return $this->confacFirmaSeitem;
+    }
+
+    function getConfac_logo_empresa() {
+        return $this->confac_logo_empresa;
+    }
+
+    function setConfacPropina($confacPropina) {
+        $this->confacPropina = $confacPropina;
+    }
+
+    function setConfacPropinaPorcentaje($confacPropinaPorcentaje) {
+        $this->confacPropinaPorcentaje = $confacPropinaPorcentaje;
+    }
+
+    function setConfacStadoLogo($confacStadoLogo) {
+        $this->confacStadoLogo = $confacStadoLogo;
+    }
+
+    function setConfacFirmaSeitem($confacFirmaSeitem) {
+        $this->confacFirmaSeitem = $confacFirmaSeitem;
+    }
+
+    function setConfac_logo_empresa($confac_logo_empresa) {
+        $this->confac_logo_empresa = $confac_logo_empresa;
+    }
 
 }
