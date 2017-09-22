@@ -365,15 +365,6 @@ class FacturaVentas {
     /**
      *  Atributo para restaurant app
      * 
-     * @var integer
-     *
-     * @ORM\Column(name="facv_movimiento_Contable", type="integer", nullable=true)
-     */
-    private $facvMovimientoContable;
-
-    /**
-     *  Atributo para restaurant app
-     * 
      * @var float
      *
      * @ORM\Column(name="facv_propina", type="float", precision=11, scale=3, nullable=true)

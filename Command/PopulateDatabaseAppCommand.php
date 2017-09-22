@@ -31,8 +31,9 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
                         . 'verificar si hay nuevos datos o si hay cambios sobre los datos '
                         . 'existentes')
                 ->setDefinition([
-                    new InputArgument('type', InputArgument::REQUIRED),
+                    new InputArgument('type', InputArgument::REQUIRED,'The type app online or local'),
                     new InputArgument('license', InputArgument::OPTIONAL),
+                    new InputArgument('app', InputArgument::OPTIONAL),
                 ])
                 ->addOption('em', null, InputOption::VALUE_OPTIONAL, 'The entity manager to use for this command')
         ;

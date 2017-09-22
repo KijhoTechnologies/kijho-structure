@@ -1,0 +1,81 @@
+-- {"v":1}
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `view_sales_invoice`
+--
+
+CREATE OR REPLACE VIEW `view_kardex` AS     
+   (SELECT '1' AS accion ,`ent`.`ent_codigo` AS `codigoRegistro`, `ent`.`prod_codigo` AS `codigoProducto`, ent.ent_cantidad AS cantidad, ent.ent_precio_compra AS precio_compra, ent.ent_fecha AS fecha, ent.ent_hora AS hora, ent.facp_codigo AS codigoFactura , 'Factura de Compra' AS tipo, SUBSTR(ent.ent_hora, 7) AS horario FROM entrada ent)
+               UNION
+                (SELECT '-1' AS accion,`sal`.`sal_codigo` AS `codigoRegistro`, `sal`.`prod_codigo` AS `codigoProducto`,sal.sal_cantidad AS cantidad, sal.sal_precio_venta AS precio_compra, sal.sal_fecha AS fecha, sal.sal_hora AS hora, sal.facv_codigo AS codigoFactura,   'Factura de Venta' AS tipo , SUBSTR(sal.sal_hora, 7) AS horario FROM salida sal, producto p  WHERE sal.prod_codigo = p.prod_codigo)
+               union (select '-1' AS `accion`,`ffvd`.`facfvd_codigo` AS `codigoRegistro`,`ffvd`.`prod_codigo` AS `codigoProducto`,
+        `ffvd`.`facfvd_cantidad` AS `cantidad`,`ffvd`.`facfvd_precio_venta` AS `precio_compra`,
+        `ffvd`.`facfvd_fecha` AS `fecha`,`ffvd`.`facfvd_hora` AS `hora`,
+        `ffvd`.`facfv_codigo` AS `codigoFactura`,
+        'Factura Fisica' AS `tipo`,substr(`ffvd`.`facfvd_hora`,7) AS `horario` 
+        from `factura_fisica_venta_detalle` `ffvd`) 
+        union (select '1' AS `accion`,`pred`.`pre_det_code` AS `codigoRegistro`,`pred`.`pre_det_product` AS `codigoProducto`,
+        `pred`.`pre_det_amount` AS `cantidad`,`pred`.`pre_det_cost` AS `precio_compra`,
+        `pre`.`prorec_date` AS `fecha`,`pre`.`prorec_date` AS `hora`,
+        `pre`.`prorec_code` AS `codigoFactura`,'Entrada Freelance' AS `tipo`,
+        substr(`pre`.`prorec_date`,7) AS `horario` 
+        from (`products_received_details` `pred` join `products_received` `pre`) 
+        where (`pre`.`prorec_code` = `pred`.`pre_det_prec_id`))
+               UNION
+               (SELECT '-1' AS accion,`trsal`.`detrsal_codigo` AS `codigoRegistro`,trsal.tran_procodsal AS `codigoProducto`,trsal.tran_procodsalcant AS cantidad, trsal.tran_prod_costo AS precio_compra, t.tran_fecha AS fecha, t.tran_hora AS hora,trsal.id_fk AS codigoFactura,   'Salida por Traspaso' AS tipo , SUBSTR(t.tran_hora, 7) AS horario FROM detalle_transpaso trsal, transpaso t, producto p   WHERE trsal.id_fk = t.tran_codigo)
+               UNION
+               (SELECT '1' AS accion,`trent`.`detrent_codigo` AS `codigoRegistro`, trent.tran_procodent AS `codigoProducto`,trent.tran_procodentcant AS cantidad, trent.tran_prod_costo AS precio_compra, t.tran_fecha AS fecha, t.tran_hora AS hora,trent.id_fk AS codigoFactura,   'Entrada por Traspaso' AS tipo, SUBSTR(t.tran_hora, 7) AS horario FROM detalle_transpaso_entrada trent, transpaso t, producto p  WHERE trent.id_fk = t.tran_codigo) 
+
+               UNION
+               (SELECT '1' AS accion,`devc`.`ddecl_codigo` AS `codigoRegistro`, devc.prod_codigo AS `codigoProducto`,devc.ddecl_cantidad AS cantidad, devc.ddecl_costo_unit AS precio_compra, dc.decl_fecha AS fecha, dc.decl_hora AS hora, devc.decl_codigo AS codigoFactura,   'Devolucion de Cliente' AS tipo , SUBSTR(dc.decl_hora, 7) AS horario FROM detalle_devolucion_cliente devc, devolucion_cliente dc , producto p  WHERE devc.decl_codigo = dc.decl_codigo )
+               UNION
+               (SELECT '-1' AS accion,`devp`.`sade_codigo` AS `codigoRegistro`, devp.prod_codigo AS `codigoProducto`,devp.sade_cantidad AS cantidad, devp.sade_costo_unit AS precio_compra, devp.sade_fecha AS fecha, devp.sade_hora AS hora, devp.dev_codigo AS codigoFactura,   'Devolucion a Proveedor' AS tipo, SUBSTR(devp.sade_hora, 7) AS horario FROM salida_devolucion devp)
+               UNION
+               (SELECT '-1' AS accion,`resa`.`resa_codigo` AS `codigoRegistro`,resa.prod_codigo AS `codigoProducto`,resa.resa_cantidad AS cantidad, resa.resa_costo_unit AS precio_compra, resa.resa_fecha AS fecha, resa.resa_hora AS hora, resa.clre_codigo AS codigoFactura,   'Ajuste Inventario Salida' AS tipo, SUBSTR(resa.resa_hora, 7) AS horario FROM regalo_salida resa) 
+               UNION
+               (SELECT '1' AS accion,`reen`.`reen_codigo` AS `codigoRegistro`,reen.prod_codigo AS `codigoProducto`,reen.reen_cantidad AS cantidad, reen.reen_costo_unit AS precio_compra, reen.reen_fecha AS fecha, reen.reen_hora AS hora, reen.prre_codigo AS codigoFactura,   'Ajuste Inventario Entrada' AS tipo, SUBSTR(reen.reen_hora, 7) AS horario FROM regalo_entrada reen)
+        union (select '-1' AS `accion`,`pres`.`pres_codigo` AS `codigoRegistro`,`pres`.`prod_codigo` AS `codigoProducto`,
+        `pres`.`pres_cantidad` AS `cantidad`,`pres`.`prod_costo` AS `precio_compra`,
+        `pres`.`pres_fecha` AS `fecha`,`pres`.`pres_hora` AS `hora`,`pres`.`pres_codigo` AS `codigoFactura`,
+        'Salida por Prestamo' AS `tipo`,substr(`pres`.`pres_hora`,7) AS `horario` from `prestamo` `pres` 
+        where ((`pres`.`pres_tipo` = 2) and (`pres`.`pres_estado` = 1)))
+        union (select '1' AS `accion`,`pres`.`pres_codigo` AS `codigoRegistro`,`pres`.`prod_codigo` AS `codigoProducto`,
+        `pres`.`pres_cantidad` AS `cantidad`,`pres`.`prod_costo` AS `precio_compra`,
+        `pres`.`pres_fecha` AS `fecha`,`pres`.`pres_hora` AS `hora`,`pres`.`pres_codigo` AS `codigoFactura`,
+        'Entrada por Prestamo' AS `tipo`,substr(`pres`.`pres_hora`,7) AS `horario` 
+        from `prestamo` `pres` where ((`pres`.`pres_tipo` = 1) and (`pres`.`pres_estado` = 1)))
+        union (select '-1' AS `accion`,`dc`.`cuadet_codigo` AS `codigoRegistro`,`dc`.`prod_codigo` AS `codigoProducto`,
+        (`dc`.`cuadet_cant_entrega` - `dc`.`cuadet_cant_devuelve`) AS `cantidad`,
+        `dc`.`prod_costo` AS `precio_compra`,`cua`.`cua_fecha` AS `fecha`,`cua`.`cua_hora` AS `hora`,
+        `cua`.`cua_codigo` AS `codigoFactura`,'Cuadre Diario (Precompra)' AS `tipo`,
+        substr(`cua`.`cua_hora`,7) AS `horario` from (`cuadre_detalle` `dc` join `cuadre` `cua`) 
+        where ((`dc`.`cua_codigo` = `cua`.`cua_codigo`) and (`cua`.`facv_codigo` = 0)))
+        union (select '-1' AS `accion`,`rd`.`remd_codigo` AS `codigoRegistro`,`rd`.`prod_codigo` AS `codigoProducto`,
+        `rd`.`remd_cantidad` AS `cantidad`,`rd`.`remd_precio_compra` AS `precio_compra`,
+        `rd`.`remd_fecha` AS `fecha`,`rd`.`remd_hora` AS `hora`,`rd`.`rem_codigo` AS `codigoFactura`,
+        'Remisiones' AS `tipo`,substr(`rd`.`remd_hora`,7) AS `horario` FROM remisiones_detalle rd, remisiones r WHERE rd.rem_codigo =  r.rem_codigo);
+
+CREATE OR REPLACE VIEW `inventario_kardex` AS (select `view_kardex`.`codigoProducto` AS `cod_prod`,sum((`view_kardex`.`cantidad` * `view_kardex`.`accion`)) AS `inventario` from `view_kardex` group by `view_kardex`.`codigoProducto`);
+
+CREATE OR REPLACE VIEW `precio_cliente_producto` AS 
+(select `cp`.`clpr_precio` AS `clpr_precio`,
+`p`.`prod_venta_unit` AS `prod_venta_unit`,
+`p`.`prod_ventaDomicilio` AS `prod_ventaDomicilio`,
+`cp`.`prod_codigo` AS `prod_codigo`,
+`cp`.`cli_codigo` AS `cli_codigo`,
+`p`.`prod_nombre` AS `prod_nombre`,
+`p`.`prod_inventario` AS `prod_inventario`,
+`p`.`prod_iva` AS `prod_iva`,
+`p`.`prod_categoria` AS `prod_categoria`,
+`p`.`prod_por_desc` AS `prod_por_desc`,
+`p`.`prod_promocion` AS `prod_promocion`,
+`p`.`prod_minim_cantidad` AS `prod_minim_cantidad`,
+`p`.`prod_nuevo_valor` AS `prod_nuevo_valor`,
+`p`.`prod_costo_unit` AS `prod_costo_unit`,
+`c`.`cat_estadoDesc` AS `cat_estadoDesc`,
+`c`.`cat_precioVentaComun` AS `cat_precioVenta`,
+`c`.`cat_precioDomicilio` AS `cat_precioDomicilio`
+from ((`cliente_precio` `cp` join `producto` `p`) join `categoria` `c`) 
+where ((`cp`.`prod_codigo` = `p`.`prod_codigo`) 
+and (`c`.`cat_codigo` = `p`.`prod_categoria`)));

@@ -23,6 +23,7 @@ class AppImportDataCommand extends ContainerAwareCommand {
                 ->setDefinition([
                     new InputArgument('type', InputArgument::REQUIRED),
                     new InputArgument('license', InputArgument::OPTIONAL),
+                    new InputArgument('app', InputArgument::OPTIONAL),
                 ])
         ;
     }
@@ -31,10 +32,14 @@ class AppImportDataCommand extends ContainerAwareCommand {
         set_time_limit(0);
         ini_set('memory_limit', '-1');
         $container = $this->getContainer();
-        
+
         $licenseId = null;
         if ((int) $input->getArgument('license')) {
             $licenseId = $input->getArgument('license');
+        }
+        $app = null;
+        if ((int) $input->getArgument('app')) {
+            $app = $input->getArgument('app');
         }
 
         if ($input->getArgument('type') == static::LOAD_DATA_ONLINE) {
@@ -43,10 +48,10 @@ class AppImportDataCommand extends ContainerAwareCommand {
             $type = static::LOAD_DATA_LOCAL;
         }
 
-        $this->update($output, $container, $type, $licenseId);
+        $this->update($output, $container, $type, $licenseId, $app);
     }
 
-    public function update($output, $container, $type, $licenseId = null) {
+    public function update($output, $container, $type, $licenseId = null, $app = null) {
 
 
         /*  Ejecuta el comando para la carga de datos en el sistema,
@@ -64,12 +69,20 @@ class AppImportDataCommand extends ContainerAwareCommand {
         if ($type == static::LOAD_DATA_ONLINE) {
             $type = static::LOAD_DATA_ONLINE;
 
+             /**
+              * NOTA MONTAR 3 APP ONLINE DE DISTINTO TIPO Y PROVAR ESTE COMANDO PARA QUE SE EJECUTE SEGUN EL TIPO DE LICENCIA
+              * PROBABLEMENTE OBTENIENDO EL CATEGORIA DE APP DESDE BASE DE DATOS. 
+              */   
+            /**
+             *  se manda el tipo online = 1, licencia segun se requiera, y app 1 = SG, 2 = SST, 3 = SR             * 
+             */
             $commandPopulateDatabaseApp = new PopulateDatabaseAppCommand();
             $commandPopulateDatabaseApp->setContainer($container);
 
             $argumentsPopulateDatabaseApp = array(
                 'type' => $type,
-                'license' => $licenseId
+                'license' => $licenseId,
+                'app' => $app
             );
             $inputPopulateDatabaseApp = new ArrayInput($argumentsPopulateDatabaseApp);
             $commandPopulateDatabaseApp->run($inputPopulateDatabaseApp, $output);
@@ -95,9 +108,14 @@ class AppImportDataCommand extends ContainerAwareCommand {
             $inputCSCP = new ArrayInput($argumentsCSCP);
             $commandCustomSchemeCreateAndPopulate->run($inputCSCP, $output);
 
+            /**
+             * se manda el tipo LOCAL=2, licencia es null pues es local, y app 1=SG, 2=SST, 3=SR
+             */
             $commandUpdateOrload = $this->getApplication()->find('app:populate:database');
             $argumentsUoL = array(
                 'type' => $type,
+                'license' => $licenseId,
+                'app' => $app
             );
             $inputUoL = new ArrayInput($argumentsUoL);
 
