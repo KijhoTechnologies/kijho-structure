@@ -39,7 +39,7 @@ class AppImportDataCommand extends ContainerAwareCommand {
         }
         $app = null;
         if ((int) $input->getArgument('app')) {
-            $app = $input->getArgument('app');
+            $app = (int) $input->getArgument('app');
         }
 
         if ($input->getArgument('type') == static::LOAD_DATA_ONLINE) {
@@ -69,10 +69,10 @@ class AppImportDataCommand extends ContainerAwareCommand {
         if ($type == static::LOAD_DATA_ONLINE) {
             $type = static::LOAD_DATA_ONLINE;
 
-             /**
-              * NOTA MONTAR 3 APP ONLINE DE DISTINTO TIPO Y PROVAR ESTE COMANDO PARA QUE SE EJECUTE SEGUN EL TIPO DE LICENCIA
-              * PROBABLEMENTE OBTENIENDO EL CATEGORIA DE APP DESDE BASE DE DATOS. 
-              */   
+            /**
+             * NOTA MONTAR 3 APP ONLINE DE DISTINTO TIPO Y PROVAR ESTE COMANDO PARA QUE SE EJECUTE SEGUN EL TIPO DE LICENCIA
+             * PROBABLEMENTE OBTENIENDO EL CATEGORIA DE APP DESDE BASE DE DATOS. 
+             */
             /**
              *  se manda el tipo online = 1, licencia segun se requiera, y app 1 = SG, 2 = SST, 3 = SR             * 
              */
