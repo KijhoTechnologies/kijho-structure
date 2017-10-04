@@ -34,8 +34,14 @@ class AppImportDataCommand extends ContainerAwareCommand {
         $container = $this->getContainer();
 
         $licenseId = null;
-        if ((int) $input->getArgument('license')) {
+        if ((int) $input->getArgument('license') != 0) {
             $licenseId = $input->getArgument('license');
+            $output->writeln($licenseId);
+            $output->writeln($licenseId);
+            $output->writeln($licenseId);
+            $output->writeln($licenseId);
+            $output->writeln($licenseId);
+            $output->writeln($licenseId);
         }
         $app = null;
         if ((int) $input->getArgument('app')) {
@@ -70,10 +76,6 @@ class AppImportDataCommand extends ContainerAwareCommand {
             $type = static::LOAD_DATA_ONLINE;
 
             /**
-             * NOTA MONTAR 3 APP ONLINE DE DISTINTO TIPO Y PROVAR ESTE COMANDO PARA QUE SE EJECUTE SEGUN EL TIPO DE LICENCIA
-             * PROBABLEMENTE OBTENIENDO EL CATEGORIA DE APP DESDE BASE DE DATOS. 
-             */
-            /**
              *  se manda el tipo online = 1, licencia segun se requiera, y app 1 = SG, 2 = SST, 3 = SR             * 
              */
             $commandPopulateDatabaseApp = new PopulateDatabaseAppCommand();
@@ -86,7 +88,7 @@ class AppImportDataCommand extends ContainerAwareCommand {
             );
             $inputPopulateDatabaseApp = new ArrayInput($argumentsPopulateDatabaseApp);
             $commandPopulateDatabaseApp->run($inputPopulateDatabaseApp, $output);
-        } else {
+        } elseif ($type == static::LOAD_DATA_LOCAL) {
             $type = static::LOAD_DATA_LOCAL;
 
             /**
