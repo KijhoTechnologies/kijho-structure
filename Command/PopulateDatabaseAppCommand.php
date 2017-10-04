@@ -98,9 +98,10 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
      * @param type $databaseName para pintar el nombre de la base de datos en la salida del comando usable en caso 1 es decir cuando el comando es para la version online
      */
     public function callFunctions($output, $em, $app, $databaseName = null) {
-
+        
         switch ($app) {
             case $app == static::TYPE_GENERAL:
+                $this->loadOrUpdateMotivoFacDev($output, $em, $databaseName);
                 $this->modules($output, $em, $databaseName);
                 break;
 
@@ -117,8 +118,6 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
 
                 break;
         }
-
-        $this->loadOrUpdateMotivoFacDev($output, $em, $databaseName);
     }
 
     /**
@@ -537,7 +536,7 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
             array('mod_name' => 'Reporte Devoluciones Clientes', 'mod_name_en' => '', 'mod_url' => 'reporte_devoluciones_clientes.php', 'mod_order' => '22.1', 'mod_son' => '15'),
             array('mod_name' => 'reporte productos eliminados', 'mod_name_en' => 'reporte deleted products', 'mod_url' => 'reporteEliminacionProductosVenta.php', 'mod_order' => '55', 'mod_son' => '0')
         );
-        
+
         foreach ($arrayModule as $module) {
             $moduleResult = $em->getRepository('KijhoStructureBundle:Module')
                     ->findOneBy(array('modName' => $module['mod_name']));

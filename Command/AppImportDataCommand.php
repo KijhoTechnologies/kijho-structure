@@ -36,12 +36,6 @@ class AppImportDataCommand extends ContainerAwareCommand {
         $licenseId = null;
         if ((int) $input->getArgument('license') != 0) {
             $licenseId = $input->getArgument('license');
-            $output->writeln($licenseId);
-            $output->writeln($licenseId);
-            $output->writeln($licenseId);
-            $output->writeln($licenseId);
-            $output->writeln($licenseId);
-            $output->writeln($licenseId);
         }
         $app = null;
         if ((int) $input->getArgument('app')) {
@@ -53,7 +47,7 @@ class AppImportDataCommand extends ContainerAwareCommand {
         } else {
             $type = static::LOAD_DATA_LOCAL;
         }
-
+       
         $this->update($output, $container, $type, $licenseId, $app);
     }
 
