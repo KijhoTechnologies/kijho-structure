@@ -47,7 +47,7 @@ class AppImportDataCommand extends ContainerAwareCommand {
         } else {
             $type = static::LOAD_DATA_LOCAL;
         }
-       
+
         $this->update($output, $container, $type, $licenseId, $app);
     }
 
@@ -77,7 +77,7 @@ class AppImportDataCommand extends ContainerAwareCommand {
 
             $argumentsPopulateDatabaseApp = array(
                 'type' => $type,
-                'license' => $licenseId,
+                'license' => $licenseId == 0 ? null : $licenseId,
                 'app' => $app
             );
             $inputPopulateDatabaseApp = new ArrayInput($argumentsPopulateDatabaseApp);
@@ -110,7 +110,7 @@ class AppImportDataCommand extends ContainerAwareCommand {
             $commandUpdateOrload = $this->getApplication()->find('app:populate:database');
             $argumentsUoL = array(
                 'type' => $type,
-                'license' => $licenseId,
+                'license' => $licenseId == 0 ? null : $licenseId,
                 'app' => $app
             );
             $inputUoL = new ArrayInput($argumentsUoL);
