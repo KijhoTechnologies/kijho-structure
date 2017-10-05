@@ -59,10 +59,11 @@ BEGIN
 		SET var_salidasTotal = (SELECT IF(sal_cantidad IS NOT NULL, SUM(sal_cantidad*-1),0) FROM salida WHERE prod_codigo = codigo AND sal_fecha <= fecha);
 	END IF;
     
-   	IF fecha IS NULL THEN
-		SET var_salidasSepTotal = (SELECT IF(sep.sal_cantidad IS NOT NULL, SUM(sep.sal_cantidad*-1), 0) FROM salida_separado sep, separados sp WHERE sep.prod_codigo = codigo AND sep.sep_codigo = sp.sep_codigo AND sp.sep_facturado = 'No');
+   	
+	IF fecha IS NULL THEN
+		SET var_salidasSepTotal = (SELECT IF(sep.sal_sep_cantidad IS NOT NULL, SUM(sep.sal_sep_cantidad*-1), 0) FROM salida_separado sep, separado sp WHERE sep.prod_codigo = codigo AND sep.sep_codigo = sp.sep_codigo AND sp.sep_facturado = 'No' AND sp.sep_anulada = 'No');
 	ELSE
-		SET var_salidasSepTotal = (SELECT IF(sep.sal_cantidad IS NOT NULL, SUM(sep.sal_cantidad*-1), 0) FROM salida_separado sep, separados sp WHERE sep.prod_codigo = codigo AND sep.sal_sep_fecha <= fecha AND sep.sep_codigo = sp.sep_codigo AND sp.sep_facturado = 'No');
+		SET var_salidasSepTotal = (SELECT IF(sep.sal_sep_cantidad IS NOT NULL, SUM(sep.sal_sep_cantidad*-1), 0) FROM salida_separado sep, separado sp WHERE sep.prod_codigo = codigo AND sep.sal_sep_fecha <= fecha AND sep.sep_codigo = sp.sep_codigo AND sp.sep_facturado = 'No' AND sp.sep_anulada = 'No');
 	END IF;
 
 	IF fecha IS NULL THEN
@@ -100,4 +101,3 @@ BEGIN
 	RETURN var_existencias;
 END$$
 DELIMITER ;
-
