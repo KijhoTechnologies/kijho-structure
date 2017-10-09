@@ -355,4 +355,4 @@ INSERT INTO `configuracion` (
 'Desactivado', 
 'seitem.loc', '', '', 
 'Desactivado', 0.16, 0.1, 0.05, 8.00, 
-'', '', '', 'ES', 'Activado', 'Desactivado', 'Activado');
+'', '', '', 'ES', 'Activado', 'Desactivado', 'Desactivado');
