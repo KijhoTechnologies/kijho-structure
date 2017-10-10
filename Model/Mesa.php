@@ -38,16 +38,16 @@ class Mesa
     /**
      * @var integer
      *
-     * @ORM\Column(name="m_puestosAdd", type="integer", nullable=false)
+     * @ORM\Column(name="m_puestosAdd", type="integer", nullable=false, options={"default"="0"})
      */
-    private $mPuestosadd = '0';
+    private $mPuestosadd;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="m_piso", type="integer", nullable=true)
+     * @ORM\Column(name="m_piso", type="integer", nullable=true, options={"default"="1"})
      */
-    private $mPiso = '1';
+    private $mPiso;
 
     /**
      * @var string
