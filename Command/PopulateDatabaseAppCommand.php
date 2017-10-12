@@ -218,7 +218,7 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
 
         foreach ($floors as $floor) {
             $queryFloor = $em->getRepository('KijhoStructureBundle:Pisos')
-                    ->findOneBy(array('id' => $floor['id']));
+                    ->findOneBy(array('piCodigo' => $floor['id']));
 
             if (!$queryFloor) {
                 $entity = new Pisos();
@@ -229,9 +229,9 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
                 $em->flush();
 
                 $nameDatabase = (null != $databaseName) ? $databaseName : null;
-                $output->writeln($nameDatabase . "Creating new floor name " . $entity->getNombre());
-            } else if (isset($queryFloor) && $queryFloor->getPiCodigo() == $queryFloor['id'] &&
-                    $queryFloor->getPiNombre() != $floors['nombre']) {
+                $output->writeln($nameDatabase . "Creating new floor name " . $entity->getPiNombre());
+            } else if (isset($queryFloor) && $queryFloor->getPiCodigo() == $floor['id'] &&
+                    $queryFloor->getPiNombre() != $floor['nombre']) {
 
                 $queryFloor->setPiNumero($floor['numero']);
                 $queryFloor->setPiNombre($floors['nombre']);
