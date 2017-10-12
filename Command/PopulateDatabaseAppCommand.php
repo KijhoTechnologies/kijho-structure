@@ -234,7 +234,7 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
                     $queryFloor->getPiNombre() != $floor['nombre']) {
 
                 $queryFloor->setPiNumero($floor['numero']);
-                $queryFloor->setPiNombre($floors['nombre']);
+                $queryFloor->setPiNombre($floor['nombre']);
                 $em->persist($queryFloor);
 
                 $nameDatabase = (null != $databaseName) ? $databaseName : null;
