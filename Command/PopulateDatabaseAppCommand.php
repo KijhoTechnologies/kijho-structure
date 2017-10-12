@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use LEVELLicensor\LEVELLicensorBundle\Util\Util;
 use Kijho\StructureBundle\Model\MotivosFacDevolucion;
+use Kijho\StructureBundle\Model\Pisos;
 use Kijho\StructureBundle\Model\Module;
 
 /**
@@ -98,7 +99,7 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
      * @param type $databaseName para pintar el nombre de la base de datos en la salida del comando usable en caso 1 es decir cuando el comando es para la version online
      */
     public function callFunctions($output, $em, $app, $databaseName = null) {
-        
+
         switch ($app) {
             case $app == static::TYPE_GENERAL:
                 $this->loadOrUpdateMotivoFacDev($output, $em, $databaseName);
@@ -110,6 +111,7 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
                 break;
             case $app == static::TYPE_RESTAURANT:
                 $this->modulesRestaurant($output, $em, $databaseName);
+                $this->loadFloor($output, $em, $databaseName);
                 break;
 
             default:
@@ -196,6 +198,48 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
                 $nameDatabase = (null != $databaseName) ? $databaseName : null;
 
                 $output->writeln($nameDatabase . ' ' . $motivosFacD->getMotivo() . " was updated");
+                $em->flush();
+            }
+        }
+    }
+
+    /**
+     * Funcion que pobla la base de datos en la tabla pisos
+     * @param type $output para imprimir mensaje en terminal
+     * @param type $em entity manager
+     * @param type $databaseName para pintar el nombre de la base de datos en la salida del comando usable en caso 1 es decir cuando el comando es para la version online
+     */
+    public function loadFloor($output, $em, $databaseName = null) {
+        $floors = array(
+            array('id' => '1', 'numero' => '1', 'nombre' => 'Piso 1'),
+            array('id' => '2', 'numero' => '2', 'nombre' => 'Piso 2')
+        );
+
+
+        foreach ($floors as $floor) {
+            $queryFloor = $em->getRepository('KijhoStructureBundle:Pisos')
+                    ->findOneBy(array('id' => $floor['id']));
+
+            if (!$queryFloor) {
+                $entity = new Pisos();
+                $entity->setPiNumero($floor['numero']);
+                $entity->setPiNombre($floor['nombre']);
+
+                $em->persist($entity);
+                $em->flush();
+
+                $nameDatabase = (null != $databaseName) ? $databaseName : null;
+                $output->writeln($nameDatabase . "Creating new floor name " . $entity->getNombre());
+            } else if (isset($queryFloor) && $queryFloor->getPiCodigo() == $queryFloor['id'] &&
+                    $queryFloor->getPiNombre() != $floors['nombre']) {
+
+                $queryFloor->setPiNumero($floor['numero']);
+                $queryFloor->setPiNombre($floors['nombre']);
+                $em->persist($queryFloor);
+
+                $nameDatabase = (null != $databaseName) ? $databaseName : null;
+
+                $output->writeln($nameDatabase . ' ' . $queryFloor->getPiNombre() . " was updated");
                 $em->flush();
             }
         }
