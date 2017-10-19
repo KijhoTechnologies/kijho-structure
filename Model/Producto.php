@@ -104,9 +104,9 @@ class Producto {
     /**
      * @var boolean
      *
-     * @ORM\Column(name="prod_FreeLance", type="boolean", nullable=false)
+     * @ORM\Column(name="prod_FreeLance", type="boolean", nullable=false, options={"default"=0})
      */
-    private $prodFreelance = '0';
+    private $prodFreelance;
 
     /**
      * @var integer
@@ -336,7 +336,7 @@ class Producto {
     /**
      * @var boolean
      * 
-     * @ORM\Column(name="prod_delete", type="boolean", nullable=false)
+     * @ORM\Column(name="prod_delete", type="boolean", nullable=false, options={"default"=false})
      */
     private $deleted;
 
@@ -349,7 +349,7 @@ class Producto {
      * Representa el estado del producto, 1 para activo, 0 para inactivo
      * @var boolean
      * 
-     * @ORM\Column(name="prod_negativo", type="boolean", nullable=false)
+     * @ORM\Column(name="prod_negativo", type="boolean", nullable=false, options={"default"=false})
      */
     private $negativos;
 
