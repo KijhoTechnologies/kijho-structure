@@ -19,6 +19,7 @@ class Configuracion {
     const CODE_INVERT_MEAN_LICENCE_EXPIRED = 1;
     const CODE_BAD_FORMAT = 99;
     const CODE_EXPIRED_LICENCE = 63;
+    const CODE_LICENCE_AUTO_UPDATE = 36;
     const CODE_INACTIVE_LICENCE = 64;
     const CODE_FILE_LICENCE_EMPTY = 97;
     const CODE_LICENCE_DATABASE_EMPTY = 96;
@@ -118,7 +119,7 @@ class Configuracion {
     /**
      * @var string
      *
-     * @ORM\Column(name="conf_numero_licencia", type="string", length=100, nullable=true)
+     * @ORM\Column(name="conf_numero_licencia", type="string", length=200, nullable=true)
      */
     private $confNumeroLicencia;
 
@@ -861,6 +862,7 @@ class Configuracion {
      * @ORM\Column(name="conf_prefactura", length=1, type="integer",  options={"default" : "1"}, nullable=true)
      */
     private $confPrefactura;
+
     /**
      *  Atributo para restaurant app
      * 
@@ -2691,7 +2693,7 @@ class Configuracion {
     function setConfHistorialAbono($confHistorialAbono) {
         $this->confHistorialAbono = $confHistorialAbono;
     }
-    
+
     function getConfPorcImpConsumo() {
         return $this->confPorcImpConsumo;
     }
@@ -2859,8 +2861,5 @@ class Configuracion {
     function setConfCantidadComandas($confCantidadComandas) {
         $this->confCantidadComandas = $confCantidadComandas;
     }
-
-
-    
 
 }
