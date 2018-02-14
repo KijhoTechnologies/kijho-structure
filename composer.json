@@ -15,9 +15,8 @@
     },
     "require": {
         "php": ">=5.5.9",
-        "doctrine/orm": "^v2.5.14",
-        "doctrine/doctrine-bundle": "1.8.*",
-        "symfony/console": "^4.0"
+        "doctrine/orm": "^2.5",
+        "doctrine/doctrine-bundle": "^1.6"
     },
     "extra": {
         "branch-alias": {
