@@ -726,7 +726,7 @@ class Configuracion {
     /**
      * @var integer
      *
-     * @ORM\Column(name="zeta12, length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     * @ORM\Column(name="zeta2", length=11, type="integer",  options={"default" : "0"}, nullable=true)
      */
     private $zeta2;
 
@@ -2945,18 +2945,6 @@ class Configuracion {
         return $this->confMensajeServicio;
     }
 
-    function getZeta1() {
-        return $this->zeta1;
-    }
-
-    function getZeta2() {
-        return $this->zeta2;
-    }
-
-    function getZeta3() {
-        return $this->zeta3;
-    }
-
     function getZetaExento() {
         return $this->zetaExento;
     }
@@ -2977,6 +2965,26 @@ class Configuracion {
         $this->confMensajeServicio = $confMensajeServicio;
     }
 
+    function setZetaExento($zetaExento) {
+        $this->zetaExento = $zetaExento;
+    }
+
+    function setZetaExcluido($zetaExcluido) {
+        $this->zetaExcluido = $zetaExcluido;
+    }
+
+    function getZeta1() {
+        return $this->zeta1;
+    }
+
+    function getZeta2() {
+        return $this->zeta2;
+    }
+
+    function getZeta3() {
+        return $this->zeta3;
+    }
+
     function setZeta1($zeta1) {
         $this->zeta1 = $zeta1;
     }
@@ -2989,11 +2997,4 @@ class Configuracion {
         $this->zeta3 = $zeta3;
     }
 
-    function setZetaExento($zetaExento) {
-        $this->zetaExento = $zetaExento;
-    }
-
-    function setZetaExcluido($zetaExcluido) {
-        $this->zetaExcluido = $zetaExcluido;
-    }
 }

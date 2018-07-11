@@ -101,7 +101,7 @@ class FacturaVentas {
     /**
      * @var string
      *
-     * @ORM\Column(name="facv_anulada", type="string", options={"default" : no},  nullable=false)
+     * @ORM\Column(name="facv_anulada", type="string", options={"default" : "no"},  nullable=true)
      */
     private $facvAnulada;
 

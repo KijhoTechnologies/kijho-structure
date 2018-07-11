@@ -213,20 +213,19 @@ class Zeta {
      * @ORM\Column(name="zeta1", length=11, type="integer",  options={"default" : "0"}, nullable=true)
      */
     private $zeta1;
-
     /**
      * @var integer
      *
-     * @ORM\Column(name="zeta12, length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     * @ORM\Column(name="zeta2", length=11, type="integer",  options={"default" : "0"}, nullable=true)
      */
     private $zeta2;
-
     /**
      * @var integer
      *
      * @ORM\Column(name="zeta3", length=11, type="integer",  options={"default" : "0"}, nullable=true)
      */
     private $zeta3;
+
 
     /**
      * @var integer
