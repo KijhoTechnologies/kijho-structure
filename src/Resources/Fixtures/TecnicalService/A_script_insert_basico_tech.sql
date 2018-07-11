@@ -287,8 +287,8 @@ INSERT INTO `cliente` (`cli_codigo`, `cli_nombre_empresa`, `cli_identificacion`,
 -- Dumping data for table `configuracion`
 --
 
-INSERT INTO `configuracion` (`conf_codigo`, `conf_regimen`, `conf_compras`, `conf_balanza`, `conf_fechas`, `conf_impresion_ventas`, `conf_tipo_impresora_pos`, `conf_ruta_local`, `conf_mensaje_invent_negati`, `conf_iva_1`, `conf_iva_2`, `conf_iva_3`, `conf_email_1_reporte`, `conf_email_2_reporte`, `conf_zetaDescuento`) VALUES
-(1, 'Regimen Comun', 'Activado', 'Desactivado', 'Desactivado', 'Impresora POS', '80 mm', 'seitemc.loc', 'Activado', '0.16', '0.10', '0.05', 'seitem@example.com', '', '0.00');
+INSERT INTO `configuracion` (`conf_codigo`, `conf_regimen`, `conf_compras`, `conf_balanza`, `conf_fechas`, `conf_impresion_ventas`, `conf_tipo_impresora_pos`, `conf_ruta_local`, `conf_mensaje_invent_negati`, `conf_iva1`, `conf_iva2`, `conf_iva3`, `conf_email_1_reporte`, `conf_email_2_reporte`, `conf_zetaDescuento`, `conf_utilidad_celulares`) VALUES
+(1, 'Regimen Comun', 'Activado', 'Desactivado', 'Desactivado', 'Impresora POS', '80 mm', 'seitemc.loc', 'Activado', '0.16', '0.10', '0.05', 'seitem@example.com', '', '0.00', 'Desactivado');
 
 --
 -- Dumping data for table `configuracion_factura`
@@ -9557,6 +9557,78 @@ INSERT INTO `model` (`mod_code`, `bra_code`, `mod_name`) VALUES
 (9252, 257, '5G');
 
 --
+-- Dumping data for table `module`
+--
+
+INSERT INTO `module` (`mod_code`, `mod_name`, `mod_url`, `mod_order`, `mod_son`) VALUES
+(1, 'Ventas', 'ventas.php', 0, 0),
+(2, 'Abonos', 'abonosVentas.php', 1, 1),
+(4, 'Abonos', 'abonosCompras.php', 3, 3),
+(3, 'Compras', 'listaFacturas.php', 2, 0),
+(5, 'Usuarios', 'listaUsuario.php', 4, 0),
+(6, 'Proveedores', 'listaProveedor.php', 5, 0),
+(7, 'Clientes', 'listaClientes.php', 6, 0),
+(8, 'Productos', 'listaProductos.php', 7, 0),
+(9, 'Inventario', 'inventario.php', 8, 0),
+(10, 'Gastos', 'listaGastos.php', 9, 0),
+(11, 'Balances', 'balances.php', 10, 0),
+(12, 'Prestamos', 'listaPrestamo.php', 11, 0),
+(13, 'Zetas', 'z.php', 12, 0),
+(14, 'Cuadres', 'listaCuadreDiario.php', 13, 0),
+(15, 'Reportes', 'reportes.php', 18, 0),
+(16, 'Reporte de Utilidades', 'reporte_utilidad.php', 19, 15),
+(17, 'Reporte de Utilidades por Cliente', 'reporte_utilidad_cliente.php', 20, 15),
+(18, 'Reporte de Ventas por Productos', 'reporte_utilidad_producto.php', 21, 15),
+(19, 'Reporte de Ventas por Categorias', 'reporte_utilidad_categoria.php', 22, 15),
+(20, 'Reporte de Deudas por Cliente', 'reporte_utilidad_cliente_deuda.php', 23, 15),
+(21, 'Reporte de Deudas a Proveedores', 'reporte_proveedor_deuda.php', 24, 15),
+(22, 'Reporte de Facturas de Venta', 'reporte_factura_numero.php', 25, 15),
+(23, 'Liquidacion', 'liquidacion.php', 17, 0),
+(24, 'Traspasos', 'listaTranspaso.php', 16, 0),
+(35, 'Pedidos', 'listaPedidos.php', 13, 0),
+(26, 'Contabilidad', 'listaContabilidad.php', 15, 0),
+(33, 'Devoluciones Proveedores', 'listaDevolucion.php', 14, 44),
+(34, 'Ajustes de Inventario', 'promociones.php', 26, 0),
+(36, 'Entradas al Inventario', 'listaPromocionProveedores.php', 27, 34),
+(37, 'Salidas de Inventario', 'listaPromocionClientes.php', 28, 34),
+(38, 'Buscador', 'buscador.php', 30, 0),
+(39, 'Devoluciones Clientes', 'listaDevolucionCliente.php', 14, 44),
+(40, 'Modificar Ventas', 'modificarVenta.php', 0, 1),
+(41, 'Eliminar Ventas', 'eliminarVenta.php', 1, 1),
+(42, 'Eliminar Compras', 'eliminarFactura.php', 2.2, 3),
+(43, 'Modificar Compras', 'modificarFactura.php', 2.1, 3),
+(44, 'Devoluciones', 'devoluciones.php', 14, 0),
+(45, 'Configuracion Factura', 'editarConfiguracionFactura.php', 50, 0),
+(46, 'Reporte de Gastos', 'reporte_gastos.php', 20, 15),
+(47, 'Reporte Compras Proveedores', 'reporte_compras_proveedores.php', 20, 15),
+(48, 'Reporte Ventas Clientes', 'reporte_ventas_clientes.php', 20, 15),
+(49, 'Reporte de Facturas de Compra', 'reporte_facturaCompra_numero.php', 25, 15),
+(50, 'Reporte Iva Descontable', 'reporte_iva_descontable.php', 25, 15),
+(51, 'Reporte Iva Generado', 'reporte_iva_generado.php', 25, 15),
+(52, 'Kardex', 'kardex.php', 17, 0),
+(54, 'Historial de Acciones', 'auditoria.php', 49, 0),
+(55, 'Reporte Arqueo Caja', 'reporteArqueoDiarioCaja.php', 19, 15),
+(56, 'Ingresos', 'listaIngresos.php', 9, 0),
+(57, 'Rifas', 'rifas.php', 51, 0),
+(58, 'Abrir Caja', 'abrirCaja.php', 1.1, 1),
+(59, 'Imprimir Factura Anterior', 'imprimirFacturaAnterior.php', 1.2, 1),
+(60, 'Activos Fijos', 'listaActivosFijos.php', 29, 0),
+(61, 'Configuracion', 'configuraciones.php', 52, 0),
+(62, 'Reporte de Ingresos', 'reporte_ingresos.php', 20, 15),
+(63, 'Servicios', 'listaServicios.php', -1, 0),
+(64, 'Reporte de Servicios', 'reporte_servicios.php', 19, 15),
+(65, 'Servicios Especiales', 'listaProductosServicios.php', -2, 0),
+(66, 'Eliminar Ventas de Servicios', 'eliminarVentaServicio.php', -1.5, 66),
+(67, 'Modificar Ventas de Servicios', 'modificarVentaServicio.php', -1.6, 66),
+(68, 'Traslados de Caja', 'listaTrasladosCaja.php', 9.5, 0),
+(69, 'Reporte Utilidad Servicios Especiales', 'reporte_utilidad_servicios_especiales.php', 25, 15),
+(70, 'Reporte de Ingresos por Servicios Tecnicos', 'reporte_ingreso_servicios.php', 21, 15),
+(71, 'Reporte de Descuentos en Facturas', 'reporteDescuentosFacturas.php', 21, 15),
+(72, 'Reporte Pagos Con Tarjetas', 'reporte_pagos_tarjetas.php', 26, 15),
+(73, 'Reporte IMEIS Vendidos', 'reporteImeiVendido.php', 26.5, 15),
+(74, 'Reporte IMEIS Comprados', 'reporteImeiComprado.php', 27, 15);
+
+--
 -- Dumping data for table `producto_servicio`
 --
 
@@ -9590,15 +9662,12 @@ INSERT INTO `tipo_gasto` (`tiga_codigo`, `tiga_nombre`, `tiga_descripcion`) VALU
 (5, 'Servicios Publicos', ''),
 (6, 'Gastos Varios', ''),
 (7, 'Pago por servico T', ''),
-(8, 'dinero yoani', 'dinero que se entrego al hermano de yoani 31 de enero'),
-(9, 'PRESTAMO RED CELL', ''),
-(10, 'COMPRAS', ''),
-(11, 'PLATA A ANGELA', 'CUADRE SEMANAL'),
-(12, 'Ajuste de Cierre', ''),
-(13, 'ARRIENDAMIENTO  LOCAL', ''),
-(14, 'PAGO EMPLEADOS', ''),
-(15, 'SERVICIOS ANGELA', ''),
-(16, 'ENVIO ACCESORIOS', '');
+(8, 'COMPRAS', ''),
+(9, 'Ajuste de Cierre', ''),
+(10, 'ARRIENDAMIENTO  LOCAL', ''),
+(11, 'PAGO EMPLEADOS', ''),
+(12, 'SERVICIOS ANGELA', ''),
+(13, 'ENVIO ACCESORIOS', '');
 
 --
 -- Dumping data for table `tipo_ingreso`
@@ -9792,6 +9861,24 @@ INSERT INTO `user_property` (`mod_code`, `use_code`, `uspr_property`) VALUES
 (64, 2, 'Write'),
 (65, 1, 'Write'),
 (65, 2, 'Write');
+(66, 1, 'Write'),
+(66, 2, 'Write');
+(67, 1, 'Write'),
+(67, 2, 'Write');
+(68, 1, 'Write'),
+(68, 2, 'Write');
+(69, 1, 'Write'),
+(69, 2, 'Write');
+(70, 1, 'Write'),
+(70, 2, 'Write');
+(71, 1, 'Write'),
+(71, 2, 'Write');
+(72, 1, 'Write'),
+(72, 2, 'Write');
+(73, 1, 'Write'),
+(73, 2, 'Write');
+(74, 1, 'Write'),
+(74, 2, 'Write');
 
 --
 -- Dumping data for table `usuario`
