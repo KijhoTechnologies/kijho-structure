@@ -106,6 +106,51 @@ class Service {
     private $servImeiCode;
 
     /**
+     * CAMPO PARA SEITEM SERVICIO TECNICO
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="serv_imei_code2", type="string", length=30, nullable=true)
+     */
+    private $servImeiCode2;
+
+    /**
+     * CAMPO PARA SEITEM SERVICIO TECNICO
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="serv_imagen", type="string", length=600, nullable=true)
+     */
+    private $servImagen;
+
+    /**
+     * CAMPO PARA SEITEM SERVICIO TECNICO
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="serv_imagen2", type="string", length=600, nullable=true)
+     */
+    private $servImagen2;
+
+    /**
+     * CAMPO PARA SEITEM SERVICIO TECNICO
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="serv_imagen3", type="string", length=600, nullable=true)
+     */
+    private $servImagen3;
+
+    /**
+     * CAMPO PARA SEITEM SERVICIO TECNICO
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="serv_imagen4", type="string", length=600, nullable=true)
+     */
+    private $servImagen4;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="serv_status", type="string", length=30, nullable=true)
@@ -222,6 +267,46 @@ class Service {
 
     function setServstatus($servstatus) {
         $this->servstatus = $servstatus;
+    }
+
+    function getServImeiCode2() {
+        return $this->servImeiCode2;
+    }
+
+    function getServImagen() {
+        return $this->servImagen;
+    }
+
+    function getServImagen2() {
+        return $this->servImagen2;
+    }
+
+    function getServImagen3() {
+        return $this->servImagen3;
+    }
+
+    function getServImagen4() {
+        return $this->servImagen4;
+    }
+
+    function setServImeiCode2($servImeiCode2) {
+        $this->servImeiCode2 = $servImeiCode2;
+    }
+
+    function setServImagen($servImagen) {
+        $this->servImagen = $servImagen;
+    }
+
+    function setServImagen2($servImagen2) {
+        $this->servImagen2 = $servImagen2;
+    }
+
+    function setServImagen3($servImagen3) {
+        $this->servImagen3 = $servImagen3;
+    }
+
+    function setServImagen4($servImagen4) {
+        $this->servImagen4 = $servImagen4;
     }
 
 }

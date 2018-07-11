@@ -163,6 +163,15 @@ class SalidaAnulada {
     private $facvCodigo;
 
     /**
+     * CAMPO PARA SEITEM SERVICIO TECNICO
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="sal_descuento_producto", type="string", length=100, nullable=true)
+     */
+    private $salDescuentoProducto;
+
+    /**
      * Atributo para restaurant app
      * @var string
      *
@@ -647,6 +656,14 @@ class SalidaAnulada {
 
     function setSalTipoAtencion($salTipoAtencion) {
         $this->salTipoAtencion = $salTipoAtencion;
+    }
+
+    function getSalDescuentoProducto() {
+        return $this->salDescuentoProducto;
+    }
+
+    function setSalDescuentoProducto($salDescuentoProducto) {
+        $this->salDescuentoProducto = $salDescuentoProducto;
     }
 
 }

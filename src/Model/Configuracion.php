@@ -126,7 +126,7 @@ class Configuracion {
     /**
      * @var string
      *
-     * @ORM\Column(name="conf_licencia_online", type="string", nullable=true)
+     * @ORM\Column(name="conf_licencia_online", type="string", options={"default" : "Desactivado"}, nullable=true)
      */
     private $confLicenciaOnline;
 
@@ -217,7 +217,7 @@ class Configuracion {
     /**
      * @var string
      *
-     * @ORM\Column(name="conf_preguntar_licencia_local", type="string", nullable=true)
+     * @ORM\Column(name="conf_preguntar_licencia_local", options={"default" : "Desactivado"}, type="string", nullable=true)
      */
     private $confPreguntarLicenciaLocal;
 
@@ -687,6 +687,69 @@ class Configuracion {
      * @ORM\Column(name="conf_historial_abono", type="string", length=100, options={"default" : "Activado"},  nullable=true)
      */
     private $confHistorialAbono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conf_utilidad_celulares", type="string", length=50, options={"default" : "Desactivado"},  nullable=true)
+     */
+    private $confUtilidadCelulares;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conf_con_cat", type="string", length=50, options={"default" : "Desactivado"},  nullable=true)
+     */
+    private $confConCat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conf_doble_imei", type="string", length=50, options={"default" : "Activado"},  nullable=true)
+     */
+    private $confDobleImei;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conf_mensaje_servicio", type="string", length=50, options={"default" : "Desactivado"},  nullable=true)
+     */
+    private $confMensajeServicio;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta1", length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zeta1;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta12, length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zeta2;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta3", length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zeta3;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta_exento", length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zetaExento;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta_excluido", length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zetaExcluido;
 
     /*
      * FIN BLOQUE Atributos para tecnical service app
@@ -2862,4 +2925,75 @@ class Configuracion {
         $this->confCantidadComandas = $confCantidadComandas;
     }
 
+    function getConfUtilidadCelulares() {
+        return $this->confUtilidadCelulares;
+    }
+
+    function setConfUtilidadCelulares($confUtilidadCelulares) {
+        $this->confUtilidadCelulares = $confUtilidadCelulares;
+    }
+
+    function getConfConCat() {
+        return $this->confConCat;
+    }
+
+    function getConfDobleImei() {
+        return $this->confDobleImei;
+    }
+
+    function getConfMensajeServicio() {
+        return $this->confMensajeServicio;
+    }
+
+    function getZeta1() {
+        return $this->zeta1;
+    }
+
+    function getZeta2() {
+        return $this->zeta2;
+    }
+
+    function getZeta3() {
+        return $this->zeta3;
+    }
+
+    function getZetaExento() {
+        return $this->zetaExento;
+    }
+
+    function getZetaExcluido() {
+        return $this->zetaExcluido;
+    }
+
+    function setConfConCat($confConCat) {
+        $this->confConCat = $confConCat;
+    }
+
+    function setConfDobleImei($confDobleImei) {
+        $this->confDobleImei = $confDobleImei;
+    }
+
+    function setConfMensajeServicio($confMensajeServicio) {
+        $this->confMensajeServicio = $confMensajeServicio;
+    }
+
+    function setZeta1($zeta1) {
+        $this->zeta1 = $zeta1;
+    }
+
+    function setZeta2($zeta2) {
+        $this->zeta2 = $zeta2;
+    }
+
+    function setZeta3($zeta3) {
+        $this->zeta3 = $zeta3;
+    }
+
+    function setZetaExento($zetaExento) {
+        $this->zetaExento = $zetaExento;
+    }
+
+    function setZetaExcluido($zetaExcluido) {
+        $this->zetaExcluido = $zetaExcluido;
+    }
 }

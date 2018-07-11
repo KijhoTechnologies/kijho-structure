@@ -101,7 +101,7 @@ class FacturaVentas {
     /**
      * @var string
      *
-     * @ORM\Column(name="facv_anulada", type="string", nullable=false)
+     * @ORM\Column(name="facv_anulada", type="string", options={"default" : no},  nullable=false)
      */
     private $facvAnulada;
 
@@ -343,6 +343,15 @@ class FacturaVentas {
      * @ORM\Column(name="facv_cli_direccion", type="string", length=100, nullable=true)
      */
     private $facvCliDireccion;
+
+    /**
+     * CAMPO PARA SEITEM SERVICIO TECNICO
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="facv_cli_comentario", type="string", length=200, nullable=true)
+     */
+    private $facvCliComentario;
 
     /**
      *  Atributo para restaurant app
@@ -1161,6 +1170,7 @@ class FacturaVentas {
     function setFacvCliDireccion($facvCliDireccion) {
         $this->facvCliDireccion = $facvCliDireccion;
     }
+
     function getFacvImpConsumo() {
         return $this->facvImpConsumo;
     }
@@ -1201,5 +1211,14 @@ class FacturaVentas {
         $this->facvAplicarImpConsumo = $facvAplicarImpConsumo;
     }
 
+    function getFacvCliComentario() {
+        return $this->facvCliComentario;
+    }
 
+    function setFacvCliComentario($facvCliComentario) {
+        $this->facvCliComentario = $facvCliComentario;
+    }
+
+
+    
 }

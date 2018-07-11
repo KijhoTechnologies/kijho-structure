@@ -4,18 +4,14 @@ namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
-
-
-
 /**
  * FacturasPorCobrar
  *
  * @ORM\Table(name="facturas_por_cobrar")
  * @ORM\Entity
  */
-class FacturasPorCobrar
-{
+class FacturasPorCobrar {
+
     /**
      * @var integer
      *
@@ -68,7 +64,7 @@ class FacturasPorCobrar
      */
     private $fpcResta;
 
-    /** 
+    /**
      * @var integer
      *
      * @ORM\Column(name="usu_codigo", type="integer", nullable=false)
@@ -88,18 +84,24 @@ class FacturasPorCobrar
      * @ORM\Column(name="facv_saldada", type="boolean", nullable=true, options={"default"=false})
      */
     private $paidInvoice;
-    
-    
+
+    /**
+     * CAMPO PARA SEITEM SERVICIO TECNICO
+     * 
+     * @var string
+     *
+     * @ORM\Column(name="fpc_comentario", type="string", length=200, nullable=true)
+     */
+    private $fpcComentario;
+
     /**
      * Get fpcCodigo
      *
      * @return integer 
      */
-    public function getFpcCodigo()
-    {
+    public function getFpcCodigo() {
         return $this->fpcCodigo;
     }
-
 
     public function __construct(Usuario $user, \DateTime $dateTime) {
         $this->fpcFecha = $dateTime;
@@ -107,7 +109,6 @@ class FacturasPorCobrar
         $this->usuCodigo = $user;
         $this->paidInvoice = false;
     }
-    
 
     /**
      * Set facvCodigo
@@ -115,8 +116,7 @@ class FacturasPorCobrar
      * @param integer $facvCodigo
      * @return FacturasPorCobrar
      */
-    public function setFacvCodigo(FacturaVentas $factura)
-    {
+    public function setFacvCodigo(FacturaVentas $factura) {
         $this->facvCodigo = $factura;
 
         return $this;
@@ -127,8 +127,7 @@ class FacturasPorCobrar
      *
      * @return integer 
      */
-    public function getFacvCodigo()
-    {
+    public function getFacvCodigo() {
         return $this->facvCodigo;
     }
 
@@ -138,8 +137,7 @@ class FacturasPorCobrar
      * @param integer $fpcAbono
      * @return FacturasPorCobrar
      */
-    public function setFpcAbono($fpcAbono)
-    {
+    public function setFpcAbono($fpcAbono) {
         $this->fpcAbono = $fpcAbono;
 
         return $this;
@@ -150,8 +148,7 @@ class FacturasPorCobrar
      *
      * @return integer 
      */
-    public function getFpcAbono()
-    {
+    public function getFpcAbono() {
         return $this->fpcAbono;
     }
 
@@ -161,8 +158,7 @@ class FacturasPorCobrar
      * @param \DateTime $fpcFecha
      * @return FacturasPorCobrar
      */
-    public function setFpcFecha($fpcFecha)
-    {
+    public function setFpcFecha($fpcFecha) {
         $this->fpcFecha = $fpcFecha;
 
         return $this;
@@ -173,8 +169,7 @@ class FacturasPorCobrar
      *
      * @return \DateTime 
      */
-    public function getFpcFecha()
-    {
+    public function getFpcFecha() {
         return $this->fpcFecha;
     }
 
@@ -184,8 +179,7 @@ class FacturasPorCobrar
      * @param string $fpcHora
      * @return FacturasPorCobrar
      */
-    public function setFpcHora($fpcHora)
-    {
+    public function setFpcHora($fpcHora) {
         $this->fpcHora = $fpcHora;
 
         return $this;
@@ -196,8 +190,7 @@ class FacturasPorCobrar
      *
      * @return string 
      */
-    public function getFpcHora()
-    {
+    public function getFpcHora() {
         return $this->fpcHora;
     }
 
@@ -207,8 +200,7 @@ class FacturasPorCobrar
      * @param integer $fpcEstado
      * @return FacturasPorCobrar
      */
-    public function setFpcEstado($fpcEstado)
-    {
+    public function setFpcEstado($fpcEstado) {
         $this->fpcEstado = $fpcEstado;
 
         return $this;
@@ -219,8 +211,7 @@ class FacturasPorCobrar
      *
      * @return integer 
      */
-    public function getFpcEstado()
-    {
+    public function getFpcEstado() {
         return $this->fpcEstado;
     }
 
@@ -230,8 +221,7 @@ class FacturasPorCobrar
      * @param integer $fpcResta
      * @return FacturasPorCobrar
      */
-    public function setFpcResta($fpcResta)
-    {
+    public function setFpcResta($fpcResta) {
         $this->fpcResta = $fpcResta;
 
         return $this;
@@ -242,8 +232,7 @@ class FacturasPorCobrar
      *
      * @return integer 
      */
-    public function getFpcResta()
-    {
+    public function getFpcResta() {
         return $this->fpcResta;
     }
 
@@ -253,8 +242,7 @@ class FacturasPorCobrar
      * @param integer $usuCodigo
      * @return FacturasPorCobrar
      */
-    public function setUsuCodigo($usuCodigo)
-    {
+    public function setUsuCodigo($usuCodigo) {
         $this->usuCodigo = $usuCodigo;
 
         return $this;
@@ -265,8 +253,7 @@ class FacturasPorCobrar
      *
      * @return integer 
      */
-    public function getUsuCodigo()
-    {
+    public function getUsuCodigo() {
         return $this->usuCodigo;
     }
 
@@ -276,8 +263,7 @@ class FacturasPorCobrar
      * @param integer $codCaja
      * @return FacturasPorCobrar
      */
-    public function setCodCaja($codCaja)
-    {
+    public function setCodCaja($codCaja) {
         $this->codCaja = $codCaja;
 
         return $this;
@@ -288,20 +274,26 @@ class FacturasPorCobrar
      *
      * @return integer 
      */
-    public function getCodCaja()
-    {
+    public function getCodCaja() {
         return $this->codCaja;
     }
 
-    public function setPaidInvoice($paidInvoice)
-    {
+    public function setPaidInvoice($paidInvoice) {
         $this->paidInvoice = $paidInvoice;
 
         return $this;
     }
 
-    public function getPaidInvoice()
-    {
+    public function getPaidInvoice() {
         return $this->paidInvoice;
-}
+    }
+
+    function getFpcComentario() {
+        return $this->fpcComentario;
+    }
+
+    function setFpcComentario($fpcComentario) {
+        $this->fpcComentario = $fpcComentario;
+    }
+
 }

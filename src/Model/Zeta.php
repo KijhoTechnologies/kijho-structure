@@ -4,18 +4,14 @@ namespace Kijho\StructureBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
-
-
-
 /**
  * Zeta
  *
  * @ORM\Table(name="zeta")
  * @ORM\Entity
  */
-class Zeta
-{
+class Zeta {
+
     /**
      * @var integer
      *
@@ -157,49 +153,49 @@ class Zeta
      * @ORM\Column(name="facfv_max", type="integer", nullable=true)
      */
     private $facfvMax;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="zeta_generada", type="decimal", precision=4, scale=2, nullable=true)
      */
     private $zetaGenerada;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="zeta_generada5", type="decimal", precision=4, scale=2, nullable=true)
      */
     private $zetaGenerada5;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="zeta_generada10", type="decimal", precision=4, scale=2, nullable=true)
      */
     private $zetaGenerada10;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="zeta_generada16", type="decimal", precision=4, scale=2, nullable=true)
      */
     private $zetaGenerada16;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="zeta_generadaExento", type="decimal", precision=4, scale=2, nullable=true)
      */
     private $zetaGeneradaExento;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="zeta_generadaExcluido", type="decimal", precision=4, scale=2, nullable=true)
      */
     private $zetaGeneradaExcluido;
-    
+
     /**
      * @var string
      *
@@ -207,14 +203,62 @@ class Zeta
      */
     private $zetaGeneradaSimplificado;
 
+    /*
+     * INICIO BLOQUE Atributos para tecnical service app
+     */
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta1", length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zeta1;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta12, length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zeta2;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta3", length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zeta3;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta_exento", length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zetaExento;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta_excluido", length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zetaExcluido;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zeta_sim", length=11, type="integer",  options={"default" : "0"}, nullable=true)
+     */
+    private $zetaSim;
+
+    /*
+     * FIN BLOQUE Atributos para tecnical service app
+     */
 
     /**
      * Get zetaCodigo
      *
      * @return integer 
      */
-    public function getZetaCodigo()
-    {
+    public function getZetaCodigo() {
         return $this->zetaCodigo;
     }
 
@@ -224,8 +268,7 @@ class Zeta
      * @param \DateTime $zetaFecha
      * @return Zeta
      */
-    public function setZetaFecha($zetaFecha)
-    {
+    public function setZetaFecha($zetaFecha) {
         $this->zetaFecha = $zetaFecha;
 
         return $this;
@@ -236,8 +279,7 @@ class Zeta
      *
      * @return \DateTime 
      */
-    public function getZetaFecha()
-    {
+    public function getZetaFecha() {
         return $this->zetaFecha;
     }
 
@@ -247,8 +289,7 @@ class Zeta
      * @param string $zetaPuntoIva16
      * @return Zeta
      */
-    public function setZetaPuntoIva16($zetaPuntoIva16)
-    {
+    public function setZetaPuntoIva16($zetaPuntoIva16) {
         $this->zetaPuntoIva16 = $zetaPuntoIva16;
 
         return $this;
@@ -259,8 +300,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaPuntoIva16()
-    {
+    public function getZetaPuntoIva16() {
         return $this->zetaPuntoIva16;
     }
 
@@ -270,8 +310,7 @@ class Zeta
      * @param string $zetaPuntoIva10
      * @return Zeta
      */
-    public function setZetaPuntoIva10($zetaPuntoIva10)
-    {
+    public function setZetaPuntoIva10($zetaPuntoIva10) {
         $this->zetaPuntoIva10 = $zetaPuntoIva10;
 
         return $this;
@@ -282,8 +321,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaPuntoIva10()
-    {
+    public function getZetaPuntoIva10() {
         return $this->zetaPuntoIva10;
     }
 
@@ -293,8 +331,7 @@ class Zeta
      * @param string $zetaPuntoExento
      * @return Zeta
      */
-    public function setZetaPuntoExento($zetaPuntoExento)
-    {
+    public function setZetaPuntoExento($zetaPuntoExento) {
         $this->zetaPuntoExento = $zetaPuntoExento;
 
         return $this;
@@ -305,8 +342,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaPuntoExento()
-    {
+    public function getZetaPuntoExento() {
         return $this->zetaPuntoExento;
     }
 
@@ -316,8 +352,7 @@ class Zeta
      * @param string $zetaPuntoExcluido
      * @return Zeta
      */
-    public function setZetaPuntoExcluido($zetaPuntoExcluido)
-    {
+    public function setZetaPuntoExcluido($zetaPuntoExcluido) {
         $this->zetaPuntoExcluido = $zetaPuntoExcluido;
 
         return $this;
@@ -328,8 +363,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaPuntoExcluido()
-    {
+    public function getZetaPuntoExcluido() {
         return $this->zetaPuntoExcluido;
     }
 
@@ -339,8 +373,7 @@ class Zeta
      * @param string $zetaDescuento
      * @return Zeta
      */
-    public function setZetaDescuento($zetaDescuento)
-    {
+    public function setZetaDescuento($zetaDescuento) {
         $this->zetaDescuento = $zetaDescuento;
 
         return $this;
@@ -351,8 +384,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaDescuento()
-    {
+    public function getZetaDescuento() {
         return $this->zetaDescuento;
     }
 
@@ -362,8 +394,7 @@ class Zeta
      * @param string $zetaTotal
      * @return Zeta
      */
-    public function setZetaTotal($zetaTotal)
-    {
+    public function setZetaTotal($zetaTotal) {
         $this->zetaTotal = $zetaTotal;
 
         return $this;
@@ -374,8 +405,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaTotal()
-    {
+    public function getZetaTotal() {
         return $this->zetaTotal;
     }
 
@@ -385,8 +415,7 @@ class Zeta
      * @param integer $facvMin
      * @return Zeta
      */
-    public function setFacvMin($facvMin)
-    {
+    public function setFacvMin($facvMin) {
         $this->facvMin = $facvMin;
 
         return $this;
@@ -397,8 +426,7 @@ class Zeta
      *
      * @return integer 
      */
-    public function getFacvMin()
-    {
+    public function getFacvMin() {
         return $this->facvMin;
     }
 
@@ -408,8 +436,7 @@ class Zeta
      * @param integer $facvMax
      * @return Zeta
      */
-    public function setFacvMax($facvMax)
-    {
+    public function setFacvMax($facvMax) {
         $this->facvMax = $facvMax;
 
         return $this;
@@ -420,8 +447,7 @@ class Zeta
      *
      * @return integer 
      */
-    public function getFacvMax()
-    {
+    public function getFacvMax() {
         return $this->facvMax;
     }
 
@@ -431,8 +457,7 @@ class Zeta
      * @param string $zetaPuntoIva5
      * @return Zeta
      */
-    public function setZetaPuntoIva5($zetaPuntoIva5)
-    {
+    public function setZetaPuntoIva5($zetaPuntoIva5) {
         $this->zetaPuntoIva5 = $zetaPuntoIva5;
 
         return $this;
@@ -443,8 +468,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaPuntoIva5()
-    {
+    public function getZetaPuntoIva5() {
         return $this->zetaPuntoIva5;
     }
 
@@ -454,8 +478,7 @@ class Zeta
      * @param string $zetaPuntoIva16Fisico
      * @return Zeta
      */
-    public function setZetaPuntoIva16Fisico($zetaPuntoIva16Fisico)
-    {
+    public function setZetaPuntoIva16Fisico($zetaPuntoIva16Fisico) {
         $this->zetaPuntoIva16Fisico = $zetaPuntoIva16Fisico;
 
         return $this;
@@ -466,8 +489,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaPuntoIva16Fisico()
-    {
+    public function getZetaPuntoIva16Fisico() {
         return $this->zetaPuntoIva16Fisico;
     }
 
@@ -477,8 +499,7 @@ class Zeta
      * @param string $zetaPuntoIva10Fisico
      * @return Zeta
      */
-    public function setZetaPuntoIva10Fisico($zetaPuntoIva10Fisico)
-    {
+    public function setZetaPuntoIva10Fisico($zetaPuntoIva10Fisico) {
         $this->zetaPuntoIva10Fisico = $zetaPuntoIva10Fisico;
 
         return $this;
@@ -489,8 +510,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaPuntoIva10Fisico()
-    {
+    public function getZetaPuntoIva10Fisico() {
         return $this->zetaPuntoIva10Fisico;
     }
 
@@ -500,8 +520,7 @@ class Zeta
      * @param string $zetaPuntoIva5Fisico
      * @return Zeta
      */
-    public function setZetaPuntoIva5Fisico($zetaPuntoIva5Fisico)
-    {
+    public function setZetaPuntoIva5Fisico($zetaPuntoIva5Fisico) {
         $this->zetaPuntoIva5Fisico = $zetaPuntoIva5Fisico;
 
         return $this;
@@ -512,8 +531,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaPuntoIva5Fisico()
-    {
+    public function getZetaPuntoIva5Fisico() {
         return $this->zetaPuntoIva5Fisico;
     }
 
@@ -523,8 +541,7 @@ class Zeta
      * @param string $zetaPuntoExentoFisico
      * @return Zeta
      */
-    public function setZetaPuntoExentoFisico($zetaPuntoExentoFisico)
-    {
+    public function setZetaPuntoExentoFisico($zetaPuntoExentoFisico) {
         $this->zetaPuntoExentoFisico = $zetaPuntoExentoFisico;
 
         return $this;
@@ -535,8 +552,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaPuntoExentoFisico()
-    {
+    public function getZetaPuntoExentoFisico() {
         return $this->zetaPuntoExentoFisico;
     }
 
@@ -546,8 +562,7 @@ class Zeta
      * @param string $zetaPuntoExcluidoFisico
      * @return Zeta
      */
-    public function setZetaPuntoExcluidoFisico($zetaPuntoExcluidoFisico)
-    {
+    public function setZetaPuntoExcluidoFisico($zetaPuntoExcluidoFisico) {
         $this->zetaPuntoExcluidoFisico = $zetaPuntoExcluidoFisico;
 
         return $this;
@@ -558,8 +573,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaPuntoExcluidoFisico()
-    {
+    public function getZetaPuntoExcluidoFisico() {
         return $this->zetaPuntoExcluidoFisico;
     }
 
@@ -569,8 +583,7 @@ class Zeta
      * @param string $zetaFisicoDescuento
      * @return Zeta
      */
-    public function setZetaFisicoDescuento($zetaFisicoDescuento)
-    {
+    public function setZetaFisicoDescuento($zetaFisicoDescuento) {
         $this->zetaFisicoDescuento = $zetaFisicoDescuento;
 
         return $this;
@@ -581,8 +594,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaFisicoDescuento()
-    {
+    public function getZetaFisicoDescuento() {
         return $this->zetaFisicoDescuento;
     }
 
@@ -592,8 +604,7 @@ class Zeta
      * @param string $zetaFisicoTotal
      * @return Zeta
      */
-    public function setZetaFisicoTotal($zetaFisicoTotal)
-    {
+    public function setZetaFisicoTotal($zetaFisicoTotal) {
         $this->zetaFisicoTotal = $zetaFisicoTotal;
 
         return $this;
@@ -604,8 +615,7 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaFisicoTotal()
-    {
+    public function getZetaFisicoTotal() {
         return $this->zetaFisicoTotal;
     }
 
@@ -615,8 +625,7 @@ class Zeta
      * @param integer $facfvMin
      * @return Zeta
      */
-    public function setFacfvMin($facfvMin)
-    {
+    public function setFacfvMin($facfvMin) {
         $this->facfvMin = $facfvMin;
 
         return $this;
@@ -627,8 +636,7 @@ class Zeta
      *
      * @return integer 
      */
-    public function getFacfvMin()
-    {
+    public function getFacfvMin() {
         return $this->facfvMin;
     }
 
@@ -638,8 +646,7 @@ class Zeta
      * @param integer $facfvMax
      * @return Zeta
      */
-    public function setFacfvMax($facfvMax)
-    {
+    public function setFacfvMax($facfvMax) {
         $this->facfvMax = $facfvMax;
 
         return $this;
@@ -650,19 +657,17 @@ class Zeta
      *
      * @return integer 
      */
-    public function getFacfvMax()
-    {
+    public function getFacfvMax() {
         return $this->facfvMax;
     }
-    
+
     /**
      * Set zetaGenerada
      *
      * @param string $zetaGenerada
      * @return Zeta
      */
-    public function setZetaGenerada($zetaGenerada)
-    {
+    public function setZetaGenerada($zetaGenerada) {
         $this->zetaGenerada = $zetaGenerada;
 
         return $this;
@@ -673,19 +678,17 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaGenerada()
-    {
+    public function getZetaGenerada() {
         return $this->zetaGenerada;
     }
-    
+
     /**
      * Set zetaGenerada5
      *
      * @param string $zetaGenerada5
      * @return Zeta
      */
-    public function setZetaGenerada5($zetaGenerada5)
-    {
+    public function setZetaGenerada5($zetaGenerada5) {
         $this->zetaGenerada5 = $zetaGenerada5;
 
         return $this;
@@ -696,19 +699,17 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaGenerada5()
-    {
+    public function getZetaGenerada5() {
         return $this->zetaGenerada5;
     }
-    
+
     /**
      * Set zetaGenerada10
      *
      * @param string $zetaGenerada10
      * @return Zeta
      */
-    public function setZetaGenerada10($zetaGenerada10)
-    {
+    public function setZetaGenerada10($zetaGenerada10) {
         $this->zetaGenerada10 = $zetaGenerada10;
 
         return $this;
@@ -719,19 +720,17 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaGenerada10()
-    {
+    public function getZetaGenerada10() {
         return $this->zetaGenerada10;
     }
-    
+
     /**
      * Set zetaGenerada16
      *
      * @param string $zetaGenerada16
      * @return Zeta
      */
-    public function setZetaGenerada16($zetaGenerada16)
-    {
+    public function setZetaGenerada16($zetaGenerada16) {
         $this->zetaGenerada16 = $zetaGenerada16;
 
         return $this;
@@ -742,19 +741,17 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaGenerada16()
-    {
+    public function getZetaGenerada16() {
         return $this->zetaGenerada16;
     }
-    
+
     /**
      * Set zetaGeneradaExento
      *
      * @param string $zetaGeneradaExento
      * @return Zeta
      */
-    public function setZetaGeneradaExento($zetaGeneradaExento)
-    {
+    public function setZetaGeneradaExento($zetaGeneradaExento) {
         $this->zetaGeneradaExento = $zetaGeneradaExento;
 
         return $this;
@@ -765,19 +762,17 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaGeneradaExento()
-    {
+    public function getZetaGeneradaExento() {
         return $this->zetaGeneradaExento;
     }
-    
+
     /**
      * Set zetaGeneradaExcluido
      *
      * @param string $zetaGeneradaExcluido
      * @return Zeta
      */
-    public function setZetaGeneradaExcluido($zetaGeneradaExcluido)
-    {
+    public function setZetaGeneradaExcluido($zetaGeneradaExcluido) {
         $this->zetaGeneradaExcluido = $zetaGeneradaExcluido;
 
         return $this;
@@ -788,19 +783,17 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaGeneradaExcluido()
-    {
+    public function getZetaGeneradaExcluido() {
         return $this->zetaGeneradaExcluido;
     }
-    
+
     /**
      * Set zetaGeneradaSimplificado
      *
      * @param string $zetaGeneradaSimplificado
      * @return Zeta
      */
-    public function setZetaGeneradaSimplificado($zetaGeneradaSimplificado)
-    {
+    public function setZetaGeneradaSimplificado($zetaGeneradaSimplificado) {
         $this->zetaGeneradaSimplificado = $zetaGeneradaSimplificado;
 
         return $this;
@@ -811,8 +804,56 @@ class Zeta
      *
      * @return string 
      */
-    public function getZetaGeneradaSimplificado()
-    {
+    public function getZetaGeneradaSimplificado() {
         return $this->zetaGeneradaSimplificado;
     }
+
+    function getZeta1() {
+        return $this->zeta1;
+    }
+
+    function getZeta2() {
+        return $this->zeta2;
+    }
+
+    function getZeta3() {
+        return $this->zeta3;
+    }
+
+    function getZetaExento() {
+        return $this->zetaExento;
+    }
+
+    function getZetaExcluido() {
+        return $this->zetaExcluido;
+    }
+
+    function getZetaSim() {
+        return $this->zetaSim;
+    }
+
+    function setZeta1($zeta1) {
+        $this->zeta1 = $zeta1;
+    }
+
+    function setZeta2($zeta2) {
+        $this->zeta2 = $zeta2;
+    }
+
+    function setZeta3($zeta3) {
+        $this->zeta3 = $zeta3;
+    }
+
+    function setZetaExento($zetaExento) {
+        $this->zetaExento = $zetaExento;
+    }
+
+    function setZetaExcluido($zetaExcluido) {
+        $this->zetaExcluido = $zetaExcluido;
+    }
+
+    function setZetaSim($zetaSim) {
+        $this->zetaSim = $zetaSim;
+    }
+
 }
