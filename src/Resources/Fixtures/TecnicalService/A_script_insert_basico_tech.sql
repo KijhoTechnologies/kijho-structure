@@ -9798,5 +9798,5 @@ INSERT INTO `user_property` (`mod_code`, `use_code`, `uspr_property`) VALUES
 
 INSERT INTO `usuario` (`usu_codigo`, `usu_nombre`, `usu_apellido`, `usu_telefono`, `usu_login`, `usu_pass`, `usu_tipo`, `usu_estado`, `usu_access_code`) VALUES
 (1, 'Administrador', 'Negocio', NULL, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 1, '827ccb0eea8a706c4c34a16891f84e7b'),
-(2, 'Super Administrador', 'Seitem', NULL, 'superadmin', 'aea3b2af002c7b3a64e5463e572c833a', 1, 2, '827ccb0eea8a706c4c34a16891f84e7b');
+(2, 'Super Administrador', 'Seitem', NULL, 'superadmin', 'aea3b2af002c7b3a64e5463e572c833a', 1, 1, '827ccb0eea8a706c4c34a16891f84e7b');
 
