@@ -343,7 +343,7 @@ class Configuracion {
     /**
      * @var string
      *
-     * @ORM\Column(name="conf_bdCentralizada", type="string", nullable=true)
+     * @ORM\Column(name="conf_bdCentralizada", type="string",  options={"default" : "Desactivado"}, nullable=true)
      */
     private $confBdcentralizada;
 
@@ -750,7 +750,14 @@ class Configuracion {
      * @ORM\Column(name="zeta_excluido", length=11, type="integer",  options={"default" : "0"}, nullable=true)
      */
     private $zetaExcluido;
-
+   
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conf_comentario", length=20, type="string",  options={"default" : "Desactivado"}, nullable=true)
+     */
+    private $confComentario;
+    
     /*
      * FIN BLOQUE Atributos para tecnical service app
      */
@@ -2997,4 +3004,5 @@ class Configuracion {
         $this->zeta3 = $zeta3;
     }
 
+    
 }

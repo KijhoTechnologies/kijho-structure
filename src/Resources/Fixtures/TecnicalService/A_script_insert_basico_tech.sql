@@ -288,7 +288,7 @@ INSERT INTO `cliente` (`cli_codigo`, `cli_nombre_empresa`, `cli_identificacion`,
 --
 
 INSERT INTO `configuracion` (`conf_codigo`, `conf_regimen`, `conf_compras`, `conf_balanza`, `conf_fechas`, `conf_impresion_ventas`, `conf_tipo_impresora_pos`, `conf_ruta_local`, `conf_mensaje_invent_negati`, `conf_iva_1`, `conf_iva_2`, `conf_iva_3`, `conf_email_1_reporte`, `conf_email_2_reporte`, `conf_zetaDescuento`, `conf_utilidad_celulares`) VALUES
-(1, 'Regimen Comun', 'Activado', 'Desactivado', 'Desactivado', 'Impresora POS', '80 mm', 'seitemc.loc', 'Activado', '0.16', '0.10', '0.05', 'seitem@example.com', '', '0.00', 'Desactivado');
+(1, 'Regimen Comun', 'Activado', 'Desactivado', 'Desactivado', 'Impresora POS', '80 mm', 'seitem.loc', 'Activado', '0.16', '0.10', '0.05', 'seitem@example.com', '', '0.00', 'Desactivado');
 
 --
 -- Dumping data for table `configuracion_factura`
