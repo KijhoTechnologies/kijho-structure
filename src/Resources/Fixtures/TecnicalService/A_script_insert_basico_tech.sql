@@ -9790,7 +9790,7 @@ INSERT INTO `user_property` (`mod_code`, `use_code`, `uspr_property`) VALUES
 (65, 1, 'Write'),
 (65, 2, 'Write'),
 (66, 1, 'Write'),
-(66, 2, 'Write'),
+(66, 2, 'Write');
 
 --
 -- Dumping data for table `usuario`
