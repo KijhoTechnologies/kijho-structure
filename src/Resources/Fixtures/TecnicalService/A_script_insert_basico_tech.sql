@@ -9791,22 +9791,6 @@ INSERT INTO `user_property` (`mod_code`, `use_code`, `uspr_property`) VALUES
 (65, 2, 'Write'),
 (66, 1, 'Write'),
 (66, 2, 'Write'),
-(67, 1, 'Write'),
-(67, 2, 'Write'),
-(68, 1, 'Write'),
-(68, 2, 'Write'),
-(69, 1, 'Write'),
-(69, 2, 'Write'),
-(70, 1, 'Write'),
-(70, 2, 'Write'),
-(71, 1, 'Write'),
-(71, 2, 'Write'),
-(72, 1, 'Write'),
-(72, 2, 'Write'),
-(73, 1, 'Write'),
-(73, 2, 'Write'),
-(74, 1, 'Write'),
-(74, 2, 'Write');
 
 --
 -- Dumping data for table `usuario`
