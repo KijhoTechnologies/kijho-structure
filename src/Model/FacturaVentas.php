@@ -349,7 +349,7 @@ class FacturaVentas {
      * 
      * @var string
      *
-     * @ORM\Column(name="facv_cli_comentario", type="string", length=200, nullable=true)
+     * @ORM\Column(name="facv_comentario", type="string", length=200, nullable=true)
      */
     private $facvCliComentario;
 
