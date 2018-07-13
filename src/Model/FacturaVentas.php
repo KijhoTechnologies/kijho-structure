@@ -316,7 +316,7 @@ class FacturaVentas {
      * CAMPO PARA SEITEM SERVICIO TECNICO
      * @var string
      *
-     * @ORM\Column(name="facvCliNombre", type="string",  length=100, nullable=true)
+     * @ORM\Column(name="facv_cli_nombre", type="string",  length=100, nullable=true)
      */
     private $facv_cli_nombre;
 
@@ -324,7 +324,7 @@ class FacturaVentas {
      * CAMPO PARA SEITEM SERVICIO TECNICO
      * @var string
      *
-     * @ORM\Column(name="facvCliCedula", type="string",  length=20, nullable=true)
+     * @ORM\Column(name="facv_cli_cedula", type="string",  length=20, nullable=true)
      */
     private $facvCliCedula;
 
