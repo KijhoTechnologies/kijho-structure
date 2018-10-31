@@ -91,7 +91,7 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
     }
 
     /**
-     * Funcion encargada de callar los metodos que crearan informacion en la base de datos
+     * Funcion encargada de llamar los metodos que crearan informacion en la base de datos
      * o que actualizaran los mismos
      * @param type $output para imprimir mensaje en terminal
      * @param type $em entity manager
