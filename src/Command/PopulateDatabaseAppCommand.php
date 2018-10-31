@@ -485,7 +485,7 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
     }
 
     /**
-     * Funcion que pobla la base de datos en la tabla modules technical service
+     * Funcion que pobla la base de datos en la tabla modules restaurant
      * @param type $output para imprimir mensaje en terminal
      * @param type $em entity manager
      * @param type $databaseName para pintar el nombre de la base de datos en la salida del comando usable en caso 1 es decir cuando el comando es para la version online
