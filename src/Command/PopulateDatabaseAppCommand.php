@@ -52,7 +52,7 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
         set_time_limit(1200);
 
         $container = $this->getContainer();
-
+        
         /**
          * si la llamada al commando se hace desde licensor
          */
@@ -204,7 +204,7 @@ class PopulateDatabaseAppCommand extends ContainerAwareCommand {
     }
 
     /**
-     * Funcion que poblar la base de datos en la tabla pisos
+     * Funcion que permite poblar la base de datos en la tabla pisos
      * @param type $output para imprimir mensaje en terminal
      * @param type $em entity manager
      * @param type $databaseName para pintar el nombre de la base de datos en la salida del comando usable en caso 1 es decir cuando el comando es para la version online
